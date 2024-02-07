@@ -66,7 +66,7 @@ public class civilian_move : MonoBehaviour
             agent.speed = Random.Range(minSpeed, maxSpeed);
             
             //Determine animation to play
-            StartRunningAnimation();
+            if(playing) StartRunningAnimation();
             
             yield return new WaitForSeconds(wanderTimer);
         }
