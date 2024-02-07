@@ -1089,11 +1089,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wanderRadius: 50
-  wanderTimer: 10
+  wanderTimer: 5
   minSpeed: 2
   maxSpeed: 10
   slowFastThreshold: 5
-  stopThreshold: 0.5
+  stopThreshold: 0.001
 --- !u!195 &7197606596219910493
 NavMeshAgent:
   m_ObjectHideFlags: 0

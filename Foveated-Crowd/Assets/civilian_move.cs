@@ -24,25 +24,19 @@ public class civilian_move : MonoBehaviour
     private bool playing = false;
     
     //Animator variables
-    [SerializeField] int runningID;
-    [SerializeField] int fastID;
+    /*[SerializeField] private string runningID = "Running";
+    [SerializeField] private string fastID = "Fast";*/
     void Start()
     {
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.SetDestination(RandomNavSphere(transform.position, wanderRadius, -1));
         StartCoroutine(WanderSystem(wanderTimer));
-        
-        //Getting hashes for animator parameters
-        runningID = Animator.StringToHash("Running");
-        fastID = Animator.StringToHash("Fast");
-        anim.SetBool(runningID, false);
-        anim.SetBool(fastID,false);
     }
 
     private void FixedUpdate()
     {
-        CheckStop();
+        //CheckStop();
     }
 
     // Update is called once per frame
@@ -80,15 +74,14 @@ public class civilian_move : MonoBehaviour
 
     private void StartRunningAnimation()
     {
-        if(anim.speed > slowFastThreshold) anim.SetBool("Fast",true);
-        else anim.SetBool(fastID,false);
-        anim.SetBool(runningID,true);
+        anim.SetBool("Fast", agent.speed >= slowFastThreshold);
+        anim.SetBool("Running",true);
     }
     private void CheckStop()
     {
-        if (anim.GetBool(runningID) == true && agent.remainingDistance < stopThreshold)
+        if (anim.GetBool("Running") == true && agent.remainingDistance < stopThreshold)
         {
-            anim.SetBool(runningID,false);
+            anim.SetBool("Running",false);
         }
     }
 
