@@ -1088,12 +1088,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf3637e07c4996249987fdfa333c13ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderRadius: 50
+  wanderRadius: 20
   wanderTimer: 5
   minSpeed: 2
   maxSpeed: 10
   slowFastThreshold: 5
-  stopThreshold: 0.001
+  stopThreshold: 2
 --- !u!195 &7197606596219910493
 NavMeshAgent:
   m_ObjectHideFlags: 0

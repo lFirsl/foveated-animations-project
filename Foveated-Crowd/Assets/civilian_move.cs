@@ -18,7 +18,7 @@ public class civilian_move : MonoBehaviour
     [SerializeField] private float minSpeed;
     [SerializeField] private float maxSpeed;
     [SerializeField] private float slowFastThreshold;
-    [SerializeField] private float stopThreshold = 0.5f;
+    [SerializeField] private int stopThreshold;
      
     //Private variables
     private bool playing = false;
@@ -36,7 +36,7 @@ public class civilian_move : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //CheckStop();
+        CheckStop();
     }
 
     // Update is called once per frame
@@ -79,7 +79,7 @@ public class civilian_move : MonoBehaviour
     }
     private void CheckStop()
     {
-        if (anim.GetBool("Running") == true && agent.remainingDistance < stopThreshold)
+        if (!agent.pathPending && agent.remainingDistance < stopThreshold)
         {
             anim.SetBool("Running",false);
         }
