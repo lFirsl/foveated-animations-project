@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Playables;
 using Random = UnityEngine.Random;
 
-public class civilian_move : MonoBehaviour
+public class CivilianMove : MonoBehaviour
 {
     //Private components. Fetched during Start.
     private Animator anim;
@@ -19,9 +20,7 @@ public class civilian_move : MonoBehaviour
     [SerializeField] private float maxSpeed;
     [SerializeField] private float slowFastThreshold;
     [SerializeField] private int stopThreshold;
-     
-    //Private variables
-    private bool playing = true;
+    [SerializeField] private int lowFpsFrames = 30;
     
     //Animator variables
     [SerializeField] private int runningID;
@@ -44,25 +43,6 @@ public class civilian_move : MonoBehaviour
     {
         CheckStop();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (playing)
-            {
-                anim.StopPlayback();
-                playing = false;
-            }
-            else
-            {
-                anim.StartPlayback();
-                playing = true;
-            }
-        }
-    }
     
     private IEnumerator WanderSystem(float waitTime)
     {
@@ -83,6 +63,8 @@ public class civilian_move : MonoBehaviour
         anim.SetBool(fastID, agent.speed >= slowFastThreshold);
         anim.SetBool(runningID,true);
     }
+    
+    
     private void CheckStop()
     {
         if (!agent.pathPending && agent.remainingDistance < stopThreshold)
