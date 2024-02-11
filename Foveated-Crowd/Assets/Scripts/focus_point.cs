@@ -38,11 +38,11 @@ public class FocusPoint : MonoBehaviour
             foreach (var agent in crowdAnimators)
             {
                 var distance = Vector3.Distance(_pos.position, agent.transform.position);
-                if(distance > stopThreshold) agent.stopAnimation();
+                if(distance > stopThreshold) agent.StopAnimation();
                 else{
-                    agent.restartAnimation();
-                    if(distance > foveationThreshold) agent.setFixedFPS();
-                    else agent.setForegroundFPS();
+                    agent.RestartAnimation();
+                    if(distance > foveationThreshold) agent.SetFixedFPS();
+                    else agent.SetForegroundFPS();
                 }
             }
 
@@ -58,11 +58,11 @@ public class FocusPoint : MonoBehaviour
         foreach (var agent in crowdAnimators)
         {
             float distance = Vector3.Distance(_pos.position, agent.transform.position);
-            if(distance > stopThreshold) agent.stopAnimation();
+            if(distance > stopThreshold) agent.StopAnimation();
             else{
-                agent.restartAnimation();
-                if(distance > foveationThreshold) agent.setFixedFPS();
-                else agent.setForegroundFPS();
+                agent.RestartAnimation();
+                if(distance > foveationThreshold) agent.SetFixedFPS();
+                else agent.SetForegroundFPS();
             }
         }
     }

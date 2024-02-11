@@ -1,17 +1,13 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Playables;
 using Random = UnityEngine.Random;
 
 public class CivilianMove : MonoBehaviour
 {
     //Private components. Fetched during Start.
-    private Animator anim;
-    private NavMeshAgent agent;
+    private Animator _anim;
+    private NavMeshAgent _agent;
     
     //Serialized Private Field
     [SerializeField] private float wanderRadius;
@@ -20,23 +16,22 @@ public class CivilianMove : MonoBehaviour
     [SerializeField] private float maxSpeed;
     [SerializeField] private float slowFastThreshold;
     [SerializeField] private int stopThreshold;
-    [SerializeField] private int lowFpsFrames = 30;
     
     //Animator variables
     [SerializeField] private int runningID;
     [SerializeField] private int fastID;
-    private const string runningString = "Running";
-    private const string fastString = "Fast";
+    private const string RunningString = "Running";
+    private const string FastString = "Fast";
     void Start()
     {
-        anim = GetComponent<Animator>();
-        agent = GetComponent<NavMeshAgent>();
-        agent.SetDestination(RandomNavSphere(transform.position, wanderRadius, -1));
+        _anim = GetComponent<Animator>();
+        _agent = GetComponent<NavMeshAgent>();
+        _agent.SetDestination(RandomNavSphere(transform.position, wanderRadius, -1));
         
-        runningID = Animator.StringToHash(runningString);
-        fastID = Animator.StringToHash(fastString);
+        runningID = Animator.StringToHash(RunningString);
+        fastID = Animator.StringToHash(FastString);
         
-        StartCoroutine(WanderSystem(wanderTimer));
+        StartCoroutine(WanderSystem());
     }
 
     private void FixedUpdate()
@@ -44,12 +39,12 @@ public class CivilianMove : MonoBehaviour
         CheckStop();
     }
     
-    private IEnumerator WanderSystem(float waitTime)
+    private IEnumerator WanderSystem()
     {
         while (this.isActiveAndEnabled)
         {
-            agent.SetDestination(RandomNavSphere(transform.position, wanderRadius, -1));
-            agent.speed = Random.Range(minSpeed, maxSpeed);
+            _agent.SetDestination(RandomNavSphere(transform.position, wanderRadius, -1));
+            _agent.speed = Random.Range(minSpeed, maxSpeed);
             
             //Determine animation to play
             StartRunningAnimation();
@@ -60,16 +55,16 @@ public class CivilianMove : MonoBehaviour
 
     private void StartRunningAnimation()
     {
-        anim.SetBool(fastID, agent.speed >= slowFastThreshold);
-        anim.SetBool(runningID,true);
+        _anim.SetBool(fastID, _agent.speed >= slowFastThreshold);
+        _anim.SetBool(runningID,true);
     }
     
     
     private void CheckStop()
     {
-        if (!agent.pathPending && agent.remainingDistance < stopThreshold)
+        if (!_agent.pathPending && _agent.remainingDistance < stopThreshold)
         {
-            anim.SetBool(runningID,false);
+            _anim.SetBool(runningID,false);
         }
     }
 

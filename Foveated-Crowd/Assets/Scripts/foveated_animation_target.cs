@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Playables;
@@ -7,25 +6,24 @@ using UnityEngine.Playables;
 public class FoveatedAnimationTarget : MonoBehaviour
 {
     //Components
-    private Animator anim;
-    private NavMeshAgent agent;
+    private Animator _anim;
+    private NavMeshAgent _agent;
     
     //Public variables
     public int lowFpsFrames = 30;
     
     //Private variables
-    private float waitTime;
+    private float _waitTime;
     
     //Animator specific variables
-    private bool playing = true;
-    private bool lowFps = false;
+    private bool _lowFps = false;
     
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();
-        agent = GetComponent<NavMeshAgent>();
-        waitTime = 1f / lowFpsFrames;
+        _anim = GetComponent<Animator>();
+        _agent = GetComponent<NavMeshAgent>();
+        _waitTime = 1f / lowFpsFrames;
         StartCoroutine(LowFramerate());
     }
     
@@ -35,57 +33,45 @@ public class FoveatedAnimationTarget : MonoBehaviour
 
         while (true)
         {
-            if (lowFps)
+            if (_lowFps)
             {
-                anim.playableGraph.Evaluate(Time.time - lastTime);
+                _anim.playableGraph.Evaluate(Time.time - lastTime);
             }
             lastTime = Time.time;
-            yield return new WaitForSeconds(waitTime);
-        }
-    }
-    
-    private void flipFPS()
-    {
-        if (lowFps)
-        {
-            setForegroundFPS();
-        }
-        else
-        {
-            setFixedFPS();
+            yield return new WaitForSeconds(_waitTime);
         }
     }
 
-    public void setForegroundFPS()
+    public void SetForegroundFPS()
     {
         //If lowFPS is true, then this was already applied. Don't do it again to avoid overhead.
-        if (!lowFps) return;
+        if (!_lowFps) return;
         
-        lowFps = false;
-        anim.playableGraph.Stop();
-        anim.playableGraph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
-        anim.playableGraph.Play();
+        _lowFps = false;
+        _anim.playableGraph.Stop();
+        _anim.playableGraph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
+        _anim.playableGraph.Play();
     }
 
-    public void setFixedFPS(uint FPS = 0)
+    public void SetFixedFPS(uint fps = 0)
     {
         //If lowFPS is false, then this was already applied. Don't do it again to avoid overhead.
-        if (lowFps) return;
+        if (_lowFps) return;
 
-        if (FPS == 0) waitTime = 1f / lowFpsFrames;
-        else waitTime = 1f / FPS;
+        if (fps == 0) _waitTime = 1f / lowFpsFrames;
+        else _waitTime = 1f / fps;
         
-        lowFps = true;
-        anim.playableGraph.SetTimeUpdateMode(DirectorUpdateMode.Manual);
+        _lowFps = true;
+        _anim.playableGraph.SetTimeUpdateMode(DirectorUpdateMode.Manual);
     }
 
-    public void stopAnimation()
+    public void StopAnimation()
     {
-        anim.enabled = false;
+        _anim.enabled = false;
     }
 
-    public void restartAnimation()
+    public void RestartAnimation()
     {
-        anim.enabled = true;
+        _anim.enabled = true;
     }
 }
