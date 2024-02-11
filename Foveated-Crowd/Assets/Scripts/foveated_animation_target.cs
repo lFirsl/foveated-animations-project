@@ -101,4 +101,14 @@ public class FoveatedAnimationTarget : MonoBehaviour
         lowFps = true;
         anim.playableGraph.SetTimeUpdateMode(DirectorUpdateMode.Manual);
     }
+
+    public void stopAnimation()
+    {
+        anim.enabled = false;
+    }
+
+    public void restartAnimation()
+    {
+        anim.enabled = true;
+    }
 }

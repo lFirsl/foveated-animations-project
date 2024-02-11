@@ -8,9 +8,10 @@ public class FocusPoint : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject[] crowdAgents;
-    public List<Animator> crowdAnimators;
+    public List<FoveatedAnimationTarget> crowdAnimators;
     
     //Private
+    [SerializeField] private float stopThreshold = 10;
     [SerializeField] private float foveationThreshold = 5;
     
     //Objects
@@ -22,7 +23,7 @@ public class FocusPoint : MonoBehaviour
 
         foreach (var agent in crowdAgents)
         {
-            crowdAnimators.Add(agent.GetComponent<Animator>());
+            crowdAnimators.Add(agent.GetComponent<FoveatedAnimationTarget>());
         }
     }
 
@@ -31,12 +32,13 @@ public class FocusPoint : MonoBehaviour
     {
         foreach (var agent in crowdAnimators)
         {
-            if (Vector3.Distance(pos.position,agent.transform.position) < foveationThreshold)
-            {
-                agent.enabled = true;
+            float distance = Vector3.Distance(pos.position, agent.transform.position);
+            if(distance > stopThreshold) agent.stopAnimation();
+            else{
+                agent.restartAnimation();
+                if(distance > foveationThreshold) agent.setFixedFPS();
+                else agent.setForegroundFPS();
             }
-            else
-                agent.enabled = false;
         }
     }
 }
