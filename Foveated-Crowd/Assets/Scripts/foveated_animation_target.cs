@@ -51,6 +51,8 @@ public class FoveatedAnimationTarget : MonoBehaviour
         _anim.playableGraph.Stop();
         _anim.playableGraph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
         _anim.playableGraph.Play();
+
+        _agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
     }
 
     public void SetFixedFPS(uint fps = 0)
@@ -68,10 +70,12 @@ public class FoveatedAnimationTarget : MonoBehaviour
     public void StopAnimation()
     {
         _anim.enabled = false;
+        _agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }
 
     public void RestartAnimation()
     {
         _anim.enabled = true;
+        _agent.obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;
     }
 }

@@ -18,8 +18,8 @@ public class CivilianMove : MonoBehaviour
     [SerializeField] private int stopThreshold;
     
     //Animator variables
-    [SerializeField] private int runningID;
-    [SerializeField] private int fastID;
+    private int _runningID;
+    private int _fastID;
     private const string RunningString = "Running";
     private const string FastString = "Fast";
     void Start()
@@ -28,8 +28,8 @@ public class CivilianMove : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _agent.SetDestination(RandomNavSphere(transform.position, wanderRadius, -1));
         
-        runningID = Animator.StringToHash(RunningString);
-        fastID = Animator.StringToHash(FastString);
+        _runningID = Animator.StringToHash(RunningString);
+        _fastID = Animator.StringToHash(FastString);
         
         StartCoroutine(WanderSystem());
     }
@@ -55,8 +55,8 @@ public class CivilianMove : MonoBehaviour
 
     private void StartRunningAnimation()
     {
-        _anim.SetBool(fastID, _agent.speed >= slowFastThreshold);
-        _anim.SetBool(runningID,true);
+        _anim.SetBool(_fastID, _agent.speed >= slowFastThreshold);
+        _anim.SetBool(_runningID,true);
     }
     
     
@@ -64,7 +64,7 @@ public class CivilianMove : MonoBehaviour
     {
         if (!_agent.pathPending && _agent.remainingDistance < stopThreshold)
         {
-            _anim.SetBool(runningID,false);
+            _anim.SetBool(_runningID,false);
         }
     }
 
