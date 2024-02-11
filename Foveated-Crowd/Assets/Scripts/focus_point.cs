@@ -13,18 +13,43 @@ public class FocusPoint : MonoBehaviour
     //Private
     [SerializeField] private float stopThreshold = 10;
     [SerializeField] private float foveationThreshold = 5;
+    [SerializeField] private float animationsUpdateFrequency = 1f;
     
     //Objects
-    private Transform pos;
+    private Transform _pos;
+    
     void Start()
     {
         crowdAgents = GameObject.FindGameObjectsWithTag("CrowdAgent");
-        pos = gameObject.GetComponent<Transform>();
+        _pos = gameObject.GetComponent<Transform>();
 
         foreach (var agent in crowdAgents)
         {
             crowdAnimators.Add(agent.GetComponent<FoveatedAnimationTarget>());
         }
+
+        StartCoroutine(UpdateAnimations());
+    }
+
+    private IEnumerator UpdateAnimations()
+    {
+        while (true)
+        {
+            foreach (var agent in crowdAnimators)
+            {
+                var distance = Vector3.Distance(_pos.position, agent.transform.position);
+                if(distance > stopThreshold) agent.stopAnimation();
+                else{
+                    agent.restartAnimation();
+                    if(distance > foveationThreshold) agent.setFixedFPS();
+                    else agent.setForegroundFPS();
+                }
+            }
+
+            yield return new WaitForSeconds(animationsUpdateFrequency);
+        }
+
+        yield break;
     }
 
     // Update is called once per frame
@@ -32,7 +57,7 @@ public class FocusPoint : MonoBehaviour
     {
         foreach (var agent in crowdAnimators)
         {
-            float distance = Vector3.Distance(pos.position, agent.transform.position);
+            float distance = Vector3.Distance(_pos.position, agent.transform.position);
             if(distance > stopThreshold) agent.stopAnimation();
             else{
                 agent.restartAnimation();

@@ -28,29 +28,6 @@ public class FoveatedAnimationTarget : MonoBehaviour
         waitTime = 1f / lowFpsFrames;
         StartCoroutine(LowFramerate());
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        /*if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (playing)
-            {
-                anim.StopPlayback();
-                playing = false;
-            }
-            else
-            {
-                anim.StartPlayback();
-                playing = true;
-            }
-        }*/
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            flipFPS();
-        }
-    }
     
     private IEnumerator LowFramerate()
     {
@@ -92,7 +69,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
 
     public void setFixedFPS(uint FPS = 0)
     {
-        //If lowFPS is false, then this was already applies. Don't do it again to avoid overhead.
+        //If lowFPS is false, then this was already applied. Don't do it again to avoid overhead.
         if (lowFps) return;
 
         if (FPS == 0) waitTime = 1f / lowFpsFrames;
