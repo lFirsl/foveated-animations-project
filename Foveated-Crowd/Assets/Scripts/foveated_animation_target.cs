@@ -70,7 +70,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
     public void StopAnimation()
     {
         _anim.enabled = false;
-        _agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+        _agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;
     }
 
     public void RestartAnimation()
