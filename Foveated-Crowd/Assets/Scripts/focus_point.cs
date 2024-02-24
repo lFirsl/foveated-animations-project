@@ -35,9 +35,10 @@ public class FocusPoint : MonoBehaviour
     {
         while (true)
         {
+            yield return new WaitForFixedUpdate();
             foreach (var agent in crowdAnimators)
             {
-                var distance = Vector3.Distance(_pos.position, agent.transform.position);
+                float distance = Vector3.Distance(_pos.position, agent.transform.position);
                 if(distance > stopThreshold) agent.StopAnimation();
                 else{
                     agent.RestartAnimation();
@@ -51,19 +52,5 @@ public class FocusPoint : MonoBehaviour
 
         yield break;
     }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        foreach (var agent in crowdAnimators)
-        {
-            float distance = Vector3.Distance(_pos.position, agent.transform.position);
-            if(distance > stopThreshold) agent.StopAnimation();
-            else{
-                agent.RestartAnimation();
-                if(distance > foveationThreshold) agent.SetFixedFPS();
-                else agent.SetForegroundFPS();
-            }
-        }
-    }
+    
 }

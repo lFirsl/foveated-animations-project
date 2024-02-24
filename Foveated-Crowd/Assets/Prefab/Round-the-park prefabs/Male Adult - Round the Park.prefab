@@ -34,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0cca6890042070f46870451c39766805, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.5056887
+      value: -5.290024
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0cca6890042070f46870451c39766805, type: 3}
       propertyPath: m_LocalPosition.y
@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0cca6890042070f46870451c39766805, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.357477
+      value: 12.689997
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0cca6890042070f46870451c39766805, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1055,7 +1055,7 @@ PrefabInstance:
       addedObject: {fileID: 6538073644987114042}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0cca6890042070f46870451c39766805, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4596028400899880412}
+      addedObject: {fileID: 3712752536469717165}
   m_SourcePrefab: {fileID: 100100000, guid: 0cca6890042070f46870451c39766805, type: 3}
 --- !u!1 &359756849175051315 stripped
 GameObject:
@@ -1117,8 +1117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd01bf4347d406b4b987579d1469b0e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lowFpsFrames: 15
---- !u!114 &4596028400899880412
+  lowFpsFrames: 10
+--- !u!114 &3712752536469717165
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1133,9 +1133,7 @@ MonoBehaviour:
   speed: 5
   slowFastThreshold: 10
   stopThreshold: 6
-  currentGoal: 0
+  currentGoal: 2
   goals:
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
