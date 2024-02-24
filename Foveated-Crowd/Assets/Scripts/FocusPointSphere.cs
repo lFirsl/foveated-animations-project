@@ -16,7 +16,7 @@ public class FocusPointSphere : MonoBehaviour
     //Objects
     private Transform _pos;
     
-    void Awake()
+    void Start()
     {
         _pos = gameObject.GetComponent<Transform>();
         Debug.Log("Started");
@@ -28,13 +28,11 @@ public class FocusPointSphere : MonoBehaviour
     private IEnumerator UpdateAnimations()
     {
         while (true)
-        {   
-            Debug.Log("Going");
+        {
             yield return new WaitForFixedUpdate();
             Collider[] agents = Physics.OverlapSphere(_pos.position, stopThreshold,layermask);
             foreach (var agentCollider in agents)
             {
-                Debug.Log("Found one!");
                 FoveatedAnimationTarget agent = agentCollider.gameObject.GetComponent<FoveatedAnimationTarget>();
                 determineAnimation(agent);
             }
@@ -46,11 +44,8 @@ public class FocusPointSphere : MonoBehaviour
     private void determineAnimation(FoveatedAnimationTarget agent)
     {
         float distance = Vector3.Distance(_pos.position, agent.transform.position);
-        if(distance > stopThreshold) agent.StopAnimation();
-        else{
-            agent.RestartAnimation(animationsResetTime);
-            if(distance > foveationThreshold) agent.SetFixedFPS(0,animationsResetTime);
-            else agent.SetForegroundFPS(animationsResetTime);
-        }
+        agent.RestartAnimation(animationsResetTime);
+        if(distance > foveationThreshold) agent.SetFixedFPS(0,animationsResetTime);
+        else agent.SetForegroundFPS(animationsResetTime);
     }
 }

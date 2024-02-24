@@ -29,7 +29,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
         StartCoroutine(LowFramerate());
 
         FocusPointSphere focus = GameObject.FindObjectOfType<FocusPointSphere>();
-        if(focus != null) StopAnimation();
+        if(focus != null || !focus.enabled) StopAnimation();
     }
     
     private IEnumerator AnimationStopTimer(float timer)
@@ -65,6 +65,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
             }
             lastTime = Time.time;
             yield return new WaitForSeconds(_waitTime + Random.Range(-frameVariation,frameVariation));
+            yield return new WaitUntil(() => _lowFps);
         }
     }
 
