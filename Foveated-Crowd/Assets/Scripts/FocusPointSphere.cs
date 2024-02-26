@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class FocusPointSphere : MonoBehaviour
 {
+    //Public
+    public bool shouldStop = true;
+    public uint farFPS = 5;
     //Private
     [SerializeField] private float stopThreshold = 10;
     [SerializeField] private float foveationThreshold = 5;
@@ -29,10 +32,12 @@ public class FocusPointSphere : MonoBehaviour
     {
         while (true)
         {
+            Debug.Log("Going");
             yield return new WaitForFixedUpdate();
             Collider[] agents = Physics.OverlapSphere(_pos.position, stopThreshold,layermask);
             foreach (var agentCollider in agents)
             {
+                Debug.Log("Found a foveation target");
                 FoveatedAnimationTarget agent = agentCollider.gameObject.GetComponent<FoveatedAnimationTarget>();
                 determineAnimation(agent);
             }

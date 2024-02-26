@@ -8,6 +8,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
     //Components
     private Animator _anim;
     private NavMeshAgent _agent;
+    private FocusPointSphere focus;
     
     //Public variables
     public int lowFpsFrames = 30;
@@ -28,8 +29,19 @@ public class FoveatedAnimationTarget : MonoBehaviour
         _waitTime = 1f / lowFpsFrames;
         StartCoroutine(LowFramerate());
 
-        FocusPointSphere focus = GameObject.FindObjectOfType<FocusPointSphere>();
-        if(focus != null || !focus.enabled) StopAnimation();
+        focus = FindObjectOfType<FocusPointSphere>();
+        if (focus != null && focus.enabled)
+        {
+            if (focus.shouldStop)
+            {
+                StopAnimation();
+            }
+            else
+            {
+                SetFixedFPS(focus.farFPS);
+            }
+        }
+        else this.enabled = false;
     }
     
     private IEnumerator AnimationStopTimer(float timer)
@@ -46,7 +58,8 @@ public class FoveatedAnimationTarget : MonoBehaviour
             }
             else
             {
-                StopAnimation();
+                if(focus.shouldStop) StopAnimation();
+                else SetFixedFPS(focus.farFPS);
                 timeToStop = 0;
                 yield break;
             }
