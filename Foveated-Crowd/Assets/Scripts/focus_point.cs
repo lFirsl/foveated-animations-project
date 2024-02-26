@@ -12,6 +12,7 @@ public class FocusPoint : MonoBehaviour
     
     //Private
     [SerializeField] private float stopThreshold = 10;
+    [SerializeField] private uint farFPS = 3;
     [SerializeField] private float foveationThreshold = 5;
     [SerializeField] private float animationsUpdateFrequency = 1f;
     
@@ -42,7 +43,7 @@ public class FocusPoint : MonoBehaviour
                 if(distance > stopThreshold) agent.StopAnimation();
                 else{
                     agent.RestartAnimation();
-                    if(distance > foveationThreshold) agent.SetFixedFPS();
+                    if(distance > foveationThreshold) agent.SetFixedFPS(farFPS);
                     else agent.SetForegroundFPS();
                 }
             }
