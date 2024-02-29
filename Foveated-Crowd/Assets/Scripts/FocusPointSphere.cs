@@ -5,6 +5,7 @@ using UnityEngine;
 public class FocusPointSphere : MonoBehaviour
 {
     //Public
+    public Camera camera;
     public bool shouldStop = true;
     public uint farFPS = 5;
     //Private
@@ -14,6 +15,7 @@ public class FocusPointSphere : MonoBehaviour
     
     //Internal Variables
     [SerializeField] private LayerMask layermask;
+    [SerializeField] private LayerMask _rayLayerMask;
     [SerializeField] private float animationsResetTime = 0.5f;
     Collider[] agents = new Collider[300];
     
@@ -33,20 +35,35 @@ public class FocusPointSphere : MonoBehaviour
     {
         while (true)
         {
+            // Cast a ray from the mouse position into the world
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            Vector3 targetPosition;
+
+            // Check if the ray hits something in the world
+            if (Physics.Raycast(ray, out hit,Mathf.Infinity,_rayLayerMask))
+            {
+                // Get the point where the ray hits the ground
+                targetPosition = hit.point;
+            }
+            else
+            {
+                targetPosition = Input.mousePosition;
+            }
             yield return new WaitForFixedUpdate();
-            int numOfAgents = Physics.OverlapSphereNonAlloc(_pos.position, stopThreshold,agents,layermask);
+            int numOfAgents = Physics.OverlapSphereNonAlloc(targetPosition, stopThreshold,agents,layermask);
             for(int i = 0; i < numOfAgents; i++)
             {
                 FoveatedAnimationTarget agent = agents[i].gameObject.GetComponent<FoveatedAnimationTarget>();
-                DetermineAnimation(agent);
+                DetermineAnimation(agent,targetPosition);
             }
             yield return new WaitForSeconds(animationsUpdateFrequency);
         }
     }
 
-    private void DetermineAnimation(FoveatedAnimationTarget agent)
+    private void DetermineAnimation(FoveatedAnimationTarget agent,Vector3 centre)
     {
-        float distance = Vector3.Distance(_pos.position, agent.transform.position);
+        float distance = Vector3.Distance(centre, agent.transform.position);
         agent.RestartAnimation(animationsResetTime);
         if(distance > foveationThreshold) agent.SetFixedFPS(0,animationsResetTime);
         else agent.SetForegroundFPS(animationsResetTime);
