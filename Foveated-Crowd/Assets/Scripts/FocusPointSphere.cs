@@ -15,6 +15,7 @@ public class FocusPointSphere : MonoBehaviour
     //Internal Variables
     [SerializeField] private LayerMask layermask;
     [SerializeField] private float animationsResetTime = 0.5f;
+    Collider[] agents = new Collider[300];
     
     //Objects
     private Transform _pos;
@@ -32,21 +33,18 @@ public class FocusPointSphere : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("Going");
             yield return new WaitForFixedUpdate();
-            Collider[] agents = Physics.OverlapSphere(_pos.position, stopThreshold,layermask);
-            foreach (var agentCollider in agents)
+            int numOfAgents = Physics.OverlapSphereNonAlloc(_pos.position, stopThreshold,agents,layermask);
+            for(int i = 0; i < numOfAgents; i++)
             {
-                Debug.Log("Found a foveation target");
-                FoveatedAnimationTarget agent = agentCollider.gameObject.GetComponent<FoveatedAnimationTarget>();
-                determineAnimation(agent);
+                FoveatedAnimationTarget agent = agents[i].gameObject.GetComponent<FoveatedAnimationTarget>();
+                DetermineAnimation(agent);
             }
-
             yield return new WaitForSeconds(animationsUpdateFrequency);
         }
     }
 
-    private void determineAnimation(FoveatedAnimationTarget agent)
+    private void DetermineAnimation(FoveatedAnimationTarget agent)
     {
         float distance = Vector3.Distance(_pos.position, agent.transform.position);
         agent.RestartAnimation(animationsResetTime);
