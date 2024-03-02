@@ -90,8 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf3637e07c4996249987fdfa333c13ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderRadius: 20
-  wanderTimer: 5
+  wanderRadius: 5
+  wanderTimer: 30
   minSpeed: 2
   maxSpeed: 10
   slowFastThreshold: 5

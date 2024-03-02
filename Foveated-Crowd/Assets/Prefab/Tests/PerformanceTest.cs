@@ -3,42 +3,37 @@ using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
 using Unity.PerformanceTesting;
+using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
 public class PerformanceTest : MonoBehaviour
 {
-    private readonly String testScene = "City Hundreds";
+    private readonly String foveatedScene = "City Hundreds";
+    private readonly String baseCase = "City Hundreds - Base Case";
+    
+    //Warmup and measure parameters
+    private readonly int warmupFrames = 600;
+
+    private readonly int measureFrames = 3000;
     // A Test behaves as an ordinary method
-    private GameObject protagonist;
     [UnityTest, Performance]
     public IEnumerator BaseCaseTest()
     {
-        protagonist = GameObject.FindGameObjectWithTag("Protagonist");
-        Debug.Log("Game object lookout returned:", protagonist);
-        FocusPointSphere focus = protagonist.GetComponent<FocusPointSphere>();
-        focus.enabled = false;
+        SceneManager.LoadScene(baseCase, LoadSceneMode.Single);
         yield return Measure.Frames()
-            .WarmupCount(240)
-            .MeasurementCount(1000)
+            .WarmupCount(warmupFrames)
+            .MeasurementCount(measureFrames)
             .Run();
     }
     
     [UnityTest, Performance]
     public IEnumerator FoveatedCase()
     {
-        GameObject protagonist = GameObject.FindGameObjectWithTag("Protagonist");
-        Debug.Log("Game object lookout returned:", protagonist);
-        protagonist.SetActive(true);
+        SceneManager.LoadScene(foveatedScene, LoadSceneMode.Single);
         yield return Measure.Frames()
-            .WarmupCount(240)
-            .MeasurementCount(1000)
+            .WarmupCount(warmupFrames)
+            .MeasurementCount(measureFrames)
             .Run();
-    }
-
-    [SetUp]
-    public void SetUp()
-    {
-        SceneManager.LoadScene(testScene, LoadSceneMode.Single);
     }
 }
