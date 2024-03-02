@@ -78,7 +78,8 @@ public class FoveatedAnimationTarget : MonoBehaviour
             }
             lastTime = Time.time;
             yield return new WaitForSeconds(_waitTime + Random.Range(-frameVariation,frameVariation));
-            yield return new WaitUntil(() => _lowFps);
+            while(!_lowFps) yield return new WaitForSeconds(_waitTime + Random.Range(-frameVariation,frameVariation));
+            yield return new WaitForFixedUpdate();
         }
     }
 

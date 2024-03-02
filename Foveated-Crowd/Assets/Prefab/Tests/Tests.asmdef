@@ -5,8 +5,10 @@
         "Unity.PerformanceTesting",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Unity.PerformanceTesting.Editor"
+        "Unity.PerformanceTesting.Editor",
+        "FoveatedAnimation"
     ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,

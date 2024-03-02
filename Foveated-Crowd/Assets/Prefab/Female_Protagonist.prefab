@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8c5c792ce2976d145831f3679f6d3ee3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.589596
+      value: -2.814816
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8c5c792ce2976d145831f3679f6d3ee3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0000009536743
+      value: -0.0000009536743
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8c5c792ce2976d145831f3679f6d3ee3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -75.5125
+      value: -78.21777
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8c5c792ce2976d145831f3679f6d3ee3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -51,6 +51,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8c5c792ce2976d145831f3679f6d3ee3, type: 3}
       propertyPath: m_Name
       value: Female_Protagonist
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8c5c792ce2976d145831f3679f6d3ee3, type: 3}
+      propertyPath: m_TagString
+      value: Protagonist
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -104,12 +108,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f8462a4f8f2ee64493c50f000c36e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camera: {fileID: 0}
+  shouldStop: 1
+  farFPS: 5
+  foveatedFPS: 30
+  useMouseFocus: 0
   stopThreshold: 15
-  foveationThreshold: 5
+  foveationThreshold: 8
   animationsUpdateFrequency: 0.2
   layermask:
     serializedVersion: 2
     m_Bits: 512
+  _rayLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
   animationsResetTime: 0.4
 --- !u!95 &2838312173855754328
 Animator:

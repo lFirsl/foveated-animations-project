@@ -8,6 +8,9 @@ public class FocusPointSphere : MonoBehaviour
     public Camera camera;
     public bool shouldStop = true;
     public uint farFPS = 5;
+    public uint foveatedFPS = 30; //If set to 0, it let's the target determine it's own FPS.
+
+    public bool useMouseFocus = false;
     //Private
     [SerializeField] private float stopThreshold = 10;
     [SerializeField] private float foveationThreshold = 5;
@@ -40,8 +43,10 @@ public class FocusPointSphere : MonoBehaviour
             RaycastHit hit;
             Vector3 targetPosition;
 
+            //If we're not using rays, center around game object instead
+            if (!useMouseFocus) targetPosition = _pos.position;
             // Check if the ray hits something in the world
-            if (Physics.Raycast(ray, out hit,Mathf.Infinity,_rayLayerMask))
+            else if (Physics.Raycast(ray, out hit,Mathf.Infinity,_rayLayerMask))
             {
                 // Get the point where the ray hits the ground
                 targetPosition = hit.point;
@@ -65,7 +70,7 @@ public class FocusPointSphere : MonoBehaviour
     {
         float distance = Vector3.Distance(centre, agent.transform.position);
         agent.RestartAnimation(animationsResetTime);
-        if(distance > foveationThreshold) agent.SetFixedFPS(0,animationsResetTime);
+        if(distance > foveationThreshold) agent.SetFixedFPS(foveatedFPS,animationsResetTime);
         else agent.SetForegroundFPS(animationsResetTime);
     }
 }
