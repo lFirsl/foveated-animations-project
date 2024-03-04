@@ -1,19 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class FocusPointSphere : MonoBehaviour
 {
     //Public
     public Camera camera;
     public bool shouldStop = true;
-    public uint farFPS = 5;
-    public uint foveatedFPS = 30; //If set to 0, it let's the target determine it's own FPS.
+    public uint outOfFocusFPS = 5;
+    public uint Stage2FoveationFPS = 15;
+    public uint Stage1FoveationFPS = 30; //If set to 0, it let's the target determine it's own FPS.
 
     public bool useMouseFocus = false;
     //Private
     [SerializeField] private float stopThreshold = 10;
     [SerializeField] private float foveationThreshold = 5;
+    [SerializeField] private float foveationThreshold2 = 10;
     [SerializeField] private float animationsUpdateFrequency = 1f;
     
     //Internal Variables
@@ -70,7 +73,8 @@ public class FocusPointSphere : MonoBehaviour
     {
         float distance = Vector3.Distance(centre, agent.transform.position);
         agent.RestartAnimation(animationsResetTime);
-        if(distance > foveationThreshold) agent.SetFixedFPS(foveatedFPS,animationsResetTime);
+        if (distance > foveationThreshold2) agent.SetFixedFPS(Stage2FoveationFPS, animationsResetTime);
+        else if (distance > foveationThreshold) agent.SetFixedFPS(Stage1FoveationFPS,animationsResetTime);
         else agent.SetForegroundFPS(animationsResetTime);
     }
 }

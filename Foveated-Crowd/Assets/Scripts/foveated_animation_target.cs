@@ -38,7 +38,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
             }
             else
             {
-                SetFixedFPS(focus.farFPS);
+                SetFixedFPS(focus.outOfFocusFPS);
             }
         }
         else this.enabled = false;
@@ -59,7 +59,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
             else
             {
                 if(focus.shouldStop) StopAnimation();
-                else SetFixedFPS(focus.farFPS);
+                else SetFixedFPS(focus.outOfFocusFPS);
                 timeToStop = 0;
                 yield break;
             }
@@ -102,9 +102,10 @@ public class FoveatedAnimationTarget : MonoBehaviour
         //If lowFPS is false, then this was already applied. Don't do it again to avoid overhead.
         if(timer != 0) TimedStop(timer);
         if (_lowFps) return;
+        float fpsToUse = fps + Random.Range(-frameVariation, frameVariation) * 5; // Add some randomization to avoid popping.
 
         if (fps == 0) _waitTime = 1f / lowFpsFrames;
-        else _waitTime = 1f / fps;
+        else _waitTime = 1f / fpsToUse;
         
         _lowFps = true;
         _anim.playableGraph.SetTimeUpdateMode(DirectorUpdateMode.Manual);
