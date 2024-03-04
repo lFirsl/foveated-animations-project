@@ -3,7 +3,6 @@ using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
 using Unity.PerformanceTesting;
-using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
