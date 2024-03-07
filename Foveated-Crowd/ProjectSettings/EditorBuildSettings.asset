@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/City Hundreds - Base Case.unity
     guid: 3ac5b792a0ae37d47a2a416b1f70e38b
+  - enabled: 1
+    path: Assets/Scenes/Basic Hundreds.unity
+    guid: b8b27cb2b3ce3104b899dc463684ddd3
+  - enabled: 1
+    path: Assets/Scenes/Basic Hundreds - Base.unity
+    guid: 242018fb6992128498fb0b04b408d46d
   m_configObjects: {}

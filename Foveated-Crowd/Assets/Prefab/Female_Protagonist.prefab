@@ -48,6 +48,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -139100707927569471, guid: 8c5c792ce2976d145831f3679f6d3ee3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 92bff97b9474dde45b60026eda477036, type: 2}
+    - target: {fileID: -139100707927569471, guid: 8c5c792ce2976d145831f3679f6d3ee3, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 92bff97b9474dde45b60026eda477036, type: 2}
+    - target: {fileID: -139100707927569471, guid: 8c5c792ce2976d145831f3679f6d3ee3, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 92bff97b9474dde45b60026eda477036, type: 2}
     - target: {fileID: 919132149155446097, guid: 8c5c792ce2976d145831f3679f6d3ee3, type: 3}
       propertyPath: m_Name
       value: Female_Protagonist
@@ -90,10 +102,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf3637e07c4996249987fdfa333c13ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderRadius: 5
+  wanderRadius: 3
   wanderTimer: 30
   minSpeed: 2
-  maxSpeed: 10
+  maxSpeed: 5
   slowFastThreshold: 5
   stopThreshold: 2
 --- !u!114 &6628731622711799120
@@ -109,12 +121,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 0}
-  shouldStop: 1
-  farFPS: 5
-  foveatedFPS: 30
+  shouldStop: 0
+  outOfFocusFPS: 5
+  Stage2FoveationFPS: 15
+  Stage1FoveationFPS: 30
   useMouseFocus: 0
-  stopThreshold: 15
+  stopThreshold: 20
   foveationThreshold: 8
+  foveationThreshold2: 15
   animationsUpdateFrequency: 0.2
   layermask:
     serializedVersion: 2
