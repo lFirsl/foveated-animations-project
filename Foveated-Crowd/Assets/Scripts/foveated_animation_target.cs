@@ -99,9 +99,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
 
     public void SetFixedFPS(uint fps = 0,float timer = 0)
     {
-        //If lowFPS is false, then this was already applied. Don't do it again to avoid overhead.
         if(timer != 0) TimedStop(timer);
-        if (_lowFps) return;
         float fpsToUse = fps + Random.Range(-frameVariation, frameVariation) * 5; // Add some randomization to avoid popping.
 
         if (fps == 0) _waitTime = 1f / lowFpsFrames;

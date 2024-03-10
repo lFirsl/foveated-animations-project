@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wanderRadius: 20
-  wanderTimer: 5
+  wanderTimerRange: {x: 5, y: 30}
   minSpeed: 2
   maxSpeed: 10
   slowFastThreshold: 5
@@ -104,14 +104,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f8462a4f8f2ee64493c50f000c36e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camera: {fileID: 0}
   shouldStop: 1
-  farFPS: 5
+  outOfFocusFPS: 5
+  Stage2FoveationFPS: 15
+  Stage1FoveationFPS: 30
+  useMouseFocus: 0
   stopThreshold: 15
   foveationThreshold: 5
+  foveationThreshold2: 10
   animationsUpdateFrequency: 0.2
   layermask:
     serializedVersion: 2
     m_Bits: 512
+  _rayLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   animationsResetTime: 0.4
 --- !u!95 &487659339709451821
 Animator:

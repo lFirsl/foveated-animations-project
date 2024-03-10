@@ -1435,7 +1435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wanderRadius: 20
-  wanderTimer: 3
+  wanderTimerRange: {x: 5, y: 30}
   minSpeed: 2
   maxSpeed: 10
   slowFastThreshold: 5

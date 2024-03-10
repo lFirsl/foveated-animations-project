@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 27adcee3f5c153142bfce3ca99617ae6, type: 3}
       propertyPath: m_Name
-      value: Female_Adult_03
+      value: Female Adult - Round the park
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -68,6 +68,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 27adcee3f5c153142bfce3ca99617ae6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4444708076051012248}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 27adcee3f5c153142bfce3ca99617ae6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8217495164893652672}
   m_SourcePrefab: {fileID: 100100000, guid: 27adcee3f5c153142bfce3ca99617ae6, type: 3}
 --- !u!1 &3026659101035651623 stripped
 GameObject:
@@ -130,6 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lowFpsFrames: 10
+  frameVariation: 0.1
 --- !u!114 &4444708076051012248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,3 +153,24 @@ MonoBehaviour:
   goals:
   - {fileID: 0}
   - {fileID: 0}
+--- !u!65 &8217495164893652672
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3026659101035651623}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.33263952, y: 0.16907692, z: 0.2955307}
+  m_Center: {x: 0.012235716, y: 0.41546154, z: -0.046954915}

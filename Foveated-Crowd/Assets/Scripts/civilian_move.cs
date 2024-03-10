@@ -10,12 +10,12 @@ public class CivilianMove : MonoBehaviour
     private NavMeshAgent _agent;
     
     //Serialized Private Field
-    [SerializeField] private float wanderRadius;
-    [SerializeField] private float wanderTimer;
-    [SerializeField] private float minSpeed;
-    [SerializeField] private float maxSpeed;
-    [SerializeField] private float slowFastThreshold;
-    [SerializeField] private int stopThreshold;
+    public float wanderRadius;
+    public Vector2 wanderTimerRange;
+    public float minSpeed;
+    public float maxSpeed;
+    public float slowFastThreshold;
+    public int stopThreshold;
     
     //Animator variables
     private int _runningID;
@@ -45,6 +45,8 @@ public class CivilianMove : MonoBehaviour
         {
             _agent.SetDestination(RandomNavSphere(transform.position, wanderRadius, -1));
             _agent.speed = Random.Range(minSpeed, maxSpeed);
+
+            float wanderTimer = Random.Range(wanderTimerRange.x, wanderTimerRange.y);
             
             //Determine animation to play
             StartRunningAnimation();
@@ -81,3 +83,4 @@ public class CivilianMove : MonoBehaviour
         return navHit.position;
     }
 }
+
