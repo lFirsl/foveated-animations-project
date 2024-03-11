@@ -34,7 +34,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
         {
             if (focus.shouldStop)
             {
-                StopAnimation();
+                SetFixedFPS(focus.outOfFocusFPS,2 + Random.Range(-frameVariation,frameVariation)); //Get everyone to move a bit into a position, then freeze them
             }
             else
             {
@@ -100,7 +100,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
     public void SetFixedFPS(uint fps = 0,float timer = 0)
     {
         if(timer != 0) TimedStop(timer);
-        float fpsToUse = fps + Random.Range(-frameVariation, frameVariation) * 5; // Add some randomization to avoid popping.
+        float fpsToUse = fps + Random.Range(-frameVariation, frameVariation); // Add some randomization to avoid popping.
 
         if (fps == 0) _waitTime = 1f / lowFpsFrames;
         else _waitTime = 1f / fpsToUse;
