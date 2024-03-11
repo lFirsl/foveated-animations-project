@@ -19,9 +19,9 @@ public class FocusPointSphere : MonoBehaviour
     public uint Stage1FoveationFPS = 30; //If set to 0, it let's the target determine it's own FPS.
     
     [Header("Foveation Thresholds")]
-    [SerializeField] private float stopThreshold = 10;
-    [SerializeField] private float foveationThreshold = 5;
-    [SerializeField] private float foveationThreshold2 = 10;
+    public float stopThreshold = 0.4f;
+    public float foveationThreshold = 0.2f;
+    public float foveationThreshold2 = 0.3f;
     [SerializeField] private LayerMask layermask;
     
     [Header("Animation Variables")]
