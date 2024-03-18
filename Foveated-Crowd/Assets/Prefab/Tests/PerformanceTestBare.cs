@@ -9,6 +9,7 @@ using UnityEngine.TestTools;
 public class PerformanceTestBare : MonoBehaviour
 {
     private readonly String foveatedScene = "Basic Hundreds";
+    private readonly String foveatedPrototypeScene = "Basic Hundreds - Initial";
     private readonly String baseCase = "Basic Hundreds - Base";
     
     //Warmup and measure parameters
@@ -30,6 +31,16 @@ public class PerformanceTestBare : MonoBehaviour
     public IEnumerator FoveatedCase()
     {
         SceneManager.LoadScene(foveatedScene, LoadSceneMode.Single);
+        yield return Measure.Frames()
+            .WarmupCount(warmupFrames)
+            .MeasurementCount(measureFrames)
+            .Run();
+    }
+    
+    [UnityTest, Performance]
+    public IEnumerator FoveatedPrototypeCase()
+    {
+        SceneManager.LoadScene(foveatedPrototypeScene, LoadSceneMode.Single);
         yield return Measure.Frames()
             .WarmupCount(warmupFrames)
             .MeasurementCount(measureFrames)
