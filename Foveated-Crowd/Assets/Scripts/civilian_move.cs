@@ -17,6 +17,9 @@ public class CivilianMove : MonoBehaviour
     public float slowFastThreshold;
     public int stopThreshold;
     
+    [SerializeField] private float MinimumAnimationSpeed = 0.8f;
+    [SerializeField] private float MaximumAnimationSpeed = 1.2f;
+    
     //Animator variables
     private int _runningID;
     private int _fastID;
@@ -30,6 +33,8 @@ public class CivilianMove : MonoBehaviour
         
         _runningID = Animator.StringToHash(RunningString);
         _fastID = Animator.StringToHash(FastString);
+
+        _anim.speed = Random.Range(MinimumAnimationSpeed, MaximumAnimationSpeed);
         
         StartCoroutine(WanderSystem());
     }

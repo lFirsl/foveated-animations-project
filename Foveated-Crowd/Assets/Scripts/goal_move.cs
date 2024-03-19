@@ -19,6 +19,10 @@ public class goal_move : MonoBehaviour
     [SerializeField] private int currentGoal = 0;
     [SerializeField] private GameObject[] goals;
     
+    //Animator speed thresholds
+    [SerializeField] private float MinimumAnimationSpeed = 0.8f;
+    [SerializeField] private float MaximumAnimationSpeed = 1.2f;
+    
     //Animator variables
     private int _runningID;
     private int _fastID;
@@ -35,6 +39,7 @@ public class goal_move : MonoBehaviour
         _agent.speed = speed;
         nrOfGoals = goals.Length;
         
+        _anim.speed = Random.Range(MinimumAnimationSpeed, MaximumAnimationSpeed);
         _runningID = Animator.StringToHash(RunningString);
         _fastID = Animator.StringToHash(FastString);
         StartRunningAnimation();
