@@ -85,7 +85,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
 
     public void SetForegroundFPS(float timer = 0)
     {
-        //If lowFPS is true, then this was already applied. Don't do it again to avoid overhead.
+        //If lowFPS is true, then this was already applied. Don't do it again to avoid overhead. Just update the timer.
         if(timer != 0) TimedStop(timer);
         if (!_lowFps) return;
         
@@ -99,6 +99,8 @@ public class FoveatedAnimationTarget : MonoBehaviour
 
     public void SetFixedFPS(uint fps = 0,float timer = 0)
     {
+        //If we're currently rendering foreground on a timer, let that run out first.
+        if (!_lowFps && timeToStop > 0) return; 
         if(timer != 0) TimedStop(timer);
         float fpsToUse = fps + Random.Range(-frameVariation, frameVariation); // Add some randomization to avoid popping.
 
