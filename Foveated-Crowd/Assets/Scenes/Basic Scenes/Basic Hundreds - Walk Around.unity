@@ -9148,8 +9148,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shouldStop: 1
   outOfFocusFPS: 5
-  Stage2FoveationFPS: 15
-  Stage1FoveationFPS: 30
+  stage2FoveationFPS: 15
+  stage1FoveationFPS: 30
+  rayLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   stopThreshold: 0.4
   foveationThreshold: 0.2
   foveationThreshold2: 0.3
@@ -15612,7 +15615,7 @@ PrefabInstance:
       objectReference: {fileID: 841642505}
     - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: shouldStop

@@ -58,9 +58,9 @@ public class FoveatedAnimationTarget : MonoBehaviour
             }
             else
             {
+                timeToStop = 0;
                 if(focus.shouldStop) StopAnimation();
                 else SetFixedFPS(focus.outOfFocusFPS);
-                timeToStop = 0;
                 yield break;
             }
         }
@@ -100,7 +100,11 @@ public class FoveatedAnimationTarget : MonoBehaviour
     public void SetFixedFPS(uint fps = 0,float timer = 0)
     {
         //If we're currently rendering foreground on a timer, let that run out first.
-        if (!_lowFps && timeToStop > 0) return; 
+        if (_lowFps == false && Time.time > timeToStop)
+        {
+            return;
+        }
+
         if(timer != 0) TimedStop(timer);
         float fpsToUse = fps + Random.Range(-frameVariation, frameVariation); // Add some randomization to avoid popping.
 
