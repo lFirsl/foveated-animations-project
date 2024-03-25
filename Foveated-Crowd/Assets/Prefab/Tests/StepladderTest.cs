@@ -8,15 +8,25 @@ using UnityEngine.TestTools;
 
 public class StepLadderTest : MonoBehaviour
 {
-    private readonly String foveatedScene = "Basic Hundreds - StepLadder";
+    static string[] scenes = new string[]
+    {
+        "Basic Hundreds",
+        "Basic Hundreds - Walk Around",
+        "Basic Hundreds - Opposite directions"
+    };
     
     [UnityTest]
-    public IEnumerator FoveatedBasicCase()
+    public IEnumerator FoveatedBasicCase([ValueSource("scenes")] string scene)
     {
-        SceneManager.LoadScene(foveatedScene, LoadSceneMode.Single);
+        SceneManager.LoadScene(scene, LoadSceneMode.Single);
 
         yield return new WaitForSeconds(3);
         FocusPointSphere focus = FindObjectOfType<FocusPointSphere>();
+        //Add initial values
+        focus.stopThreshold = 1f;
+        focus.foveationThreshold = 0.5f;
+        focus.foveationThreshold2 = 0.8f;
+        
         Debug.Log(focus);
         for (int x = 0; x < 20; x++)
         {

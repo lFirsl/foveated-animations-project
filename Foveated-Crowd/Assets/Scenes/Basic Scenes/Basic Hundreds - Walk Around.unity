@@ -15627,7 +15627,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: stopThreshold
-      value: 0.5
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: useMouseFocus
