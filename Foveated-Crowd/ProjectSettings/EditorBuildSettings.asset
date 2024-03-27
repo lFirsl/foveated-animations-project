@@ -23,4 +23,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Basic Scenes/Basic Hundreds - Opposite directions.unity
     guid: 9379b82f3dda87f46b277cc912f37c2d
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 9fd7d14a420608c41955d24fc80d12eb, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: e708652626edff04893cb8b433995533, type: 2}
