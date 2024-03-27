@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+
 public class FocusPointSphere : MonoBehaviour
 {
     [Header("Camera Controls")]
     public bool useMouseFocus = false;
     [SerializeField] private Camera camera;
     [SerializeField] private LayerMask _rayLayerMask;
+
+    [Header("VR Controls")] 
+    public bool useVR = false;
+    [SerializeField] private ReadEyeTrackingSample _eyes;
     
     [Header("Foveation FPS")]
     [Tooltip("Determines whether foveated agents stop when outside of view, or use the outOfFocus FPS value instead.")]
@@ -51,13 +56,18 @@ public class FocusPointSphere : MonoBehaviour
         {
             // Cast a ray from the mouse position into the world
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+            Ray vrRay = new Ray(_eyes.getleftRay().pos, _eyes.getleftRay().dir);
+            RaycastHit hit,vrHit;
             Vector3 targetPosition;
 
             //If we're not using rays, center around game object instead
-            if (!useMouseFocus) targetPosition = _pos.position;
+            if (useVR && Physics.Raycast(vrRay, out vrHit,Mathf.Infinity,_rayLayerMask))
+            {
+                Debug.Log("Got a hit with the VR!");
+                targetPosition = vrHit.point;
+            }
             // Check if the ray hits something in the world
-            else if (Physics.Raycast(ray, out hit,Mathf.Infinity,_rayLayerMask))
+            else if (useMouseFocus && Physics.Raycast(ray, out hit,Mathf.Infinity,_rayLayerMask))
             {
                 // Get the point where the ray hits the ground
                 targetPosition = hit.point;

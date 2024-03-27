@@ -35,7 +35,6 @@ public class CameraSphere : MonoBehaviour
     {
         _pos = gameObject.GetComponent<Transform>();
         _mainCamera = Camera.main;
-        Debug.Log("Started");
 
         StartCoroutine(UpdateAnimations());
     }
@@ -57,7 +56,6 @@ public class CameraSphere : MonoBehaviour
             
             yield return new WaitForFixedUpdate();
             int numOfAgents = Physics.OverlapSphereNonAlloc(targetPosition, ScreenToWorldRadius(targetPosition),_agents,layermask);
-            //Debug.Log("Nr of Agents overlapping:"+numOfAgents);
             for(int i = 0; i < numOfAgents; i++)
             {
                 FoveatedAnimationTarget agent = _agents[i].gameObject.GetComponent<FoveatedAnimationTarget>();
@@ -93,8 +91,7 @@ public class CameraSphere : MonoBehaviour
     {
         // Calculate the distance from the camera to the center point
         float distanceToCenter = Vector3.Distance(_mainCamera.transform.position, target);
-        Debug.Log("Distance is: "+distanceToCenter);
-
+        
         // Calculate the world-space radius based on the distance from the camera
         float worldRadius = Mathf.Clamp(stopThreshold * distanceToCenter, 0f, 100f);
         //Debug.Log(worldRadius);
