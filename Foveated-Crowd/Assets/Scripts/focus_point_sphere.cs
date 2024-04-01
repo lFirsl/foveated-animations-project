@@ -55,26 +55,24 @@ public class FocusPointSphere : MonoBehaviour
         while (true)
         {
             // Cast a ray from the mouse position into the world
-            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-            Ray vrRay = new Ray(_eyes.getleftRay().pos, _eyes.getleftRay().dir);
             RaycastHit hit,vrHit;
             Vector3 targetPosition;
 
             //If we're not using rays, center around game object instead
-            if (useVR && Physics.Raycast(vrRay, out vrHit,Mathf.Infinity,_rayLayerMask))
+            if (useVR && Physics.Raycast(new Ray(_eyes.getleftRay().pos, _eyes.getleftRay().dir), out vrHit,Mathf.Infinity,_rayLayerMask))
             {
                 Debug.Log("Got a hit with the VR!");
                 targetPosition = vrHit.point;
             }
             // Check if the ray hits something in the world
-            else if (useMouseFocus && Physics.Raycast(ray, out hit,Mathf.Infinity,_rayLayerMask))
+            else if (useMouseFocus && Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit,Mathf.Infinity,_rayLayerMask))
             {
                 // Get the point where the ray hits the ground
                 targetPosition = hit.point;
             }
             else
             {
-                targetPosition = Input.mousePosition;
+                targetPosition = transform.position;
             }
             yield return new WaitForFixedUpdate();
             int numOfAgents = Physics.OverlapSphereNonAlloc(targetPosition, ScreenToWorldRadius(targetPosition),agents,layermask);
