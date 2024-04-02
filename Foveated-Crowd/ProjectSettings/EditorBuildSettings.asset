@@ -6,12 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/City Hundreds/City Hundreds.unity
-    guid: feae9e1f8aacfb54991f9d9164e735ac
-  - enabled: 1
-    path: Assets/Scenes/City Hundreds/City Hundreds - Base Case.unity
-    guid: 3ac5b792a0ae37d47a2a416b1f70e38b
-  - enabled: 1
     path: Assets/Scenes/Basic Scenes/Basic Hundreds.unity
     guid: b8b27cb2b3ce3104b899dc463684ddd3
   - enabled: 1
@@ -23,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Basic Scenes/Basic Hundreds - Opposite directions.unity
     guid: 9379b82f3dda87f46b277cc912f37c2d
+  - enabled: 1
+    path: Assets/Scenes/Basic Scenes/Basic Cross.unity
+    guid: b22f4203998715d4f850068a56b7d149
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 9fd7d14a420608c41955d24fc80d12eb, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: e708652626edff04893cb8b433995533, type: 2}

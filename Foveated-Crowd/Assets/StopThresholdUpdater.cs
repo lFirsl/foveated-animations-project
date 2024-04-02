@@ -1,21 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System;
+using TMPro;
 
-namespace ViveSR
+
+public class StopThresholdUpdater : MonoBehaviour
 {
-    public class StopThresholdUpdater : MonoBehaviour
-    {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
+    public TMP_Text sign;
 
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
+    public FocusPointSphere focusPoint;
+    // Start is called before the first frame update
+    private void Start()
+    {
+        sign.text = "Current Stop Threshold = " + Math.Round(focusPoint.stopThreshold,2);
+    }
+
+    // Update is called once per frame
+    private void FixedUpdate()
+    {
+        sign.text = "Current Stop Threshold = " + Math.Round(focusPoint.stopThreshold,2);
     }
 }

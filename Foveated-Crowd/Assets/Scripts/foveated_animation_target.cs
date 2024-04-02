@@ -99,13 +99,13 @@ public class FoveatedAnimationTarget : MonoBehaviour
 
     public void SetFixedFPS(uint fps = 0,float timer = 0)
     {
-        //If we're currently rendering foreground on a timer, let that run out first.
-        if (_lowFps == false && Time.time > timeToStop)
-        {
-            return;
-        }
-
+        /*//If we're currently rendering foreground on a timer, let that run out first.
+        if (_lowFps == false && Time.time > timeToStop) return;
+        
+        //If we're currently rendering with a higher FPS, let that run out first
+        if ((1f / (fps + frameVariation)) > _waitTime && Time.time > timeToStop) return;*/
         if(timer != 0) TimedStop(timer);
+        
         float fpsToUse = fps + Random.Range(-frameVariation, frameVariation); // Add some randomization to avoid popping.
 
         if (fps == 0) _waitTime = 1f / lowFpsFrames;
