@@ -25,21 +25,30 @@ public class StepLadderTest : MonoBehaviour
         yield return new WaitForSeconds(3);
         FocusPointSphere focus = FindObjectOfType<FocusPointSphere>();
         //Add initial values
+        float tempStop = 0.6f;
+        float tempThresh2 = 0.5f;
+        float tempThresh = 0.4f;
+        
         focus.stopThreshold = 1f;
-        focus.foveationThreshold = 0.6f;
-        focus.foveationThreshold2 = 0.8f;
+        focus.foveationThreshold = 1f;
+        focus.foveationThreshold2 = 1f;
         
         Debug.Log(focus);
         yield return new WaitForSeconds(10);
         while(focus.stopThreshold > stopTestThreshold)
         {
-            focus.stopThreshold -= 0.05f;
-            if(focus.foveationThreshold > stopTestThreshold - 0.05) focus.foveationThreshold -= 0.05f;
-            if(focus.foveationThreshold2 > stopTestThreshold) focus.foveationThreshold2 -= 0.05f;
-            Debug.Log("Increasing Foveation. Stop Threshold is at"+focus.stopThreshold);
+            
+            focus.stopThreshold = tempStop;
+            focus.foveationThreshold = tempThresh;
+            focus.foveationThreshold2 = tempThresh2;
+            Debug.Log("Increasing Foveation. Stop Threshold is at"+tempStop);
             //If on the final step, give viewer more time to see if they can notice the foveation  in the last second.
-            if(focus.stopThreshold < stopTestThreshold) yield return new WaitForSeconds(10);
-            else yield return new WaitForSeconds(5);
+            //if(focus.stopThreshold < stopTestThreshold) yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(10);
+            
+            tempStop -= 0.05f;
+            if(tempThresh > stopTestThreshold - 0.05) tempThresh -= 0.05f;
+            if(tempThresh2 > stopTestThreshold) tempThresh2 -= 0.05f;
         }
 
         Assert.IsTrue(true);

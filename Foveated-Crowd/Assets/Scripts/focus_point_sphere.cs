@@ -57,13 +57,11 @@ public class FocusPointSphere : MonoBehaviour
             // Cast a ray from the mouse position into the world
             RaycastHit hit,vrHit;
             Vector3 targetPosition;
-            
-            Vector3 dir = _mainCamera.transform.localToWorldMatrix * _eyes.getleftRay().dir;
 
             //If we're not using rays, center around game object instead
             if (useVR && Physics.Raycast(new Ray(
                     _mainCamera.transform.position,
-                    dir), 
+                    _mainCamera.transform.localToWorldMatrix * _eyes.getleftRay().dir), 
                     out vrHit,Mathf.Infinity,
                     _rayLayerMask))
             {
