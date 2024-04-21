@@ -19,14 +19,14 @@ public class FocusPointSphere : MonoBehaviour
     [Tooltip("Determines whether foveated agents stop when outside of view, or use the outOfFocus FPS value instead.")]
     public bool shouldStop = true;
     [Tooltip("Animation frame rate for targets to use when outside of focus point's area. 0 makes targets use their own framerate instead.")]
-    public uint outOfFocusFPS = 5;
-    public uint Stage2FoveationFPS = 15;
     public uint Stage1FoveationFPS = 30; //If set to 0, it let's the target determine it's own FPS.
+    public uint Stage2FoveationFPS = 15;
+    public uint outOfFocusFPS = 5;
     
     [Header("Foveation Thresholds")]
-    public float stopThreshold = 0.4f;
     public float foveationThreshold = 0.2f;
     public float foveationThreshold2 = 0.3f;
+    public float stopThreshold = 0.4f;
     [SerializeField] private LayerMask layermask;
     
     [Header("Animation Variables")]
