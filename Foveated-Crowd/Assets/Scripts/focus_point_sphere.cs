@@ -8,22 +8,24 @@ public class FocusPointSphere : MonoBehaviour
 {
     [Header("Camera Controls")]
     public bool useMouseFocus = false;
-    [SerializeField] private Camera camera;
     [SerializeField] private LayerMask _rayLayerMask;
 
     [Header("VR Controls")] 
     public bool useVR = false;
     [SerializeField] private ReadEyeTrackingSample _eyes;
     
-    [Header("Foveation FPS")]
-    [Tooltip("Determines whether foveated agents stop when outside of view, or use the outOfFocus FPS value instead.")]
-    public bool shouldStop = true;
-    [Tooltip("Animation frame rate for targets to use when outside of focus point's area. 0 makes targets use their own framerate instead.")]
-    public uint Stage1FoveationFPS = 30; //If set to 0, it let's the target determine it's own FPS.
-    public uint Stage2FoveationFPS = 15;
-    public uint outOfFocusFPS = 5;
+    [FormerlySerializedAs("shouldStop")]
+    [Header("Foveated Animation Update Frequencies")]
+    [Tooltip("Determines whether foveated agents stop when outside of the Stop Threshold, or animate at the Minimum Stop Hz frequency.")]
+    public bool useHaltStop = true;
+    [FormerlySerializedAs("Stage1FoveationFPS")] [Tooltip("Animation frame rate for targets to use when outside of focus point's area. 0 makes targets use their own framerate instead.")]
+    public uint Stage1FoveationHz = 30; //If set to 0, it let's the target determine it's own FPS.
+    [FormerlySerializedAs("Stage2FoveationFPS")] 
+    public uint Stage2FoveationHz = 15;
+    [FormerlySerializedAs("outOfFocusFPS")]
+    public uint MinimumStopHz = 5;
     
-    [Header("Foveation Thresholds")]
+    [Header("Foveation Thresholds in Normalized Screen Distance")]
     public float foveationThreshold = 0.2f;
     public float foveationThreshold2 = 0.3f;
     public float stopThreshold = 0.4f;
@@ -69,7 +71,7 @@ public class FocusPointSphere : MonoBehaviour
                 targetPosition = vrHit.point;
             }
             // Check if the ray hits something in the world
-            else if (useMouseFocus && Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit,Mathf.Infinity,_rayLayerMask))
+            else if (useMouseFocus && Physics.Raycast(GetComponent<Camera>().ScreenPointToRay(Input.mousePosition), out hit,Mathf.Infinity,_rayLayerMask))
             {
                 // Get the point where the ray hits the ground
                 targetPosition = hit.point;
@@ -94,8 +96,8 @@ public class FocusPointSphere : MonoBehaviour
     {
         float distance = WorldToScreenDistance(agent.transform.position, centre);
         agent.RestartAnimation(animationsResetTime);
-        if (distance > foveationThreshold2) agent.SetFixedFPS(Stage2FoveationFPS, animationsResetTime);
-        else if (distance > foveationThreshold) agent.SetFixedFPS(Stage1FoveationFPS,animationsResetTime);
+        if (distance > foveationThreshold2) agent.SetFixedFPS(Stage2FoveationHz, animationsResetTime);
+        else if (distance > foveationThreshold) agent.SetFixedFPS(Stage1FoveationHz,animationsResetTime);
         else agent.SetForegroundFPS(animationsResetTime);
     }
 
