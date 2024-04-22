@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Basic Scenes/Basic Cross.unity
     guid: b22f4203998715d4f850068a56b7d149
+  - enabled: 1
+    path: Assets/Scenes/Basic Scenes/Basic Hundreds - Minimum Stop.unity
+    guid: 1c4d942d3d5644f41b05063709a295ab
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 9fd7d14a420608c41955d24fc80d12eb, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: e708652626edff04893cb8b433995533, type: 2}

@@ -9,8 +9,8 @@ public class CameraSphere : MonoBehaviour
     public bool shouldStop = true;
     [Tooltip("Animation frame rate for targets to use when outside of focus point's area. 0 makes targets use their own framerate instead.")]
     public uint outOfFocusFPS = 5;
-    [FormerlySerializedAs("Stage2FoveationFPS")] public uint stage2FoveationFPS = 15;
-    [FormerlySerializedAs("Stage1FoveationFPS")] public uint stage1FoveationFPS = 30; //If set to 0, it let's the target determine it's own FPS.
+    [FormerlySerializedAs("Stage2FoveationHz")] public uint stage2FoveationFPS = 15;
+    [FormerlySerializedAs("Stage1FoveationHz")] public uint stage1FoveationFPS = 30; //If set to 0, it let's the target determine it's own FPS.
     [FormerlySerializedAs("_rayLayerMask")] [SerializeField] private LayerMask rayLayerMask;
     
     [Header("Foveation Thresholds")]

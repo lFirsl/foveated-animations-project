@@ -32,13 +32,13 @@ public class FoveatedAnimationTarget : MonoBehaviour
         focus = FindObjectOfType<FocusPointSphere>();
         if (focus != null && focus.enabled)
         {
-            if (focus.shouldStop)
+            if (focus.useHaltStop)
             {
-                SetFixedFPS(focus.outOfFocusFPS,2 + Random.Range(-frameVariation,frameVariation)); //Get everyone to move a bit into a position, then freeze them
+                SetFixedFPS(focus.MinimumStopHz,2 + Random.Range(-frameVariation,frameVariation)); //Get everyone to move a bit into a position, then freeze them
             }
             else
             {
-                SetFixedFPS(focus.outOfFocusFPS);
+                SetFixedFPS(focus.MinimumStopHz);
             }
         }
         else this.enabled = false;
@@ -59,8 +59,8 @@ public class FoveatedAnimationTarget : MonoBehaviour
             else
             {
                 timeToStop = 0;
-                if(focus.shouldStop) StopAnimation();
-                else SetFixedFPS(focus.outOfFocusFPS);
+                if(focus.useHaltStop) StopAnimation();
+                else SetFixedFPS(focus.MinimumStopHz);
                 yield break;
             }
         }
