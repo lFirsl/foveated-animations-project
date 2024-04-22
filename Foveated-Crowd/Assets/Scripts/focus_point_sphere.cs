@@ -37,6 +37,7 @@ public class FocusPointSphere : MonoBehaviour
     
     //private
     private Collider[] agents = new Collider[800];
+    private int segments = 36;
     
     //Objects
     private Transform _pos;
@@ -116,14 +117,27 @@ public class FocusPointSphere : MonoBehaviour
         return Vector2.Distance(normalizedPos1, normalizedPos2);
     }
 
-    private float ScreenToWorldRadius(Vector3 target)
+    private float ScreenToWorldRadius(Vector3 target,float threshold = -1.0f)
     {
         // Calculate the distance from the camera to the center point
         float distanceToCenter = Vector3.Distance(_mainCamera.transform.position, target);
 
+        if (threshold == -1.0f) threshold = stopThreshold;
         // Calculate the world-space radius based on the distance from the camera
-        float worldRadius = Mathf.Clamp(stopThreshold * distanceToCenter, 0f, 100f);
+        float worldRadius = Mathf.Clamp(threshold * distanceToCenter, 0f, 100f);
         //Debug.Log(worldRadius);
         return worldRadius;
+    }
+    
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = new Color(1f, 0f, 0f, 0.3f);;
+        Gizmos.DrawSphere(transform.position, ScreenToWorldRadius(transform.position));
+        
+        Gizmos.color = new Color(0f, 1f, 0f, 0.3f);;
+        Gizmos.DrawSphere(transform.position, ScreenToWorldRadius(transform.position,foveationThreshold));
+        
+        Gizmos.color = new Color(0f, 0f, 1f, 0.3f);;
+        Gizmos.DrawSphere(transform.position, ScreenToWorldRadius(transform.position,foveationThreshold2));
     }
 }
