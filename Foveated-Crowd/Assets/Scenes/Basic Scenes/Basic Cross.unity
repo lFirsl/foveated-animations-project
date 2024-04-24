@@ -6658,8 +6658,12 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5865093242386534953, guid: f28e4f7e4de54be448e9fef3e44acbf3, type: 3}
-      propertyPath: foveationThreshold2
+      propertyPath: foveationThreshold
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5865093242386534953, guid: f28e4f7e4de54be448e9fef3e44acbf3, type: 3}
+      propertyPath: foveationThreshold2
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -15745,11 +15745,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: foveationThreshold
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: foveationThreshold2
-      value: 0.35
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 418323978725713913, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
