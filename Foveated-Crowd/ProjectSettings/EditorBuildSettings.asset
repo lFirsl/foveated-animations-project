@@ -6,22 +6,22 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Basic Scenes/Basic Hundreds.unity
+    path: Assets/Scenes/Basic Scenes/Wander Crowd.unity
     guid: b8b27cb2b3ce3104b899dc463684ddd3
   - enabled: 1
-    path: Assets/Scenes/Basic Scenes/Basic Hundreds - Base.unity
+    path: Assets/Scenes/Basic Scenes/Wander Crowd - Base.unity
     guid: 242018fb6992128498fb0b04b408d46d
   - enabled: 1
-    path: Assets/Scenes/Basic Scenes/Basic Hundreds - Walk Around.unity
+    path: Assets/Scenes/Basic Scenes/Square Marathon.unity
     guid: 6ad4c0e29c51ce24ab09e52d61633b80
   - enabled: 1
-    path: Assets/Scenes/Basic Scenes/Basic Hundreds - Opposite directions.unity
+    path: Assets/Scenes/Basic Scenes/Parallel Columns.unity
     guid: 9379b82f3dda87f46b277cc912f37c2d
   - enabled: 1
-    path: Assets/Scenes/Basic Scenes/Basic Cross.unity
+    path: Assets/Scenes/Basic Scenes/Intercepting Crowds.unity
     guid: b22f4203998715d4f850068a56b7d149
   - enabled: 1
-    path: Assets/Scenes/Basic Scenes/Basic Hundreds - Minimum Stop.unity
+    path: Assets/Scenes/Basic Scenes/Wander Crowd - Minimum Stop.unity
     guid: 1c4d942d3d5644f41b05063709a295ab
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 9fd7d14a420608c41955d24fc80d12eb, type: 2}

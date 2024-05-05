@@ -120,12 +120,13 @@ public class FocusPointSphere : MonoBehaviour
     private float ScreenToWorldRadius(Vector3 target,float threshold = -1.0f)
     {
         // Calculate the distance from the camera to the center point
-        float distanceToCenter = Vector3.Distance(_mainCamera.transform.position, target);
+        float distanceToCenter = Vector3.Distance(Camera.main.transform.position, target);
 
         if (threshold == -1.0f) threshold = stopThreshold;
         // Calculate the world-space radius based on the distance from the camera
         float worldRadius = Mathf.Clamp(threshold * distanceToCenter, 0f, 100f);
-        //Debug.Log(worldRadius);
+        Debug.Log("Distance from camera is: " + distanceToCenter + " , with a World Radius of: " + worldRadius);
+        
         return worldRadius;
     }
     

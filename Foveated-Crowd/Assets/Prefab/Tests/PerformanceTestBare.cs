@@ -11,9 +11,9 @@ public class PerformanceTestBare : MonoBehaviour
     
     static string[] scenes = new string[]
     {
-        "Basic Hundreds",
-        "Basic Hundreds - Minimum Stop",
-        "Basic Hundreds - Base"
+        "Wander Crowd",
+        "Wander Crowd - Minimum Stop",
+        "Wander Crowd - Base"
     };
     
     //Warmup and measure parameters

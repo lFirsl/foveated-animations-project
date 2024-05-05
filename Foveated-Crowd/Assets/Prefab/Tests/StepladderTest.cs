@@ -10,10 +10,10 @@ public class StepLadderTest : MonoBehaviour
 {
     static string[] scenes = new string[]
     {
-        "Basic Hundreds",
-        "Basic Hundreds - Walk Around",
-        "Basic Hundreds - Opposite directions",
-        "Basic Cross"
+        "Wander Crowd",
+        "Square Marathon",
+        "Parallel Columns",
+        "Intercepting Crowds"
     };
     
     [UnityTest]
