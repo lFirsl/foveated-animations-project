@@ -12,3 +12,9 @@ To run this project:
 Upon loading this project with Unity, you can navigate to the `Assets > Scenes > Basic Scenes` to inspect all the scenes outlined within the project paper, with all necessary scripts attached and pre-set. You may run the scenes as they are, or change the settings of the "Focus Point Sphere" script attached to the "Protagonist" agents in each scene to experience different levels of foveation.
 
 The scenes outside the `Basic Scenes` folder have been used for prototyping older implementations, and have not been used to test our final implementation. They have, however, been left here for prosperity.
+
+## User Test Video
+
+If you only wish to see the foveation in effect, rather than run the project locally, you can instead check the user test video. You may find the video on:
+- Youtube (Compressed): https://youtu.be/0TlGL1wiBAY
+- OneDrive (Uncompressed - Requires download for highest quality): https://1drv.ms/v/s!AocnOYwxBpbGhdwbHGvkhCyv--w0fw?e=WmXz6Z
