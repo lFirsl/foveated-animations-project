@@ -36,8 +36,14 @@ public class FocusPointSphere : MonoBehaviour
     [SerializeField] private float animationsUpdateFrequency = 1f;
     
     //private
+    private FoveatedAnimationTarget[] _agentsFov;
     private Collider[] agents = new Collider[800];
     private int segments = 36;
+    
+    // Get screen dimensions
+    private float _screenWidth = Screen.width;
+    private float _screenHeight = Screen.height;
+    private Vector2 _centreNSD = new Vector2();
     
     //Objects
     private Transform _pos;
@@ -48,6 +54,8 @@ public class FocusPointSphere : MonoBehaviour
         _pos = gameObject.GetComponent<Transform>();
         _mainCamera = Camera.main;
         Debug.Log("Started");
+
+        _agentsFov = FindObjectsOfType<FoveatedAnimationTarget>();
 
         StartCoroutine(UpdateAnimations());
     }
@@ -82,39 +90,42 @@ public class FocusPointSphere : MonoBehaviour
                 targetPosition = transform.position;
             }
             yield return new WaitForFixedUpdate();
-            int numOfAgents = Physics.OverlapSphereNonAlloc(targetPosition, ScreenToWorldRadius(targetPosition),agents,layermask);
-            //Debug.Log("Nr of Agents overlapping:"+numOfAgents);
-            for(int i = 0; i < numOfAgents; i++)
+            
+            //Setup
+            _screenHeight = Screen.height;
+            _screenWidth = Screen.width;
+            Vector3 centrePoint = _mainCamera.WorldToScreenPoint(targetPosition);
+            _centreNSD = new Vector2(centrePoint.x / _screenWidth, centrePoint.y / _screenHeight);
+            
+            foreach(FoveatedAnimationTarget agent in _agentsFov)
             {
-                FoveatedAnimationTarget agent = agents[i].gameObject.GetComponent<FoveatedAnimationTarget>();
-                DetermineAnimation(agent,targetPosition);
+                DetermineAnimation(agent);
             }
             yield return new WaitForSeconds(animationsUpdateFrequency);
         }
     }
 
-    private void DetermineAnimation(FoveatedAnimationTarget agent,Vector3 centre)
+    private void DetermineAnimation(FoveatedAnimationTarget agent)
     {
-        float distance = WorldToScreenDistance(agent.transform.position, centre);
+        float distance = ScreenDistanceToCentre(agent.transform.position);
+        
+        //Outside our stop threshold. Skip other checks
+        if (distance > stopThreshold) return;
+        
+        //Restart animations - then determine the update frequency rate.
         agent.RestartAnimation(animationsResetTime);
         if (distance > foveationThreshold2) agent.SetFixedFPS(Stage2FoveationHz, animationsResetTime);
         else if (distance > foveationThreshold) agent.SetFixedFPS(Stage1FoveationHz,animationsResetTime);
         else agent.SetForegroundFPS(animationsResetTime);
     }
 
-    private float WorldToScreenDistance(Vector3 pos1, Vector3 pos2)
+    private float ScreenDistanceToCentre(Vector3 agent)
     {
-        // Get screen dimensions
-        float screenWidth = Screen.width;
-        float screenHeight = Screen.height;
+        Vector3 agentScreenPos = _mainCamera.WorldToScreenPoint(agent);
         
-        Vector3 screenPos1 = _mainCamera.WorldToScreenPoint(pos1);
-        Vector3 screenPos2 = _mainCamera.WorldToScreenPoint(pos2);
+        Vector2 normalizedPos1 = new Vector2(agentScreenPos.x / _screenWidth, agentScreenPos.y / _screenHeight);
         
-        Vector2 normalizedPos1 = new Vector2(screenPos1.x / screenWidth, screenPos1.y / screenHeight);
-        Vector2 normalizedPos2 = new Vector2(screenPos2.x / screenWidth, screenPos2.y / screenHeight);
-        
-        return Vector2.Distance(normalizedPos1, normalizedPos2);
+        return Vector2.Distance(normalizedPos1, _centreNSD);
     }
 
     private float ScreenToWorldRadius(Vector3 target,float threshold = -1.0f)
@@ -125,7 +136,7 @@ public class FocusPointSphere : MonoBehaviour
         if (threshold == -1.0f) threshold = stopThreshold;
         // Calculate the world-space radius based on the distance from the camera
         float worldRadius = Mathf.Clamp(threshold * distanceToCenter, 0f, 100f);
-        Debug.Log("Distance from camera is: " + distanceToCenter + " , with a World Radius of: " + worldRadius);
+        // Debug.Log("Distance from camera is: " + distanceToCenter + " , with a World Radius of: " + worldRadius);
         
         return worldRadius;
     }

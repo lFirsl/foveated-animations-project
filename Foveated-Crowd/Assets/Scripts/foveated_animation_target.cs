@@ -99,11 +99,6 @@ public class FoveatedAnimationTarget : MonoBehaviour
 
     public void SetFixedFPS(uint fps = 0,float timer = 0)
     {
-        /*//If we're currently rendering foreground on a timer, let that run out first.
-        if (_lowFps == false && Time.time > timeToStop) return;
-        
-        //If we're currently rendering with a higher FPS, let that run out first
-        if ((1f / (fps + frameVariation)) > _waitTime && Time.time > timeToStop) return;*/
         if(timer != 0) TimedStop(timer);
         
         float fpsToUse = fps + Random.Range(-frameVariation, frameVariation); // Add some randomization to avoid popping.
@@ -124,8 +119,11 @@ public class FoveatedAnimationTarget : MonoBehaviour
     public void RestartAnimation(float timer = 0)
     {
         if(timer > 0) TimedStop(timer);
-        _anim.enabled = true;
-        _agent.obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;
+        if (!_anim.enabled)
+        {
+            _anim.enabled = true;
+            _agent.obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;  
+        }
     }
 
     //Used when the animation is set for an automatic stop.
