@@ -42,7 +42,7 @@ public class CivilianMove : MonoBehaviour
         StartCoroutine(WanderSystem());
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         CheckStop();
     }
