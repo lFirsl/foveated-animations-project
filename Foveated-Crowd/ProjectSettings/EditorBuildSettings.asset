@@ -10,14 +10,14 @@ EditorBuildSettings:
     guid: b8b27cb2b3ce3104b899dc463684ddd3
   - enabled: 1
     path: Assets/Scenes/Basic Scenes/Wander Crowd - Base.unity
-    guid: 242018fb6992128498fb0b04b408d46d
-  - enabled: 1
+    guid: 817ab3aa61bfc00488e38f795730ef0d
+  - enabled: 0
     path: Assets/Scenes/Basic Scenes/Square Marathon.unity
     guid: 6ad4c0e29c51ce24ab09e52d61633b80
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Basic Scenes/Parallel Columns.unity
     guid: 9379b82f3dda87f46b277cc912f37c2d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Basic Scenes/Intercepting Crowds.unity
     guid: b22f4203998715d4f850068a56b7d149
   - enabled: 1
