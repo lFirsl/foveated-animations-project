@@ -56,52 +56,46 @@ public class FocusPointSphere : MonoBehaviour
         Debug.Log("Started");
 
         _agentsFov = FindObjectsOfType<FoveatedAnimationTarget>();
-
-        StartCoroutine(UpdateAnimations());
     }
     
 
-    private IEnumerator UpdateAnimations()
+    private void Update()
     {
-        while (true)
-        {
-            // Cast a ray from the mouse position into the world
-            RaycastHit hit,vrHit;
-            Vector3 targetPosition;
+        // Cast a ray from the mouse position into the world
+        Vector3 targetPosition;
 
-            //If we're not using rays, center around game object instead
-            if (useVR && Physics.Raycast(new Ray(
-                    _mainCamera.transform.position,
-                    _mainCamera.transform.localToWorldMatrix * _eyes.getleftRay().dir), 
-                    out vrHit,Mathf.Infinity,
-                    _rayLayerMask))
-            {
-                Debug.Log("Got a hit with the VR! Location:" + vrHit.point);
-                targetPosition = vrHit.point;
-            }
-            // Check if the ray hits something in the world
-            else if (useMouseFocus && Physics.Raycast(GetComponent<Camera>().ScreenPointToRay(Input.mousePosition), out hit,Mathf.Infinity,_rayLayerMask))
-            {
-                // Get the point where the ray hits the ground
-                targetPosition = hit.point;
-            }
-            else
-            {
-                targetPosition = transform.position;
-            }
-            yield return new WaitForFixedUpdate();
-            
-            //Setup
-            _screenHeight = Screen.height;
-            _screenWidth = Screen.width;
-            Vector3 centrePoint = _mainCamera.WorldToScreenPoint(targetPosition);
-            _centreNSD = new Vector2(centrePoint.x / _screenWidth, centrePoint.y / _screenHeight);
-            
-            foreach(FoveatedAnimationTarget agent in _agentsFov)
-            {
-                DetermineAnimation(agent);
-            }
-            yield return new WaitForSeconds(animationsUpdateFrequency);
+        //If we're not using rays, center around game object instead
+        if (useVR && Physics.Raycast(new Ray(
+                _mainCamera.transform.position,
+                _mainCamera.transform.localToWorldMatrix * _eyes.getleftRay().dir), 
+                out RaycastHit vrHit,Mathf.Infinity,
+                _rayLayerMask))
+        {
+            Debug.Log("Got a hit with the VR! Location:" + vrHit.point);
+            targetPosition = vrHit.point;
+        }
+        // Check if the ray hits something in the world
+        else if (useMouseFocus && Physics.Raycast(_mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit,Mathf.Infinity,_rayLayerMask))
+        {
+            // Get the point where the ray hits the ground
+            targetPosition = hit.point;
+        }
+        else
+        {
+            targetPosition = transform.position;
+        }
+        
+        //Setup
+        _screenHeight = Screen.height;
+        _screenWidth = Screen.width;
+        Vector3 centrePoint;
+        if (useMouseFocus) centrePoint = Input.mousePosition;
+        else centrePoint = _mainCamera.WorldToScreenPoint(targetPosition);
+        _centreNSD = new Vector2(centrePoint.x / _screenWidth, centrePoint.y / _screenHeight);
+        
+        foreach(FoveatedAnimationTarget agent in _agentsFov)
+        {
+            DetermineAnimation(agent);
         }
     }
 

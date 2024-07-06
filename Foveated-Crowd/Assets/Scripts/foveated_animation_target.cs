@@ -16,6 +16,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
     
     //Private variables
     private float _waitTime;
+    private uint _currentFPS;
     
     //Animator specific variables
     private bool _lowFps = false;
@@ -44,34 +45,19 @@ public class FoveatedAnimationTarget : MonoBehaviour
         else this.enabled = false;
     }
     
-    private IEnumerator AnimationStopTimer(float timer)
-    {
-        timeToStop = Time.time + timer;
-        var currentTimer = timer;
-
-        while (true)
-        {
-            yield return new WaitForSeconds(currentTimer);
-            if (timeToStop > Time.time)
-            {
-                currentTimer = timeToStop - Time.time;
-            }
-            else
-            {
-                timeToStop = 0;
-                if(focus.useHaltStop) StopAnimation();
-                else SetFixedFPS(focus.MinimumStopHz);
-                yield break;
-            }
-        }
-    }
-    
     private IEnumerator LowFramerate()
     {
         var lastTime = Time.time;
 
         while (true)
         {
+            if (timeToStop !=0 && timeToStop < Time.time)
+            {
+                timeToStop = 0;
+                if(focus.useHaltStop) StopAnimation();
+                else SetFixedFPS(focus.MinimumStopHz);
+            }
+            
             if (_lowFps)
             {
                 _anim.playableGraph.Evaluate(Time.time - lastTime);
@@ -100,7 +86,10 @@ public class FoveatedAnimationTarget : MonoBehaviour
     public void SetFixedFPS(uint fps = 0,float timer = 0)
     {
         if(timer != 0) TimedStop(timer);
-        
+        //If we're attempting to update the agent to the same framerate, we'd be doing needless work.
+        //Instead, just update the timer and move on.
+        if (timeToStop != 0 && timeToStop < Time.time && fps == _currentFPS) return;
+        _currentFPS = fps;
         float fpsToUse = fps + Random.Range(-frameVariation, frameVariation); // Add some randomization to avoid popping.
 
         if (fps == 0) _waitTime = 1f / lowFpsFrames;
@@ -129,7 +118,6 @@ public class FoveatedAnimationTarget : MonoBehaviour
     //Used when the animation is set for an automatic stop.
     private void TimedStop(float timer)
     {
-        if (timeToStop > 0) timeToStop = Time.time + timer;
-        else StartCoroutine(AnimationStopTimer(timer));
+        timeToStop = Time.time + timer;
     }
 }
