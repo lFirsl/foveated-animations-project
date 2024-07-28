@@ -11,9 +11,8 @@ public class Stepladder : MonoBehaviour
     
     private IEnumerator stepladderProcedure()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         FocusPointSphere focus = FindObjectOfType<FocusPointSphere>();
-    
         focus.stopThreshold = 1f;
         focus.foveationThreshold = 1f;
         focus.foveationThreshold2 = 1f;

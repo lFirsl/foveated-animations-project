@@ -137,13 +137,33 @@ public class FocusPointSphere : MonoBehaviour
     
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = new Color(1f, 0f, 0f, 0.3f);;
+        /*
+        Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
         Gizmos.DrawSphere(transform.position, ScreenToWorldRadius(transform.position));
         
-        Gizmos.color = new Color(0f, 1f, 0f, 0.3f);;
+        Gizmos.color = new Color(0f, 1f, 0f, 0.3f);
         Gizmos.DrawSphere(transform.position, ScreenToWorldRadius(transform.position,foveationThreshold));
         
-        Gizmos.color = new Color(0f, 0f, 1f, 0.3f);;
+        Gizmos.color = new Color(0f, 0f, 1f, 0.3f);
         Gizmos.DrawSphere(transform.position, ScreenToWorldRadius(transform.position,foveationThreshold2));
+        */
+        
+        foreach(FoveatedAnimationTarget agent in _agentsFov)
+        {
+            if (!agent.lowFps)
+            {
+                Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
+            }
+            else if (agent.currentFPS == Stage1FoveationHz)
+            {
+                Gizmos.color = new Color(0f, 1f, 0f, 0.3f);
+            }
+            else if (agent.currentFPS == Stage2FoveationHz)
+            {
+                Gizmos.color = new Color(0f, 0f, 1f, 0.3f);
+            }
+            else continue;
+            Gizmos.DrawSphere(agent.transform.position, 1);
+        }
     }
 }
