@@ -155,6 +155,7 @@ public class Experiment : MonoBehaviour
         bool fileExists = File.Exists(filePath);
         var sb = new StringBuilder();
 
+        // If file doesn't exist, create it and add headers.
         if (!fileExists)
         {
             for (uint x = 0; x < numberOfScenes; x++)
@@ -166,6 +167,7 @@ public class Experiment : MonoBehaviour
             sb.Append("\n");
         }
 
+        // Add this test's stage values
         for (uint x = 0; x < numberOfScenes; x++)
         {
             if (x != 0) sb.Append(",");
