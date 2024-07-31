@@ -1410,7 +1410,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359756849175051315}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: a033a48a1371edb45998f4f10ad29a6b, type: 3}
   m_Controller: {fileID: 9100000, guid: a858a7585171ba2489307fcff9adb0c3, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -1439,7 +1439,10 @@ MonoBehaviour:
   minSpeed: 2
   maxSpeed: 10
   slowFastThreshold: 5
-  stopThreshold: 2
+  stopThreshold: 3
+  limitToView: 0
+  MinimumAnimationSpeed: 0.8
+  MaximumAnimationSpeed: 1.2
 --- !u!195 &7197606596219910493
 NavMeshAgent:
   m_ObjectHideFlags: 0

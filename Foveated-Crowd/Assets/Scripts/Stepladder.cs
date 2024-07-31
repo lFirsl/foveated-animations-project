@@ -25,7 +25,7 @@ public class Stepladder : MonoBehaviour
             focus.stopThreshold = tempStop;
             focus.foveationThreshold = tempThresh;
             focus.foveationThreshold2 = tempThresh2;
-            Debug.Log("Increasing Foveation. Stop Threshold is at"+tempStop);
+            Debug.Log("Increasing Foveation. Stop Threshold is at "+tempStop);
             //If on the final step, give viewer more time to see if they can notice the foveation  in the last second.
             //if(focus.stopThreshold < stopTestThreshold) yield return new WaitForSeconds(10);
             yield return new WaitForSeconds(10);
