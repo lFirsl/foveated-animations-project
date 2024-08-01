@@ -18,8 +18,6 @@ public class CivilianMove : MonoBehaviour
     public float slowFastThreshold;
     public int stopThreshold;
     public bool limitToView = false;
-
-    private bool _stopped = false;
     
     [SerializeField] private float MinimumAnimationSpeed = 0.8f;
     [SerializeField] private float MaximumAnimationSpeed = 1.2f;
@@ -62,7 +60,6 @@ public class CivilianMove : MonoBehaviour
             StartRunningAnimation();
             
             yield return new WaitForSeconds(wanderTimer);
-            _stopped = false;
         }
     }
 
@@ -75,9 +72,8 @@ public class CivilianMove : MonoBehaviour
     
     private void CheckStop()
     {
-        if (!_stopped && !_agent.pathPending && _agent.remainingDistance < stopThreshold)
+        if (!_agent.pathPending && _agent.remainingDistance < stopThreshold)
         {
-            _stopped = true;
             _anim.SetBool(_runningID,false);
         }
     }
