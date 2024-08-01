@@ -29,6 +29,7 @@ namespace UnityEditor.Recorder.Examples
         {
             [InspectorName("H.264 Default")] H264Default,
             [InspectorName("H.264 NVIDIA")] H264Nvidia,
+            [InspectorName("H.264 AMD")] H264AMD,
             [InspectorName("H.264 Lossless 420")] H264Lossless420,
             [InspectorName("H.264 Lossless 444")] H264Lossless444,
             [InspectorName("H.265 HEVC Default")] HevcDefault,
@@ -62,6 +63,7 @@ namespace UnityEditor.Recorder.Examples
                 {
                     case OutputFormat.H264Default:
                     case OutputFormat.H264Nvidia:
+                    case OutputFormat.H264AMD:
                     case OutputFormat.H264Lossless420:
                     case OutputFormat.H264Lossless444:
                     case OutputFormat.HevcDefault:
@@ -87,6 +89,8 @@ namespace UnityEditor.Recorder.Examples
                 OutputFormat.H264Default => "-c:v libx264 -preset veryslow -crf 17 -tune film -pix_fmt yuv420p",
                 OutputFormat.H264Nvidia =>
                     "-c:v h264_nvenc -pix_fmt yuv420p -rc constqp -qmin 17 -qmax 51 -qp 24 -preset p7 -tune hq -rc-lookahead 4 -profile:v high",
+                OutputFormat.H264AMD =>
+                    "-c:v h264_amf -pix_fmt yuv420p -usage transcoding -quality quality -qp_i 24 -qp_p 24 -qp_b 24 -rc -1 -profile_tier high",
                 OutputFormat.H264Lossless420 => "-c:v libx264 -pix_fmt yuv420p -crf 0",
                 OutputFormat.H264Lossless444 => "-c:v libx264 -pix_fmt yuv444p -crf 0",
                 OutputFormat.HevcDefault => "-c:v libx265 -pix_fmt yuv420p",
