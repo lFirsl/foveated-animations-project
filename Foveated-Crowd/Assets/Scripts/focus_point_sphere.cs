@@ -150,7 +150,7 @@ public class FocusPointSphere : MonoBehaviour
         
         foreach(FoveatedAnimationTarget agent in _agentsFov)
         {
-            if (!agent.lowFps)
+            if (agent.isAnimationEnabled() && !agent.lowFps)
             {
                 Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
             }

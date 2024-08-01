@@ -59,14 +59,17 @@ public class FoveatedAnimationTarget : MonoBehaviour
                 if(focus.useHaltStop) StopAnimation();
                 else SetFixedFPS(focus.MinimumStopHz);
             }
-            
-            if (lowFps)
+
+            if (!lowFps && !isAnimationEnabled())
             {
-                _anim.playableGraph.Evaluate(Time.time - lastTime);
+                yield return new WaitForSeconds(_waitTime + Random.Range(-frameVariation,frameVariation));
+                continue;
             }
+
+            if (lowFps) _anim.playableGraph.Evaluate(Time.time - lastTime);
             lastTime = Time.time;
             yield return new WaitForSeconds(_waitTime + Random.Range(-frameVariation,frameVariation));
-            while(!lowFps) yield return new WaitForSeconds(_waitTime + Random.Range(-frameVariation,frameVariation));
+            //while(!lowFps) yield return new WaitForSeconds(_waitTime + Random.Range(-frameVariation,frameVariation));
             yield return new WaitForFixedUpdate();
         }
     }
@@ -82,7 +85,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
         _anim.playableGraph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
         _anim.playableGraph.Play();
 
-        _agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
+        //_agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
     }
 
     public void SetFixedFPS(uint fps = 0,float timer = 0)
@@ -104,7 +107,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
     public void StopAnimation()
     {
         _anim.enabled = false;
-        _agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;
+        //_agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;
         currentFPS = 0;
     }
 
@@ -114,7 +117,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
         if (!_anim.enabled)
         {
             _anim.enabled = true;
-            _agent.obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;  
+            //_agent.obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;  
         }
     }
 
@@ -122,5 +125,10 @@ public class FoveatedAnimationTarget : MonoBehaviour
     private void TimedStop(float timer)
     {
         timeToStop = Time.time + timer;
+    }
+
+    public bool isAnimationEnabled()
+    {
+        return _anim.enabled;
     }
 }
