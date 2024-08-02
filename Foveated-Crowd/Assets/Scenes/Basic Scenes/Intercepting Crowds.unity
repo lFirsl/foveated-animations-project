@@ -3168,6 +3168,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6018203025774709524, guid: f1bc99dc3ca04184c90ead5dbb6651df, type: 3}
   m_PrefabInstance: {fileID: 590733253}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &654506586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 654506588}
+  - component: {fileID: 654506587}
+  m_Layer: 0
+  m_Name: Stepladder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &654506587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654506586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aef45246e9a7b1e4d8c2dc637af94568, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopTestThreshold: 0.15
+  tempStop: 0.6
+  tempThresh2: 0.5
+  tempThresh: 0.4
+--- !u!4 &654506588
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654506586}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 39.7316, y: 13.01706, z: -97.01724}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &656694388
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6545,8 +6593,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5865093242386534953, guid: f28e4f7e4de54be448e9fef3e44acbf3, type: 3}
+      propertyPath: useHaltStop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5865093242386534953, guid: f28e4f7e4de54be448e9fef3e44acbf3, type: 3}
+      propertyPath: MinimumStopHz
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5865093242386534953, guid: f28e4f7e4de54be448e9fef3e44acbf3, type: 3}
       propertyPath: stopThreshold
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5865093242386534953, guid: f28e4f7e4de54be448e9fef3e44acbf3, type: 3}
+      propertyPath: Stage2FoveationHz
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5865093242386534953, guid: f28e4f7e4de54be448e9fef3e44acbf3, type: 3}
       propertyPath: foveationThreshold
@@ -8340,3 +8400,4 @@ SceneRoots:
   - {fileID: 373060133}
   - {fileID: 690499122}
   - {fileID: 1022820155}
+  - {fileID: 654506588}
