@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6643160858075360669
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 359756849175051315, guid: 2514af81435d88344b6b8ebdd6616a98, type: 3}
+      propertyPath: m_Name
+      value: Male Adult - Intersecting Crowds Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132035586965104265, guid: 2514af81435d88344b6b8ebdd6616a98, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.284622
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132035586965104265, guid: 2514af81435d88344b6b8ebdd6616a98, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 41.38598
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132035586965104265, guid: 2514af81435d88344b6b8ebdd6616a98, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 41.362587
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132035586965104265, guid: 2514af81435d88344b6b8ebdd6616a98, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132035586965104265, guid: 2514af81435d88344b6b8ebdd6616a98, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132035586965104265, guid: 2514af81435d88344b6b8ebdd6616a98, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132035586965104265, guid: 2514af81435d88344b6b8ebdd6616a98, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132035586965104265, guid: 2514af81435d88344b6b8ebdd6616a98, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132035586965104265, guid: 2514af81435d88344b6b8ebdd6616a98, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132035586965104265, guid: 2514af81435d88344b6b8ebdd6616a98, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6674924201333027847, guid: 2514af81435d88344b6b8ebdd6616a98, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7197606596219910493, guid: 2514af81435d88344b6b8ebdd6616a98, type: 3}
+      propertyPath: m_Radius
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7197606596219910493, guid: 2514af81435d88344b6b8ebdd6616a98, type: 3}
+      propertyPath: m_AutoBraking
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7431526063021088384, guid: 2514af81435d88344b6b8ebdd6616a98, type: 3}
+      propertyPath: goals.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6674924201333027847, guid: 2514af81435d88344b6b8ebdd6616a98, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2514af81435d88344b6b8ebdd6616a98, type: 3}
