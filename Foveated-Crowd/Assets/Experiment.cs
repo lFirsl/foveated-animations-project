@@ -12,7 +12,7 @@ public class Experiment : MonoBehaviour
 {
     VideoPlayer vp;
     public TMP_Text instructions;
-    private ushort numberOfScenes = 3;
+    private ushort numberOfScenes = 10;
     public VideoClip[] branch1Videos;
     public VideoClip[] branch2Videos;
     public VideoClip[] branch3Videos;

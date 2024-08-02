@@ -15288,6 +15288,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
+      propertyPath: useHaltStop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
+      propertyPath: MinimumStopHz
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: outOfFocusFPS
       value: 10
       objectReference: {fileID: 0}
@@ -15298,6 +15306,10 @@ PrefabInstance:
     - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: useMouseFocus
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
+      propertyPath: Stage2FoveationHz
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: Stage1FoveationFPS
