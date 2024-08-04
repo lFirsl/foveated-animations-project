@@ -34,10 +34,8 @@ public class Experiment : MonoBehaviour
     //Detection variables
     private bool _detectedOnce = false;
     private uint _detectedStage = 0;
-    private double _detectionTime = 0;
     private uint[] _detectedStages;
-    
-    bool started = false;
+    private double[] _detectedTimes;
 
     private bool finished = false;
     // Start is called before the first frame update
@@ -45,6 +43,7 @@ public class Experiment : MonoBehaviour
     {
         vp = GetComponent<VideoPlayer>();
         _detectedStages = new uint[numberOfScenes];
+        _detectedTimes = new double[numberOfScenes * 2];
         vp.loopPointReached += EndReached;
         branches = new VideoClip[3][];
         branches[0] = branch1Videos;
@@ -61,7 +60,7 @@ public class Experiment : MonoBehaviour
     {
         if (finished) return;
         
-        if (Input.GetKeyUp(KeyCode.Space) && started)
+        if (Input.GetKeyUp(KeyCode.Space) && vp.isPlaying)
         {
             
             if(_detectedOnce && _detectedStage == timeToFoveationStage())
@@ -73,24 +72,41 @@ public class Experiment : MonoBehaviour
 
             _detectedOnce = true;
             _detectedStage = timeToFoveationStage();
+            _detectedTimes[_currentScene * 2] = vp.time;
             instructions.text = "Take a second to locate the focus point, then press SPACE.";
             
             _currentTime = vp.time;
             _currentBranch = (_currentBranch + 1) % 3;
             StartCoroutine(prepareVideo());
         }
-        else if (Input.GetKeyUp(KeyCode.Space) && !started)
+        else if (Input.GetKeyUp(KeyCode.Space) && !vp.isPlaying)
         {
             instructions.enabled = false;
-            started = true;
             vp.Play();
         }
-        if (Input.GetKeyUp(KeyCode.A))
+        else if (Input.GetKeyUp(KeyCode.S))
         {
-            vp.Pause();
-            vp.time = System.Math.Max(vp.time - 10, 0d);
-            vp.Play();
-            started = true;
+            if (vp.isPlaying)
+            {
+                instructions.text = "Paused.";
+                instructions.enabled = true;
+                vp.Pause();
+            }
+            else
+            {
+                instructions.enabled = false;
+                vp.Play();
+            }
+        } 
+        else if (Input.GetKeyUp(KeyCode.R))
+        {
+            //Reset stage
+            if(vp.isPlaying) vp.Pause();
+            instructions.text = "Take a second to locate the focus point, then press SPACE.";
+            instructions.enabled = true;
+            _detectedStage = 0;
+            _detectedOnce = false;
+            StartCoroutine(prepareVideo(true));
         }
     }
 
@@ -116,9 +132,8 @@ public class Experiment : MonoBehaviour
         else
         {
             vp.time = 0;
-            vp.frame = vp.frame;
+            vp.frame = 0;
         }
-        started = false;
         vp.Play();
         yield return new WaitForSeconds(0.2f);
         instructions.enabled = true;
@@ -128,6 +143,8 @@ public class Experiment : MonoBehaviour
     void EndReached(UnityEngine.Video.VideoPlayer vp)
     {
         _detectedStages[_currentScene] = timeToFoveationStage();
+        _detectedTimes[_currentScene * 2 + 1] = vp.time;
+        
         Debug.Log("Finished Scene " + _currentScene + " at stage " + _detectedStages[_currentScene] + ". Moving to next scene.");
         instructions.text = "NEXT SCENE. \n\n Take a second to find the focus point, then press SPACE.";
         _currentScene++;
@@ -135,7 +152,6 @@ public class Experiment : MonoBehaviour
         if (_currentScene == branches[_currentBranch].Length)
         {
             FinishExperiment();
-            started = false;
         }
         else
         {
@@ -180,7 +196,7 @@ public class Experiment : MonoBehaviour
 #else
         var folder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
 #endif
-        var filePath = Path.Combine(folder, "export.csv");
+        var filePath = Path.Combine(folder, "foveationUserTest.csv");
         bool fileExists = File.Exists(filePath);
         var sb = new StringBuilder();
 
@@ -190,7 +206,9 @@ public class Experiment : MonoBehaviour
             for (uint x = 1; x <= numberOfScenes; x++)
             {
                 if (x != 1) sb.Append(",");
-                sb.Append("Scene ").Append(x);
+                sb.Append("Scene ").Append(x).Append(" stage,");
+                sb.Append("Scene ").Append(x).Append(" time 1,");
+                sb.Append("Scene ").Append(x).Append(" time 2");
             }
 
             sb.Append("\n");
@@ -200,7 +218,9 @@ public class Experiment : MonoBehaviour
         for (uint x = 0; x < numberOfScenes; x++)
         {
             if (x != 0) sb.Append(",");
-            sb.Append(_detectedStages[x]);
+            sb.Append(_detectedStages[x]+",");
+            sb.Append(_detectedTimes[x*2]+",");
+            sb.Append(_detectedTimes[x*2+1]);
         }
         sb.Append("\n");
         
