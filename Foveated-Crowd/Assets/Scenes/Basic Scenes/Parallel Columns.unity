@@ -1889,7 +1889,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.33333334
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 89fa68b5c2345de439843971069b0e2d, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: aff96fde8a3690e4f80b53201d450790, type: 2}
   m_BuildHeightMesh: 0
 --- !u!64 &400160222
 MeshCollider:
@@ -3377,6 +3377,54 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2514af81435d88344b6b8ebdd6616a98, type: 3}
+--- !u!1 &673914412
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 673914414}
+  - component: {fileID: 673914413}
+  m_Layer: 0
+  m_Name: Stepladder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &673914413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673914412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aef45246e9a7b1e4d8c2dc637af94568, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopTestThreshold: 0.15
+  tempStop: 0.6
+  tempThresh2: 0.5
+  tempThresh: 0.4
+--- !u!4 &673914414
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673914412}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 39.7316, y: 13.01706, z: -97.01724}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &683969059 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1132035586965104265, guid: 2514af81435d88344b6b8ebdd6616a98, type: 3}
@@ -5495,6 +5543,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
+      propertyPath: MinimumStopHz
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: outOfFocusFPS
       value: 10
       objectReference: {fileID: 0}
@@ -5505,6 +5557,10 @@ PrefabInstance:
     - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: useMouseFocus
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
+      propertyPath: Stage2FoveationHz
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: Stage1FoveationFPS
@@ -8551,3 +8607,4 @@ SceneRoots:
   - {fileID: 1860936127}
   - {fileID: 1495928391}
   - {fileID: 2103362220}
+  - {fileID: 673914414}
