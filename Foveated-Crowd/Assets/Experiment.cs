@@ -18,6 +18,7 @@ public class Experiment : MonoBehaviour
     [SerializeField] public UnityEngine.UI.Button restartButton;
     public ushort numberOfScenes = 10;
     [FormerlySerializedAs("sceneTime")] public double stageTime = 10;
+    public VideoClip foveationExampleVideo;
     public VideoClip[] branch1Videos;
     public VideoClip[] branch2Videos;
     public VideoClip[] branch3Videos;
@@ -38,6 +39,8 @@ public class Experiment : MonoBehaviour
     private double[] _detectedTimes;
 
     private bool finished = false;
+
+    private bool onExampleVideo = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,60 +62,63 @@ public class Experiment : MonoBehaviour
     void Update()
     {
         if (finished) return;
-        
-        if (Input.GetKeyUp(KeyCode.Space) && vp.isPlaying)
-        {
-            
-            if(_detectedOnce && _detectedStage == timeToFoveationStage())
-            {
-                vp.Pause();
-                EndReached(vp);
-                return;
-            }
 
-            _detectedOnce = true;
-            _detectedStage = timeToFoveationStage();
-            _detectedTimes[_currentScene * 2] = vp.time;
-            instructions.text = "Take a second to locate the focus point, then press SPACE.";
-            
-            _currentTime = vp.time;
-            _currentBranch = (_currentBranch + 1) % 3;
-            StartCoroutine(prepareVideo());
-        }
-        else if (Input.GetKeyUp(KeyCode.Space) && !vp.isPlaying)
+        if (!onExampleVideo)
         {
-            instructions.enabled = false;
-            vp.Play();
-        }
-        else if (Input.GetKeyUp(KeyCode.S))
-        {
-            if (vp.isPlaying)
+            if (Input.GetKeyUp(KeyCode.Space) && vp.isPlaying)
             {
-                instructions.text = "Paused.";
-                instructions.enabled = true;
-                vp.Pause();
+            
+                if(_detectedOnce && _detectedStage == timeToFoveationStage())
+                {
+                    vp.Pause();
+                    EndReached(vp);
+                    return;
+                }
+
+                _detectedOnce = true;
+                _detectedStage = timeToFoveationStage();
+                _detectedTimes[_currentScene * 2] = vp.time;
+                instructions.text = "Take a second to locate the focus point, then press SPACE.";
+            
+                _currentTime = vp.time;
+                _currentBranch = (_currentBranch + 1) % 3;
+                StartCoroutine(prepareVideo());
             }
-            else
+            else if (Input.GetKeyUp(KeyCode.Space) && !vp.isPlaying)
             {
                 instructions.enabled = false;
                 vp.Play();
             }
-        } 
-        else if (Input.GetKeyUp(KeyCode.R))
+            else if (Input.GetKeyUp(KeyCode.S))
+            {
+                if (vp.isPlaying)
+                {
+                    instructions.text = "Paused.";
+                    instructions.enabled = true;
+                    vp.Pause();
+                }
+                else
+                {
+                    instructions.enabled = false;
+                    vp.Play();
+                }
+            } 
+            else if (Input.GetKeyUp(KeyCode.R))
+            {
+                //Reset stage
+                restartFoveationVideo();
+            }   
+        }
+        if (Input.GetKeyUp(KeyCode.E))
         {
-            //Reset stage
-            if(vp.isPlaying) vp.Pause();
-            instructions.text = "Take a second to locate the focus point, then press SPACE.";
-            instructions.enabled = true;
-            _detectedStage = 0;
-            _detectedOnce = false;
-            StartCoroutine(prepareVideo(true));
+            playExampleVideo();
         }
     }
 
-    private IEnumerator prepareVideo(bool startAt0 = false)
+    private IEnumerator prepareVideo(bool startAt0 = false, bool playExample = false)
     {
-        vp.clip = branches[_currentBranch][_currentScene];
+        if (!playExample) vp.clip = branches[_currentBranch][_currentScene];
+        else vp.clip = foveationExampleVideo;
 
         vp.Prepare();
         while (!vp.isPrepared)
@@ -120,7 +126,7 @@ public class Experiment : MonoBehaviour
             yield return null;
         }
 
-        if (!startAt0)
+        if (!startAt0 && !playExample)
         {
             int integerDiv = System.Convert.ToInt32(Math.Floor((_currentTime - stageTime) / stageTime));
             Debug.Log("Integer Div is " + integerDiv + " with currentTime - stageTime = " + (_currentTime - stageTime));
@@ -135,13 +141,27 @@ public class Experiment : MonoBehaviour
             vp.frame = 0;
         }
         vp.Play();
-        yield return new WaitForSeconds(0.2f);
-        instructions.enabled = true;
-        vp.Pause();
+        if (!playExample)
+        {
+            vp.isLooping = false;
+            yield return new WaitForSeconds(0.2f);
+            instructions.enabled = true;
+            vp.Pause();
+        }
+        else
+        {
+            vp.isLooping = true;
+            instructions.enabled = false;
+        }
     }
 
     void EndReached(UnityEngine.Video.VideoPlayer vp)
     {
+        if (onExampleVideo)
+        {
+            StartCoroutine(prepareVideo(true, true));
+            return;
+        }
         _detectedStages[_currentScene] = timeToFoveationStage();
         _detectedTimes[_currentScene * 2 + 1] = vp.time;
         
@@ -177,6 +197,31 @@ public class Experiment : MonoBehaviour
     {
         if(time == 0) return System.Convert.ToUInt32(Math.Floor(vp.time / stageTime));
         else return System.Convert.ToUInt32(Math.Floor(time / stageTime));
+    }
+
+    private void playExampleVideo()
+    {
+        if (!onExampleVideo)
+        {
+            onExampleVideo = true;
+            StartCoroutine(prepareVideo(true, true));
+        }
+        else
+        {
+            onExampleVideo = false;
+            restartFoveationVideo();
+        }
+    }
+
+    private void restartFoveationVideo()
+    {
+        //Reset stage
+        if(vp.isPlaying) vp.Pause();
+        instructions.text = "Take a second to locate the focus point, then press SPACE.";
+        instructions.enabled = true;
+        _detectedStage = 0;
+        _detectedOnce = false;
+        StartCoroutine(prepareVideo(true));
     }
 
     public void restartScene()

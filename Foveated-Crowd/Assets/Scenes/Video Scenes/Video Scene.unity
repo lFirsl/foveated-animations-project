@@ -344,38 +344,39 @@ MonoBehaviour:
   restartButton: {fileID: 719736105}
   numberOfScenes: 10
   stageTime: 10
+  foveationExampleVideo: {fileID: 32900000, guid: 8d365637e0717ea47a54db299609fb23, type: 3}
   branch1Videos:
   - {fileID: 32900000, guid: d22386a002aec9c48ab15b235b2392a6, type: 3}
-  - {fileID: 32900000, guid: 8e9fe6fa534ad26448d40d99a958a2e0, type: 3}
   - {fileID: 32900000, guid: b19d7d8327fc428488bc7c3b7f016822, type: 3}
-  - {fileID: 32900000, guid: 590f03035801c774f8fa6404a8ec4407, type: 3}
   - {fileID: 32900000, guid: 2b52211ce2f1cb0448903af0dae6563e, type: 3}
-  - {fileID: 32900000, guid: 7f659873d71da9340a8c0b75a09c3488, type: 3}
   - {fileID: 32900000, guid: dfe3b3e80763e664993efa0b6afe2b5b, type: 3}
-  - {fileID: 32900000, guid: 16cd5c8835e2a8a49b12a7627bc405a6, type: 3}
   - {fileID: 32900000, guid: 55a0b9f5e78170440bdb26de114e685e, type: 3}
+  - {fileID: 32900000, guid: 8e9fe6fa534ad26448d40d99a958a2e0, type: 3}
+  - {fileID: 32900000, guid: 590f03035801c774f8fa6404a8ec4407, type: 3}
+  - {fileID: 32900000, guid: 7f659873d71da9340a8c0b75a09c3488, type: 3}
+  - {fileID: 32900000, guid: 16cd5c8835e2a8a49b12a7627bc405a6, type: 3}
   - {fileID: 32900000, guid: ee95693e4b9d72e4eb9e0a22bc26202c, type: 3}
   branch2Videos:
   - {fileID: 32900000, guid: d2d951e090eb4474a8d884d0112a1d49, type: 3}
-  - {fileID: 32900000, guid: 7dcf702e08b433f43a2bcedb39efdf61, type: 3}
   - {fileID: 32900000, guid: 104878ba8a1990e499787a2cec779683, type: 3}
-  - {fileID: 32900000, guid: 68c0db9ebaed4454aae3754475f98512, type: 3}
   - {fileID: 32900000, guid: ffcb0fd2dab9cf24f8f3d7c4603142f7, type: 3}
-  - {fileID: 32900000, guid: 999761dd4c217bc4190d60b05a5fe0f9, type: 3}
   - {fileID: 32900000, guid: dcbb2bf8d7447264f92c8a313648684b, type: 3}
-  - {fileID: 32900000, guid: a2593bda29cbc8141b5a136cbb273976, type: 3}
   - {fileID: 32900000, guid: ed3867d130fb8ee45a1a85e3268fe3a6, type: 3}
+  - {fileID: 32900000, guid: 7dcf702e08b433f43a2bcedb39efdf61, type: 3}
+  - {fileID: 32900000, guid: 68c0db9ebaed4454aae3754475f98512, type: 3}
+  - {fileID: 32900000, guid: 999761dd4c217bc4190d60b05a5fe0f9, type: 3}
+  - {fileID: 32900000, guid: a2593bda29cbc8141b5a136cbb273976, type: 3}
   - {fileID: 32900000, guid: 15b490104557d1f4a9baa64f0e75217a, type: 3}
   branch3Videos:
   - {fileID: 32900000, guid: 8ac848633747b064099b60c245b31b57, type: 3}
-  - {fileID: 32900000, guid: a52099803b69cc342bae3a8dcae8e1e9, type: 3}
   - {fileID: 32900000, guid: 837212efc800301478551bf472d3a3d7, type: 3}
-  - {fileID: 32900000, guid: e1c509e963f9d9f4aa4f90fb0997471e, type: 3}
   - {fileID: 32900000, guid: 4a6a60d87943931489a00cecbe8cbada, type: 3}
-  - {fileID: 32900000, guid: c9f786253925acd488f687bb012ceadf, type: 3}
   - {fileID: 32900000, guid: 942b71d35de44a648bbee1ab9819ceaf, type: 3}
-  - {fileID: 32900000, guid: 6f8314b35f923ca4184f3230a9d58deb, type: 3}
   - {fileID: 32900000, guid: 27ca518088edc73449bb0c39f7c451d7, type: 3}
+  - {fileID: 32900000, guid: a52099803b69cc342bae3a8dcae8e1e9, type: 3}
+  - {fileID: 32900000, guid: e1c509e963f9d9f4aa4f90fb0997471e, type: 3}
+  - {fileID: 32900000, guid: c9f786253925acd488f687bb012ceadf, type: 3}
+  - {fileID: 32900000, guid: 6f8314b35f923ca4184f3230a9d58deb, type: 3}
   - {fileID: 32900000, guid: fecfc4500ebd2544a88b0b6ef26009bf, type: 3}
 --- !u!64 &388779644
 MeshCollider:
