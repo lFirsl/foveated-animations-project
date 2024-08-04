@@ -5,12 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Basic Scenes/Wander Crowd.unity
     guid: b8b27cb2b3ce3104b899dc463684ddd3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Basic Scenes/Wander Crowd - Base.unity
-    guid: 817ab3aa61bfc00488e38f795730ef0d
+    guid: 7fdc22cdba2e1c542bfdd276269b638e
   - enabled: 0
     path: Assets/Scenes/Basic Scenes/Square Marathon.unity
     guid: 6ad4c0e29c51ce24ab09e52d61633b80
@@ -20,9 +20,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Basic Scenes/Intercepting Crowds.unity
     guid: b22f4203998715d4f850068a56b7d149
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Basic Scenes/Wander Crowd - Minimum Stop.unity
-    guid: 1c4d942d3d5644f41b05063709a295ab
+    guid: 34bd70faffd45174c82570dd807cd3ef
+  - enabled: 1
+    path: Assets/Scenes/Video Scenes/Video Scene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 9fd7d14a420608c41955d24fc80d12eb, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: e708652626edff04893cb8b433995533, type: 2}

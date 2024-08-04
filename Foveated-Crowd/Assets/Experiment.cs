@@ -7,12 +7,17 @@ using UnityEngine.Video;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 public class Experiment : MonoBehaviour
 {
     VideoPlayer vp;
     public TMP_Text instructions;
-    private ushort numberOfScenes = 10;
+    [SerializeField] public UnityEngine.UI.Button restartButton;
+    public ushort numberOfScenes = 10;
+    [FormerlySerializedAs("sceneTime")] public double stageTime = 10;
     public VideoClip[] branch1Videos;
     public VideoClip[] branch2Videos;
     public VideoClip[] branch3Videos;
@@ -24,7 +29,6 @@ public class Experiment : MonoBehaviour
     VideoClip[][] branches;
     
     //Time variables
-    public double sceneTime = 10;
     private double _currentTime = 0;
     
     //Detection variables
@@ -34,6 +38,8 @@ public class Experiment : MonoBehaviour
     private uint[] _detectedStages;
     
     bool started = false;
+
+    private bool finished = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,13 +51,16 @@ public class Experiment : MonoBehaviour
         branches[1] = branch2Videos;
         branches[2] = branch3Videos;
         vp.Pause();
-        vp.clip = branches[_currentBranch][_currentScene];
-        vp.Pause();
+        StartCoroutine(prepareVideo(true));
+        
+        restartButton.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (finished) return;
+        
         if (Input.GetKeyUp(KeyCode.Space) && started)
         {
             
@@ -64,6 +73,7 @@ public class Experiment : MonoBehaviour
 
             _detectedOnce = true;
             _detectedStage = timeToFoveationStage();
+            instructions.text = "Take a second to locate the focus point, then press SPACE.";
             
             _currentTime = vp.time;
             _currentBranch = (_currentBranch + 1) % 3;
@@ -84,7 +94,7 @@ public class Experiment : MonoBehaviour
         }
     }
 
-    private IEnumerator prepareVideo()
+    private IEnumerator prepareVideo(bool startAt0 = false)
     {
         vp.clip = branches[_currentBranch][_currentScene];
 
@@ -93,14 +103,22 @@ public class Experiment : MonoBehaviour
         {
             yield return null;
         }
-        
-        int integerDiv = System.Convert.ToInt32(Math.Floor((_currentTime - sceneTime) / sceneTime));
-        Debug.Log("Integer Div is " + integerDiv + " with currentTime - sceneTime = " + (_currentTime - sceneTime));
-        double newTime = System.Math.Max(integerDiv,0) * sceneTime;
-        Debug.Log("New Time is set to " + newTime + " at stage " + timeToFoveationStage(newTime) + " from " + _currentTime);
-        vp.time = newTime;
+
+        if (!startAt0)
+        {
+            int integerDiv = System.Convert.ToInt32(Math.Floor((_currentTime - stageTime) / stageTime));
+            Debug.Log("Integer Div is " + integerDiv + " with currentTime - stageTime = " + (_currentTime - stageTime));
+            double newTime = System.Math.Max(integerDiv,0) * stageTime;
+            Debug.Log("New Time is set to " + newTime + " at stage " + timeToFoveationStage(newTime) + " from " + _currentTime);
+            vp.time = newTime;
+            vp.frame = vp.frame;
+        }
+        else
+        {
+            vp.time = 0;
+            vp.frame = vp.frame;
+        }
         started = false;
-        vp.frame = vp.frame;
         vp.Play();
         yield return new WaitForSeconds(0.2f);
         instructions.enabled = true;
@@ -111,6 +129,7 @@ public class Experiment : MonoBehaviour
     {
         _detectedStages[_currentScene] = timeToFoveationStage();
         Debug.Log("Finished Scene " + _currentScene + " at stage " + _detectedStages[_currentScene] + ". Moving to next scene.");
+        instructions.text = "NEXT SCENE. \n\n Take a second to find the focus point, then press SPACE.";
         _currentScene++;
         _detectedOnce = false;
         if (_currentScene == branches[_currentBranch].Length)
@@ -120,24 +139,34 @@ public class Experiment : MonoBehaviour
         }
         else
         {
-            vp.time = 0;
-            StartCoroutine(prepareVideo());
+            StartCoroutine(prepareVideo(true));
         }
     }
     void FinishExperiment()
     {
         print("we are done");
-        
+
+        finished = true;
+        instructions.text = "END OF TEST \n\n Thanks for taking part in our user test. Have a nice day!";
+        instructions.enabled = true;
         resultsToCSV();
         
+        restartButton.gameObject.SetActive(true);
+
         //write to a csv file the result as in "they detected at this fov level"
         //load next scene
     }
 
     private uint timeToFoveationStage(double time = 0)
     {
-        if(time == 0) return System.Convert.ToUInt32(Math.Floor(vp.time / sceneTime));
-        else return System.Convert.ToUInt32(Math.Floor(time / sceneTime));
+        if(time == 0) return System.Convert.ToUInt32(Math.Floor(vp.time / stageTime));
+        else return System.Convert.ToUInt32(Math.Floor(time / stageTime));
+    }
+
+    public void restartScene()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 
     private void resultsToCSV()
@@ -149,7 +178,7 @@ public class Experiment : MonoBehaviour
 
         if(!Directory.Exists(folder)) Directory.CreateDirectory(folder);
 #else
-        var folder = Application.persistentDataPath;
+        var folder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
 #endif
         var filePath = Path.Combine(folder, "export.csv");
         bool fileExists = File.Exists(filePath);
@@ -158,9 +187,9 @@ public class Experiment : MonoBehaviour
         // If file doesn't exist, create it and add headers.
         if (!fileExists)
         {
-            for (uint x = 0; x < numberOfScenes; x++)
+            for (uint x = 1; x <= numberOfScenes; x++)
             {
-                if (x != 0) sb.Append(",");
+                if (x != 1) sb.Append(",");
                 sb.Append("Scene ").Append(x);
             }
 
