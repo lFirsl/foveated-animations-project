@@ -144,7 +144,7 @@ public class FocusPointSphere : MonoBehaviour
         return worldRadius;
     }
     
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         /*
         Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
