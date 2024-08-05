@@ -1,5 +1,7 @@
 
+using System;
 using System.Runtime.InteropServices;
+using AOT;
 using UnityEngine;
 using ViveSR.anipal.Eye;
 
@@ -28,6 +30,7 @@ public class ReadEyeTrackingSample : MonoBehaviour
     public RayInfo getRightRay() { return rightRay; }
     public RayInfo getleftRay() { return leftRay; }
     // Update is called once per frame
+    [MonoPInvokeCallback(typeof(void))]
     void Update()
     {
         if (SRanipal_Eye_Framework.Status != SRanipal_Eye_Framework.FrameworkStatus.WORKING &&
@@ -59,7 +62,7 @@ public class ReadEyeTrackingSample : MonoBehaviour
             eye_callback_registered = false;
         }
     }
-
+    [MonoPInvokeCallback(typeof(void))]
     private static void EyeCallback(ref EyeData_v2 eye_data)
     {
         eyeData = eye_data;

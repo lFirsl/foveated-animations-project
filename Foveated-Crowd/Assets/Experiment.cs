@@ -18,6 +18,7 @@ public class Experiment : MonoBehaviour
     [SerializeField] public UnityEngine.UI.Button restartButton;
     public ushort numberOfScenes = 10;
     [FormerlySerializedAs("sceneTime")] public double stageTime = 10;
+    public double sceneTime = 100;
     public VideoClip foveationExampleVideo;
     public VideoClip[] branch1Videos;
     public VideoClip[] branch2Videos;
@@ -162,8 +163,19 @@ public class Experiment : MonoBehaviour
             StartCoroutine(prepareVideo(true, true));
             return;
         }
-        _detectedStages[_currentScene] = timeToFoveationStage();
-        _detectedTimes[_currentScene * 2 + 1] = vp.time;
+
+        if (vp.time > (sceneTime - 1))
+        {
+            _detectedStages[_currentScene] = System.Convert.ToUInt32(sceneTime/stageTime) + 1;
+            _detectedTimes[_currentScene * 2] = sceneTime;
+            _detectedTimes[_currentScene * 2 + 1] = sceneTime;
+        }
+        else
+        {
+            _detectedStages[_currentScene] = timeToFoveationStage();
+            _detectedTimes[_currentScene * 2 + 1] = vp.time; 
+        }
+        
         
         Debug.Log("Finished Scene " + _currentScene + " at stage " + _detectedStages[_currentScene] + ". Moving to next scene.");
         instructions.text = "NEXT SCENE. \n\n Take a second to find the focus point, then press SPACE.";

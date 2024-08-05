@@ -61,6 +61,15 @@ public class FocusPointSphere : MonoBehaviour
 
     private void Update()
     {
+        //Buttons for changing foveation levels
+        if (Input.GetKeyUp(KeyCode.Q)) foveationThreshold -= 0.05f;
+        else if (Input.GetKeyUp(KeyCode.W)) foveationThreshold += 0.05f;
+        else if (Input.GetKeyUp(KeyCode.E)) foveationThreshold2 -= 0.05f;
+        else if (Input.GetKeyUp(KeyCode.R)) foveationThreshold2 += 0.05f;
+        else if (Input.GetKeyUp(KeyCode.T)) stopThreshold -= 0.05f;
+        else if (Input.GetKeyUp(KeyCode.Y)) stopThreshold += 0.05f;
+        
+        
         // Cast a ray from the mouse position into the world
         Vector3 targetPosition;
 
