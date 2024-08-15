@@ -9212,7 +9212,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &296907468
 Transform:
   m_ObjectHideFlags: 0
@@ -14156,7 +14156,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.33333334
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 78d743780b7e81e4a9b610678e854b4b, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: d1e02420fed70754c95738544d399081, type: 2}
   m_BuildHeightMesh: 0
 --- !u!64 &400160222
 MeshCollider:
@@ -25414,7 +25414,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &806399762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26746,7 +26746,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1682493945}
   m_Father: {fileID: 350736824}
   m_LocalEulerAnglesHint: {x: 38.381, y: 180, z: 0}
 --- !u!114 &841642508
@@ -41999,6 +42000,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Female_Protagonist
       objectReference: {fileID: 0}
+    - target: {fileID: 1725166724769665639, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2070201528681498845, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.30029
@@ -42060,6 +42065,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
+      propertyPath: useHaltStop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
+      propertyPath: MinimumStopHz
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: outOfFocusFPS
       value: 10
       objectReference: {fileID: 0}
@@ -42070,6 +42083,10 @@ PrefabInstance:
     - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: useMouseFocus
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
+      propertyPath: Stage2FoveationHz
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: Stage1FoveationFPS
@@ -52391,6 +52408,98 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ced01e05d6190384eb4a2072e151f434, type: 3}
+--- !u!1 &1682493943
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1682493945}
+  - component: {fileID: 1682493944}
+  - component: {fileID: 1682493946}
+  - component: {fileID: 1682493947}
+  m_Layer: 0
+  m_Name: EyeTrackingTobii
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1682493944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682493943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 323f6169a2404ef4293c9be9671a1803, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Settings:
+    EyeTrackingFilter: {fileID: 1682493946}
+    StandaloneEyeTrackingProviders:
+    - TypeName: HTCProvider
+    - TypeName: Tobii.XR.TobiiProvider
+    - TypeName: Tobii.XR.NoseDirectionProvider
+    - TypeName: Tobii.XR.MouseProvider
+    AndroidEyeTrackingProviders:
+    - TypeName: Tobii.XR.TobiiProvider
+    - TypeName: Tobii.XR.PicoXRProvider
+    - TypeName: Tobii.XR.NoseDirectionProvider
+    - TypeName: Tobii.XR.MouseProvider
+    LayerMask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    HowLongToKeepCandidatesInSeconds: 1
+    AdvancedEnabled: 0
+    OcumenLicense: 
+    PopupLicenseValidationErrors: 0
+    LicenseAsset: {fileID: 0}
+--- !u!4 &1682493945
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682493943}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 841642506}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1682493946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682493943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3aba6b2b69e49f47a4e730c7e001e86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _settings:
+    _selectedPercetileIndex: 99
+--- !u!114 &1682493947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682493943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5e6ffb3a039b894cbef0462579a50bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1683969247 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1132035586965104265, guid: ced01e05d6190384eb4a2072e151f434, type: 3}

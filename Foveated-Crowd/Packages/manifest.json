@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.tobii.xr.sdk": "file:C:/CodeRepository/foveated-animations-project/TobiiXRSDK_3.0.1.179",
     "com.unity.ai.navigation": "1.1.5",
     "com.unity.collab-proxy": "2.2.0",
     "com.unity.feature.development": "1.0.1",

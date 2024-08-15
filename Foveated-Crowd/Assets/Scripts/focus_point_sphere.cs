@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
+using ViveSR.anipal.Eye;
 
 
 public class FocusPointSphere : MonoBehaviour
@@ -12,7 +14,7 @@ public class FocusPointSphere : MonoBehaviour
 
     [Header("VR Controls")] 
     public bool useVR = false;
-    [SerializeField] private ReadEyeTrackingSample _eyes;
+    private IReadEye _eyes;
     
     [FormerlySerializedAs("shouldStop")]
     [Header("Foveated Animation Update Frequencies")]
@@ -56,8 +58,11 @@ public class FocusPointSphere : MonoBehaviour
         Debug.Log("Started");
 
         _agentsFov = FindObjectsOfType<FoveatedAnimationTarget>();
+
+        _eyes = FindObjectsOfType<MonoBehaviour>(true).OfType<IReadEye>().FirstOrDefault();
+
     }
-    
+
 
     private void Update()
     {
