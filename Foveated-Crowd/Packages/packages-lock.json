@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.tobii.xr.sdk": {
-      "version": "file:C:/CodeRepository/foveated-animations-project/TobiiXRSDK_3.0.1.179",
+      "version": "file:../../TobiiXRSDK_3.0.1.179",
       "depth": 0,
       "source": "local",
       "dependencies": {
