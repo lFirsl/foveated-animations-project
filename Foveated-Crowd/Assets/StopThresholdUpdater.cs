@@ -25,8 +25,8 @@ public class StopThresholdUpdater : MonoBehaviour
 
     private void updateText()
     {
-        sign.text = "Stop = " + Math.Round(focusPoint.stopThreshold,2) + 
-                    "; Fov1 = " + Math.Round(focusPoint.foveationThreshold,2) +
-                    "; Fov2 = " + Math.Round(focusPoint.foveationThreshold2, 2);
+        sign.text = "Fov1 =  " + Math.Round(focusPoint.foveationThreshold,2) + 
+                    "; Fov2 = " + Math.Round(focusPoint.foveationThreshold2,2) +
+                    "; Stop = " + Math.Round(focusPoint.stopThreshold, 2);
     }
 }

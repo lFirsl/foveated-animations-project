@@ -36,6 +36,8 @@ public class FocusPointSphere : MonoBehaviour
     [Header("Animation Variables")]
     [SerializeField] private float animationsResetTime = 0.5f;
     [SerializeField] private float animationsUpdateFrequency = 1f;
+
+    [Header("Debugging")] [SerializeField] private bool debugging = false;
     
     //private
     private FoveatedAnimationTarget[] _agentsFov;
@@ -55,7 +57,7 @@ public class FocusPointSphere : MonoBehaviour
     {
         _pos = gameObject.GetComponent<Transform>();
         _mainCamera = Camera.main;
-        Debug.Log("Started");
+        if (debugging) Debug.Log("Started");
 
         _agentsFov = FindObjectsOfType<FoveatedAnimationTarget>();
 
@@ -69,10 +71,10 @@ public class FocusPointSphere : MonoBehaviour
         //Buttons for changing foveation levels
         if (Input.GetKeyUp(KeyCode.Q)) foveationThreshold = System.Math.Max(foveationThreshold - 0.05f,0);
         else if (Input.GetKeyUp(KeyCode.W)) foveationThreshold = System.Math.Min(foveationThreshold + 0.05f, 1f);
-        else if (Input.GetKeyUp(KeyCode.E)) foveationThreshold2 = System.Math.Max(foveationThreshold2 - 0.05f,0);
-        else if (Input.GetKeyUp(KeyCode.R)) foveationThreshold2 = System.Math.Min(foveationThreshold2 + 0.05f, 1f);
-        else if (Input.GetKeyUp(KeyCode.T)) stopThreshold = System.Math.Max(stopThreshold - 0.05f,0);
-        else if (Input.GetKeyUp(KeyCode.Y)) stopThreshold = System.Math.Min(stopThreshold + 0.05f, 1f);
+        else if (Input.GetKeyUp(KeyCode.A)) foveationThreshold2 = System.Math.Max(foveationThreshold2 - 0.05f,0);
+        else if (Input.GetKeyUp(KeyCode.S)) foveationThreshold2 = System.Math.Min(foveationThreshold2 + 0.05f, 1f);
+        else if (Input.GetKeyUp(KeyCode.Z)) stopThreshold = System.Math.Max(stopThreshold - 0.05f,0);
+        else if (Input.GetKeyUp(KeyCode.X)) stopThreshold = System.Math.Min(stopThreshold + 0.05f, 1f);
         
         
         // Cast a ray from the mouse position into the world
@@ -85,7 +87,7 @@ public class FocusPointSphere : MonoBehaviour
                 out RaycastHit vrHit,Mathf.Infinity,
                 _rayLayerMask))
         {
-            Debug.Log("Got a hit with the VR! Location:" + vrHit.point);
+            if (debugging) Debug.Log("Got a hit with the VR! Location:" + vrHit.point);
             targetPosition = vrHit.point;
         }
         // Check if the ray hits something in the world
@@ -135,33 +137,10 @@ public class FocusPointSphere : MonoBehaviour
         
         return Vector2.Distance(normalizedPos1, _centreNSD);
     }
-
-    private float ScreenToWorldRadius(Vector3 target,float threshold = -1.0f)
-    {
-        // Calculate the distance from the camera to the center point
-        float distanceToCenter = Vector3.Distance(Camera.main.transform.position, target);
-
-        if (threshold == -1.0f) threshold = stopThreshold;
-        // Calculate the world-space radius based on the distance from the camera
-        float worldRadius = Mathf.Clamp(threshold * distanceToCenter, 0f, 100f);
-        // Debug.Log("Distance from camera is: " + distanceToCenter + " , with a World Radius of: " + worldRadius);
-        
-        return worldRadius;
-    }
     
     private void OnDrawGizmos()
     {
-        /*
-        Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
-        Gizmos.DrawSphere(transform.position, ScreenToWorldRadius(transform.position));
-        
-        Gizmos.color = new Color(0f, 1f, 0f, 0.3f);
-        Gizmos.DrawSphere(transform.position, ScreenToWorldRadius(transform.position,foveationThreshold));
-        
-        Gizmos.color = new Color(0f, 0f, 1f, 0.3f);
-        Gizmos.DrawSphere(transform.position, ScreenToWorldRadius(transform.position,foveationThreshold2));
-        */
-        
+        if (_agentsFov.Length <= 0) return;
         foreach(FoveatedAnimationTarget agent in _agentsFov)
         {
             if (agent.isAnimationEnabled() && !agent.lowFps)
