@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 using ViveSR.anipal.Eye;
@@ -35,14 +36,12 @@ public class FocusPointSphere : MonoBehaviour
     
     [Header("Animation Variables")]
     [SerializeField] private float animationsResetTime = 0.5f;
-    [SerializeField] private float animationsUpdateFrequency = 1f;
 
     [Header("Debugging")] [SerializeField] private bool debugging = false;
     
     //private
     private FoveatedAnimationTarget[] _agentsFov;
     private Collider[] agents = new Collider[800];
-    private int segments = 36;
     
     // Get screen dimensions
     private float _screenWidth = Screen.width;
@@ -138,9 +137,10 @@ public class FocusPointSphere : MonoBehaviour
         return Vector2.Distance(normalizedPos1, _centreNSD);
     }
     
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        if (_agentsFov.Length <= 0) return;
+        if (!EditorApplication.isPlaying) return;
         foreach(FoveatedAnimationTarget agent in _agentsFov)
         {
             if (agent.isAnimationEnabled() && !agent.lowFps)
@@ -159,4 +159,5 @@ public class FocusPointSphere : MonoBehaviour
             Gizmos.DrawSphere(agent.transform.position, 1);
         }
     }
+#endif
 }
