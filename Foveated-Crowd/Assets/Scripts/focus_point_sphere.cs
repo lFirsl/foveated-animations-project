@@ -36,8 +36,13 @@ public class FocusPointSphere : MonoBehaviour
     
     [Header("Animation Variables")]
     [SerializeField] private float animationsResetTime = 0.5f;
-
-    [Header("Debugging")] [SerializeField] private bool debugging = false;
+    
+    [Header("Debugging")] 
+    [SerializeField] private bool debuggingMessages = false;
+    [SerializeField] private bool displayFoveationLevels = false;
+    [SerializeField] private GameObject sphere;
+    [SerializeField] private Material sphereMaterial;
+    
     
     //private
     private FoveatedAnimationTarget[] _agentsFov;
@@ -56,7 +61,7 @@ public class FocusPointSphere : MonoBehaviour
     {
         _pos = gameObject.GetComponent<Transform>();
         _mainCamera = Camera.main;
-        if (debugging) Debug.Log("Started");
+        if (debuggingMessages) Debug.Log("Started");
 
         _agentsFov = FindObjectsOfType<FoveatedAnimationTarget>();
 
@@ -74,6 +79,10 @@ public class FocusPointSphere : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.S)) foveationThreshold2 = System.Math.Min(foveationThreshold2 + 0.05f, 1f);
         else if (Input.GetKeyUp(KeyCode.Z)) stopThreshold = System.Math.Max(stopThreshold - 0.05f,0);
         else if (Input.GetKeyUp(KeyCode.X)) stopThreshold = System.Math.Min(stopThreshold + 0.05f, 1f);
+        else if (Input.GetKeyUp(KeyCode.D))
+        {
+            displayFoveationLevels = !displayFoveationLevels;
+        }
         
         
         // Cast a ray from the mouse position into the world
@@ -86,7 +95,7 @@ public class FocusPointSphere : MonoBehaviour
                 out RaycastHit vrHit,Mathf.Infinity,
                 _rayLayerMask))
         {
-            if (debugging) Debug.Log("Got a hit with the VR! Location:" + vrHit.point);
+            if (debuggingMessages) Debug.Log("Got a hit with the VR! Location:" + vrHit.point);
             targetPosition = vrHit.point;
         }
         // Check if the ray hits something in the world
@@ -119,13 +128,31 @@ public class FocusPointSphere : MonoBehaviour
         float distance = ScreenDistanceToCentre(agent.transform.position);
         
         //Outside our stop threshold. Skip other checks
-        if (distance > stopThreshold) return;
+        if (distance > stopThreshold)
+        {
+            if(displayFoveationLevels && agent.isSphereActive()) agent.sphereSetActive(false);
+            return;
+        }
+        if(!displayFoveationLevels && agent.isSphereActive()) agent.sphereSetActive(false); 
+        else if(displayFoveationLevels && !agent.isSphereActive()) agent.sphereSetActive(true);
         
         //Restart animations - then determine the update frequency rate.
         agent.RestartAnimation(animationsResetTime);
-        if (distance > foveationThreshold2) agent.SetFixedFPS(Stage2FoveationHz, animationsResetTime);
-        else if (distance > foveationThreshold) agent.SetFixedFPS(Stage1FoveationHz,animationsResetTime);
-        else agent.SetForegroundFPS(animationsResetTime);
+        if (distance > foveationThreshold2)
+        {
+            agent.SetFixedFPS(Stage2FoveationHz, animationsResetTime);
+            if(displayFoveationLevels) agent.setSphereColour(new Color(0f, 0f, 1f, 0.3f));
+        }
+        else if (distance > foveationThreshold)
+        {
+            agent.SetFixedFPS(Stage1FoveationHz,animationsResetTime);
+            if(displayFoveationLevels) agent.setSphereColour(new Color(0f, 1f, 0f, 0.3f));
+        }
+        else
+        {
+            agent.SetForegroundFPS(animationsResetTime);
+            if(displayFoveationLevels) agent.setSphereColour(new Color(1f, 0f, 0f, 0.3f));
+        }
     }
 
     private float ScreenDistanceToCentre(Vector3 agent)
@@ -138,7 +165,7 @@ public class FocusPointSphere : MonoBehaviour
     }
     
 #if UNITY_EDITOR
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         if (!EditorApplication.isPlaying) return;
         foreach(FoveatedAnimationTarget agent in _agentsFov)

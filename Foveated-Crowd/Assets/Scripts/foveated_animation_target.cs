@@ -24,12 +24,17 @@ public class FoveatedAnimationTarget : MonoBehaviour
     [NonSerialized] public bool lowFps = false;
     private float timeToStop;
     
+    [Header("Debugging")]
+    [SerializeField] private GameObject sphere;
+    private Material sphereMaterial;
+    
     // Start is called before the first frame update
     void Start()
     {
         _anim = GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();
         _waitTime = 1f / lowFpsFrames;
+        sphereMaterial = sphere.GetComponent<MeshRenderer>().material;
         StartCoroutine(LowFramerate());
 
         focus = FindObjectOfType<FocusPointSphere>();
@@ -130,5 +135,18 @@ public class FoveatedAnimationTarget : MonoBehaviour
     public bool isAnimationEnabled()
     {
         return _anim.enabled;
+    }
+
+    public bool isSphereActive()
+    {
+        return sphere.activeSelf;
+    }
+    public void sphereSetActive(bool active)
+    {
+        sphere.SetActive(active);
+    }
+    public void setSphereColour(Color colour)
+    {
+        sphereMaterial.SetColor("_Color", colour);
     }
 }
