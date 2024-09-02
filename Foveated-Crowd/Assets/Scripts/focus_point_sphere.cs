@@ -57,6 +57,10 @@ public class FocusPointSphere : MonoBehaviour
     private Transform _pos;
     private Camera _mainCamera;
     
+    //etc
+    private readonly float foveationStep = 0.025f;
+    private bool useRightEye = false;
+    
     void Start()
     {
         _pos = gameObject.GetComponent<Transform>();
@@ -73,15 +77,19 @@ public class FocusPointSphere : MonoBehaviour
     private void Update()
     {
         //Buttons for changing foveation levels
-        if (Input.GetKeyUp(KeyCode.Q)) foveationThreshold = System.Math.Max(foveationThreshold - 0.05f,0);
-        else if (Input.GetKeyUp(KeyCode.W)) foveationThreshold = System.Math.Min(foveationThreshold + 0.05f, 1f);
-        else if (Input.GetKeyUp(KeyCode.A)) foveationThreshold2 = System.Math.Max(foveationThreshold2 - 0.05f,0);
-        else if (Input.GetKeyUp(KeyCode.S)) foveationThreshold2 = System.Math.Min(foveationThreshold2 + 0.05f, 1f);
-        else if (Input.GetKeyUp(KeyCode.Z)) stopThreshold = System.Math.Max(stopThreshold - 0.05f,0);
-        else if (Input.GetKeyUp(KeyCode.X)) stopThreshold = System.Math.Min(stopThreshold + 0.05f, 1f);
+        if (Input.GetKeyUp(KeyCode.Q)) foveationThreshold = System.Math.Max(foveationThreshold - foveationStep,0);
+        else if (Input.GetKeyUp(KeyCode.W)) foveationThreshold = System.Math.Min(foveationThreshold + foveationStep, 1f);
+        else if (Input.GetKeyUp(KeyCode.A)) foveationThreshold2 = System.Math.Max(foveationThreshold2 - foveationStep,0);
+        else if (Input.GetKeyUp(KeyCode.S)) foveationThreshold2 = System.Math.Min(foveationThreshold2 + foveationStep, 1f);
+        else if (Input.GetKeyUp(KeyCode.Z)) stopThreshold = System.Math.Max(stopThreshold - foveationStep,0);
+        else if (Input.GetKeyUp(KeyCode.X)) stopThreshold = System.Math.Min(stopThreshold + foveationStep, 1f);
         else if (Input.GetKeyUp(KeyCode.D))
         {
             displayFoveationLevels = !displayFoveationLevels;
+        }
+        else if (Input.GetKeyUp(KeyCode.E))
+        {
+            useRightEye = !useRightEye;
         }
         
         
@@ -91,7 +99,7 @@ public class FocusPointSphere : MonoBehaviour
         //If we're not using rays, center around game object instead
         if (useVR && Physics.Raycast(new Ray(
                 _mainCamera.transform.position,
-                _mainCamera.transform.localToWorldMatrix * _eyes.getleftRay().dir), 
+                _mainCamera.transform.localToWorldMatrix * (useRightEye ? _eyes.getRightRay().dir :_eyes.getleftRay().dir)), 
                 out RaycastHit vrHit,Mathf.Infinity,
                 _rayLayerMask))
         {
@@ -162,6 +170,11 @@ public class FocusPointSphere : MonoBehaviour
         Vector2 normalizedPos1 = new Vector2(agentScreenPos.x / _screenWidth, agentScreenPos.y / _screenHeight);
         
         return Vector2.Distance(normalizedPos1, _centreNSD);
+    }
+
+    public bool UsingRighteye()
+    {
+        return useRightEye;
     }
     
 #if UNITY_EDITOR

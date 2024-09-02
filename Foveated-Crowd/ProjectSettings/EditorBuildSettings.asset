@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Basic Scenes/Wander Crowd.unity
     guid: b8b27cb2b3ce3104b899dc463684ddd3
   - enabled: 0
@@ -29,7 +29,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Basic Scenes/Wander Crowd - VR.unity
     guid: 242f64efc77019c4cb12659e96e1c840
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Basic Scenes/Wander Crowd - VR 2.unity
     guid: 2a0afab46869a2e4fb5bbea396adabef
   m_configObjects:

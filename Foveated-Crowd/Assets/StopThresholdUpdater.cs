@@ -14,19 +14,33 @@ public class StopThresholdUpdater : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        updateText();
+        StartCoroutine(updateTextCoroutine());
     }
 
-    // Update is called once per frame
-    private void FixedUpdate()
+    private IEnumerator updateTextCoroutine()
     {
-        updateText();
+        while (true)
+        {
+            updateText();
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     private void updateText()
     {
-        sign.text = "Fov1 =  " + Math.Round(focusPoint.foveationThreshold,2) + 
-                    "; Fov2 = " + Math.Round(focusPoint.foveationThreshold2,2) +
-                    "; Stop = " + Math.Round(focusPoint.stopThreshold, 2);
+        String leftRightEye;
+        if (focusPoint.UsingRighteye())
+        {
+            leftRightEye = "Right Eye";
+        }
+        else
+        {
+            leftRightEye = "Left Eye";
+        }
+        sign.text = "Fov1 =  " + Math.Round(focusPoint.foveationThreshold, 3) +
+                    "; Fov2 = " + Math.Round(focusPoint.foveationThreshold2, 3) +
+                    "; Stop = " + Math.Round(focusPoint.stopThreshold, 3) +
+                    "; FPS ≈  " + (int)(1f / Time.deltaTime) +
+                    "; Using " + leftRightEye;
     }
 }
