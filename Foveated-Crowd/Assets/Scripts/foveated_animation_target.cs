@@ -100,7 +100,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
         //Instead, just update the timer and move on.
         if (timeToStop != 0 && timeToStop < Time.time && fps == currentFPS) return;
         currentFPS = fps;
-        float fpsToUse = fps + Random.Range(-frameVariation, frameVariation); // Add some randomization to avoid popping.
+        float fpsToUse = fps; //+ Random.Range(-frameVariation, frameVariation); // Add some randomization to avoid popping.
 
         if (fps == 0) _waitTime = 1f / lowFpsFrames;
         else _waitTime = 1f / fpsToUse;

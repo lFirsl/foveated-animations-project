@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.Serialization;
 using ViveSR.anipal.Eye;
 
@@ -38,8 +39,8 @@ public class FocusPointSphere : MonoBehaviour
     [SerializeField] private LayerMask layermask;
     
     [Header("Animation Variables")]
-    [SerializeField] private float animationsResetTime = 0.5f;
-    [SerializeField] private uint cappedHz = 120;
+    [SerializeField] private static readonly float animationsResetTime = 0.5f;
+    [SerializeField] private static readonly uint cappedHz = 120;
     
     [Header("Debugging")] 
     [SerializeField] private bool debuggingMessages = false;
@@ -51,6 +52,8 @@ public class FocusPointSphere : MonoBehaviour
     //private
     private FoveatedAnimationTarget[] _agentsFov;
     private Collider[] agents = new Collider[800];
+    private static readonly Color tMagenta = new Color(1f, 0f, 1f, 0.3f);
+    private static readonly Color tGreen = new Color(0f, 1f, 0f, 0.3f);
     
     // Get screen dimensions
     private float _screenWidth = Screen.width;
@@ -129,61 +132,55 @@ public class FocusPointSphere : MonoBehaviour
         else centrePoint = _mainCamera.WorldToScreenPoint(targetPosition);
         _centreNSD = new Vector2(centrePoint.x / _screenWidth, centrePoint.y / _screenHeight);
         
+        Profiler.BeginSample("AFC All Agents Foveation Calculation");
         foreach(FoveatedAnimationTarget agent in _agentsFov)
         {
             DetermineAnimation(agent);
         }
+        Profiler.EndSample();
     }
 
     private void DetermineAnimation(FoveatedAnimationTarget agent)
     {
+        Profiler.BeginSample("AFC Individual Agent Foveation Level Calculation");
         float distance = ScreenDistanceToCentre(agent.transform.position);
-        
-        //Outside our stop threshold. Skip other checks
-        
-        if (distance > stopThreshold)
+        try
         {
-            if(displayFoveationLevels && agent.isSphereActive()) agent.sphereSetActive(false);
+            //Outside our stop threshold. Skip other checks
+            if (distance > stopThreshold)
+            {
+                if (displayFoveationLevels && agent.isSphereActive()) agent.sphereSetActive(false);
+                return;
+            }
+
+            if (!displayFoveationLevels && agent.isSphereActive()) agent.sphereSetActive(false);
+            else if (displayFoveationLevels && !agent.isSphereActive()) agent.sphereSetActive(true);
+
+            //Restart animations - then determine the update frequency rate.
+            agent.RestartAnimation(animationsResetTime);
+
+            //No point calculating anything if it's in the foreground. Make the check.
+            if (distance < foveaArea)
+            {
+                agent.SetForegroundFPS(animationsResetTime);
+                if (displayFoveationLevels) agent.setSphereColour(new Color(1f, 0f, 0f, 0.3f));
+                return;
+            }
+
+            //Calculation for Dynamic HZ
+            uint dynamicHz =
+                (uint)Mathf.Ceil(cappedHz / Mathf.Max(1, foveationFactor * (distance * 10) - foveaArea * 10));
+
+            //Debug.Log(dynamicHz);
+            agent.SetFixedFPS(dynamicHz, animationsResetTime);
+            // Map value from 0 to 120 to a color range (red to blue)
+            if (displayFoveationLevels) agent.setSphereColour(Color.Lerp(tMagenta, tGreen, (dynamicHz / (float)cappedHz)));
             return;
         }
-        if(!displayFoveationLevels && agent.isSphereActive()) agent.sphereSetActive(false); 
-        else if(displayFoveationLevels && !agent.isSphereActive()) agent.sphereSetActive(true);
-
-        //Restart animations - then determine the update frequency rate.
-        agent.RestartAnimation(animationsResetTime);
-
-        //No point calculating anything if it's in the foreground. Make the check.
-        if (distance < foveaArea)
+        finally
         {
-            agent.SetForegroundFPS(animationsResetTime);
-            if(displayFoveationLevels) agent.setSphereColour(new Color(1f, 0f, 0f, 0.3f));
-            return;
+            Profiler.EndSample();
         }
-        //Calculation for Dynamic HZ
-        float bDistance = distance * 10; //Get a distance that is bigger than 1
-        float divider = Mathf.Max(1, foveationFactor * (bDistance * bDistance) - foveaArea * 10);
-        uint dynamicHz =(uint) Mathf.Ceil(cappedHz / divider);
-        
-        Debug.Log(dynamicHz);
-        agent.SetFixedFPS(dynamicHz,animationsResetTime);
-        if(displayFoveationLevels) agent.setSphereColour(new Color(0f, 0f, 1f, 0.3f));
-        /*
-        if (distance > foveationThreshold2)
-        {
-            agent.SetFixedFPS(Stage2FoveationHz, animationsResetTime);
-            if(displayFoveationLevels) agent.setSphereColour(new Color(0f, 0f, 1f, 0.3f));
-        }
-        else if (distance > foveationThreshold)
-        {
-            agent.SetFixedFPS(Stage1FoveationHz,animationsResetTime);
-            if(displayFoveationLevels) agent.setSphereColour(new Color(0f, 1f, 0f, 0.3f));
-        }
-        else
-        {
-            agent.SetForegroundFPS(animationsResetTime);
-            if(displayFoveationLevels) agent.setSphereColour(new Color(1f, 0f, 0f, 0.3f));
-        }
-        */
     }
 
     private float ScreenDistanceToCentre(Vector3 agent)
