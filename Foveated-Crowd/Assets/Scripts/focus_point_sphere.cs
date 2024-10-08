@@ -39,8 +39,8 @@ public class FocusPointSphere : MonoBehaviour
     [SerializeField] private LayerMask layermask;
     
     [Header("Animation Variables")]
-    [SerializeField] private static readonly float animationsResetTime = 0.5f;
-    [SerializeField] private static readonly uint cappedHz = 120;
+    [SerializeField] private float animationsResetTime = 0.5f;
+    [SerializeField] private uint cappedHz = 120;
     
     [Header("Debugging")] 
     [SerializeField] private bool debuggingMessages = false;
@@ -169,7 +169,7 @@ public class FocusPointSphere : MonoBehaviour
 
             //Calculation for Dynamic HZ
             uint dynamicHz =
-                (uint)Mathf.Ceil(cappedHz / Mathf.Max(1, foveationFactor * (distance * 10) - foveaArea * 10));
+                (uint)Mathf.Ceil(cappedHz / Mathf.Max(1, foveationFactor * ((distance * 10) * (distance * 10)) - foveaArea * 10));
 
             //Debug.Log(dynamicHz);
             agent.SetFixedFPS(dynamicHz, animationsResetTime);
