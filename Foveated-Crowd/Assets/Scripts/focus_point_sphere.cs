@@ -43,6 +43,7 @@ public class FocusPointSphere : MonoBehaviour
     [Header("Debugging")] 
     [SerializeField] private bool debuggingMessages = false;
     [SerializeField] private bool displayFoveationLevels = false;
+    [SerializeField] private bool displayHz = false;
     [SerializeField] private GameObject sphere;
     [SerializeField] private Material sphereMaterial;
     
@@ -87,6 +88,10 @@ public class FocusPointSphere : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.D))
         {
             displayFoveationLevels = !displayFoveationLevels;
+        }
+        else if (Input.GetKeyUp(KeyCode.F))
+        {
+            displayHz = !displayHz;
         }
         else if (Input.GetKeyUp(KeyCode.E))
         {
@@ -163,12 +168,26 @@ public class FocusPointSphere : MonoBehaviour
 
             //Calculation for Dynamic HZ
             uint dynamicHz =
-                (uint)Mathf.Ceil(cappedHz / Mathf.Max(1, foveationFactor * ((distance * 10) * (distance * 10)) - foveaArea * 10));
+                (uint)Mathf.Ceil(
+                    cappedHz 
+                    / 
+                    Mathf.Max(
+                        1, 
+                        foveationFactor * 
+                        (
+                            (distance * 10) * (distance * 10))
+                        )
+                        - foveaArea * 10
+                    );
 
             //Debug.Log(dynamicHz);
             agent.SetFixedFPS(dynamicHz, animationsResetTime);
             // Map value from 0 to 120 to a color range (red to blue)
             if (displayFoveationLevels) agent.setSphereColour(Color.Lerp(tMagenta, tGreen, (dynamicHz / (float)cappedHz)));
+            if (displayHz)
+            {
+                //TODO: Add floating text
+            }
             return;
         }
         finally
