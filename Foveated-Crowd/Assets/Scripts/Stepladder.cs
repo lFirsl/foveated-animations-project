@@ -11,17 +11,20 @@ public class Stepladder : MonoBehaviour
     
     private IEnumerator stepladderProcedure()
     {
+        yield break;
+        /*
+         // Temporarily commented out
         yield return new WaitForSeconds(2);
         FocusPointSphere focus = FindObjectOfType<FocusPointSphere>();
         focus.stopThreshold = 1f;
         focus.foveationThreshold = 1f;
         focus.foveationThreshold2 = 1f;
-    
+
         Debug.Log(focus);
         yield return new WaitForSeconds(10);
         while(focus.stopThreshold > stopTestThreshold)
         {
-        
+
             focus.stopThreshold = tempStop;
             focus.foveationThreshold = tempThresh;
             focus.foveationThreshold2 = tempThresh2;
@@ -29,11 +32,12 @@ public class Stepladder : MonoBehaviour
             //If on the final step, give viewer more time to see if they can notice the foveation  in the last second.
             //if(focus.stopThreshold < stopTestThreshold) yield return new WaitForSeconds(10);
             yield return new WaitForSeconds(10);
-        
+
             tempStop -= 0.05f;
             if(tempThresh > stopTestThreshold - 0.05) tempThresh -= 0.05f;
             if(tempThresh2 > stopTestThreshold) tempThresh2 -= 0.05f;
         }
+        */
     }
     void Start()
     {

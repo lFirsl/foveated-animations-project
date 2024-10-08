@@ -31,8 +31,6 @@ public class FocusPointSphere : MonoBehaviour
     public uint MinimumStopHz = 5;
     
     [Header("Foveation Thresholds in Normalized Screen Distance")]
-    public float foveationThreshold = 0.2f;
-    public float foveationThreshold2 = 0.3f;
     public float stopThreshold = 0.4f;
     public float foveationFactor = 5f;
     public float foveaArea = 0.5f;
@@ -84,11 +82,7 @@ public class FocusPointSphere : MonoBehaviour
     private void Update()
     {
         //Buttons for changing foveation levels
-        if (Input.GetKeyUp(KeyCode.Q)) foveationThreshold = System.Math.Max(foveationThreshold - foveationStep,0);
-        else if (Input.GetKeyUp(KeyCode.W)) foveationThreshold = System.Math.Min(foveationThreshold + foveationStep, 1f);
-        else if (Input.GetKeyUp(KeyCode.A)) foveationThreshold2 = System.Math.Max(foveationThreshold2 - foveationStep,0);
-        else if (Input.GetKeyUp(KeyCode.S)) foveationThreshold2 = System.Math.Min(foveationThreshold2 + foveationStep, 1f);
-        else if (Input.GetKeyUp(KeyCode.Z)) stopThreshold = System.Math.Max(stopThreshold - foveationStep,0);
+        if (Input.GetKeyUp(KeyCode.Z)) stopThreshold = System.Math.Max(stopThreshold - foveationStep,0);
         else if (Input.GetKeyUp(KeyCode.X)) stopThreshold = System.Math.Min(stopThreshold + foveationStep, 1f);
         else if (Input.GetKeyUp(KeyCode.D))
         {
