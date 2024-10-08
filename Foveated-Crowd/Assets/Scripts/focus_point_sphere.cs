@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,10 +33,13 @@ public class FocusPointSphere : MonoBehaviour
     public float foveationThreshold = 0.2f;
     public float foveationThreshold2 = 0.3f;
     public float stopThreshold = 0.4f;
+    public float foveationFactor = 5f;
+    public float foveaArea = 0.5f;
     [SerializeField] private LayerMask layermask;
     
     [Header("Animation Variables")]
     [SerializeField] private float animationsResetTime = 0.5f;
+    [SerializeField] private uint cappedHz = 120;
     
     [Header("Debugging")] 
     [SerializeField] private bool debuggingMessages = false;
@@ -136,6 +140,7 @@ public class FocusPointSphere : MonoBehaviour
         float distance = ScreenDistanceToCentre(agent.transform.position);
         
         //Outside our stop threshold. Skip other checks
+        
         if (distance > stopThreshold)
         {
             if(displayFoveationLevels && agent.isSphereActive()) agent.sphereSetActive(false);
@@ -143,9 +148,26 @@ public class FocusPointSphere : MonoBehaviour
         }
         if(!displayFoveationLevels && agent.isSphereActive()) agent.sphereSetActive(false); 
         else if(displayFoveationLevels && !agent.isSphereActive()) agent.sphereSetActive(true);
-        
+
         //Restart animations - then determine the update frequency rate.
         agent.RestartAnimation(animationsResetTime);
+
+        //No point calculating anything if it's in the foreground. Make the check.
+        if (distance < foveaArea)
+        {
+            agent.SetForegroundFPS(animationsResetTime);
+            if(displayFoveationLevels) agent.setSphereColour(new Color(1f, 0f, 0f, 0.3f));
+            return;
+        }
+        //Calculation for Dynamic HZ
+        float bDistance = distance * 10; //Get a distance that is bigger than 1
+        float divider = Mathf.Max(1, foveationFactor * (bDistance * bDistance) - foveaArea * 10);
+        uint dynamicHz =(uint) Mathf.Ceil(cappedHz / divider);
+        
+        Debug.Log(dynamicHz);
+        agent.SetFixedFPS(dynamicHz,animationsResetTime);
+        if(displayFoveationLevels) agent.setSphereColour(new Color(0f, 0f, 1f, 0.3f));
+        /*
         if (distance > foveationThreshold2)
         {
             agent.SetFixedFPS(Stage2FoveationHz, animationsResetTime);
@@ -161,6 +183,7 @@ public class FocusPointSphere : MonoBehaviour
             agent.SetForegroundFPS(animationsResetTime);
             if(displayFoveationLevels) agent.setSphereColour(new Color(1f, 0f, 0f, 0.3f));
         }
+        */
     }
 
     private float ScreenDistanceToCentre(Vector3 agent)
