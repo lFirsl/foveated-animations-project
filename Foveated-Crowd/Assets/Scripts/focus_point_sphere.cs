@@ -51,8 +51,9 @@ public class FocusPointSphere : MonoBehaviour
     //private
     private FoveatedAnimationTarget[] _agentsFov;
     private Collider[] agents = new Collider[800];
-    private static readonly Color tMagenta = new Color(1f, 0f, 1f, 0.3f);
+    private static readonly Color tGrey = new Color(0.1f, 0.1f, 0.1f, 0.3f);
     private static readonly Color tGreen = new Color(0f, 1f, 0f, 0.3f);
+    private static readonly Color tRed = new Color(1f, 0.1f, 0.1f, 0.3f);
     
     // Get screen dimensions
     private float _screenWidth = Screen.width;
@@ -162,7 +163,7 @@ public class FocusPointSphere : MonoBehaviour
             if (distance < foveaArea)
             {
                 agent.SetForegroundFPS(animationsResetTime);
-                if (displayFoveationLevels) agent.setSphereColour(new Color(1f, 0f, 0f, 0.3f));
+                if (displayFoveationLevels) agent.setSphereColour(tGreen);
                 return;
             }
 
@@ -183,7 +184,7 @@ public class FocusPointSphere : MonoBehaviour
             //Debug.Log(dynamicHz);
             agent.SetFixedFPS(dynamicHz, animationsResetTime);
             // Map value from 0 to 120 to a color range (red to blue)
-            if (displayFoveationLevels) agent.setSphereColour(Color.Lerp(tMagenta, tGreen, (dynamicHz / (float)cappedHz)));
+            if (displayFoveationLevels) agent.setSphereColour(Color.Lerp(tGrey, tRed, (dynamicHz / (float)cappedHz)));
             if (displayHz)
             {
                 //TODO: Add floating text
