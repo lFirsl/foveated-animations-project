@@ -9196,50 +9196,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1132035586965104265, guid: ced01e05d6190384eb4a2072e151f434, type: 3}
   m_PrefabInstance: {fileID: 290092285}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &296907467
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 296907468}
-  - component: {fileID: 296907469}
-  m_Layer: 0
-  m_Name: EyeTrackReader
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &296907468
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296907467}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.126574, y: 26.299007, z: -97.2935}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &296907469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296907467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 639a63c280584b844be79a7c8bf9dbfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &297953652 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1132035586965104265, guid: ced01e05d6190384eb4a2072e151f434, type: 3}
@@ -25397,66 +25353,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1132035586965104265, guid: ced01e05d6190384eb4a2072e151f434, type: 3}
   m_PrefabInstance: {fileID: 450144820}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &806399761
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 806399764}
-  - component: {fileID: 806399763}
-  - component: {fileID: 806399762}
-  m_Layer: 0
-  m_Name: Eye_Tracking
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &806399762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 806399761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0556671ce689d1748acca8b221389f69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &806399763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 806399761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47613961cde0a8b4aa4f79219b7e523c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnableEye: 1
-  EnableEyeDataCallback: 1
-  EnableEyeVersion: 1
---- !u!4 &806399764
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 806399761}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &807304075
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42047,7 +41943,7 @@ PrefabInstance:
     - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: _eyes
       value: 
-      objectReference: {fileID: 296907469}
+      objectReference: {fileID: 0}
     - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: useVR
       value: 1
@@ -66267,6 +66163,4 @@ SceneRoots:
   - {fileID: 429832813}
   - {fileID: 393696874}
   - {fileID: 1343189442}
-  - {fileID: 296907468}
-  - {fileID: 806399764}
   - {fileID: 1286988451}
