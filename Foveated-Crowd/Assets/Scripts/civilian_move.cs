@@ -22,9 +22,13 @@ public class CivilianMove : MonoBehaviour
     [SerializeField] private float MinimumAnimationSpeed = 0.8f;
     [SerializeField] private float MaximumAnimationSpeed = 1.2f;
     
+    [SerializeField] private float AccelerationRate = 0.5f;
+    private float currentMaxSpeed;
+    
     //Animator variables
     private int _runningID;
     private int _fastID;
+    private bool decelerateRunning = false;
     private const string RunningString = "Running";
     private const string FastString = "Fast";
     void Start()
@@ -44,7 +48,16 @@ public class CivilianMove : MonoBehaviour
 
     private void Update()
     {
-        CheckStop();
+        if (_agent.speed > 0.01f && !_anim.GetBool(_runningID))
+        {
+            _anim.SetBool(_runningID, true);
+        }
+        else if (_agent.speed < 0.01 && _anim.GetBool(_runningID))
+        {
+            _anim.SetBool(_runningID, false);
+        }
+        
+        if(_agent.remainingDistance < stopThreshold) StartCoroutine(Decelerate());
     }
     
     private IEnumerator WanderSystem()
@@ -52,7 +65,7 @@ public class CivilianMove : MonoBehaviour
         while (this.isActiveAndEnabled)
         {
             _agent.SetDestination(RandomNavSphere(transform.position, wanderRadius, -1));
-            _agent.speed = Random.Range(minSpeed, maxSpeed);
+            currentMaxSpeed = Random.Range(minSpeed, maxSpeed);
 
             float wanderTimer = Random.Range(wanderTimerRange.x, wanderTimerRange.y);
             
@@ -62,20 +75,32 @@ public class CivilianMove : MonoBehaviour
             yield return new WaitForSeconds(wanderTimer);
         }
     }
+    
 
     private void StartRunningAnimation()
     {
-        _anim.SetBool(_fastID, _agent.speed >= slowFastThreshold);
-        _anim.SetBool(_runningID,true);
+        _agent.nextPosition = transform.position;
+        _anim.SetBool(_fastID, currentMaxSpeed >= slowFastThreshold);
+        //_anim.SetBool(_runningID,true);
+        _agent.speed = currentMaxSpeed;
+        //StartCoroutine(Accelerate());
+    }
+
+    private IEnumerator Accelerate()
+    {
+        //TODO
+        yield break;
     }
     
-    
-    private void CheckStop()
+    private IEnumerator Decelerate()
     {
-        if (!_agent.pathPending && _agent.remainingDistance < stopThreshold)
+        decelerateRunning = true;
+        while (_agent.speed > 0.01f)
         {
-            _anim.SetBool(_runningID,false);
+            _agent.speed = Mathf.Min(0f, _agent.speed - Time.deltaTime * AccelerationRate);
+            yield return null;
         }
+        decelerateRunning = false;
     }
 
     

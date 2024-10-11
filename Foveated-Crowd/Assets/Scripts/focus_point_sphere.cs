@@ -75,6 +75,7 @@ public class FocusPointSphere : MonoBehaviour
         if (debuggingMessages) Debug.Log("Started");
 
         _agentsFov = FindObjectsOfType<FoveatedAnimationTarget>();
+        if (debuggingMessages) Debug.Log("Got " + _agentsFov.Length + " Foveated Animation Targets");
 
         _eyes = FindObjectsOfType<MonoBehaviour>(true).OfType<IReadEye>().FirstOrDefault();
 
