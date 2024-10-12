@@ -48,13 +48,20 @@ public class CivilianMove : MonoBehaviour
 
     private void Update()
     {
-        if (_agent.speed > 0.01f && !_anim.GetBool(_runningID))
+        if (!_anim.GetBool(_runningID) && _agent.speed > 0.01f)
         {
             _anim.SetBool(_runningID, true);
+            //_anim.SetBool(_fastID, false);
         }
-        else if (_agent.speed < 0.01 && _anim.GetBool(_runningID))
+        else if (_anim.GetBool(_runningID))
         {
-            _anim.SetBool(_runningID, false);
+            if (_agent.speed < 0.01f)
+            {
+                _anim.SetBool(_runningID, false);
+                //_anim.SetBool(_fastID, false);
+            }
+            //else if (!_anim.GetBool(_fastID) && _agent.speed > slowFastThreshold) _anim.SetBool(_fastID, true);
+            //else if (_anim.GetBool(_fastID)) _anim.SetBool(_fastID, false);
         }
         
         if(_agent.remainingDistance < stopThreshold) StartCoroutine(Decelerate());
@@ -66,6 +73,7 @@ public class CivilianMove : MonoBehaviour
         {
             _agent.SetDestination(RandomNavSphere(transform.position, wanderRadius, -1));
             currentMaxSpeed = Random.Range(minSpeed, maxSpeed);
+            _anim.SetBool(_fastID, !(currentMaxSpeed < slowFastThreshold));
 
             float wanderTimer = Random.Range(wanderTimerRange.x, wanderTimerRange.y);
             

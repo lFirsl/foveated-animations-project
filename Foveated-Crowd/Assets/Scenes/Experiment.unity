@@ -2100,6 +2100,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 2050005715528468320, guid: 5d865f291842fb9459c7375ed057a923, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2126263044468623226, guid: 5d865f291842fb9459c7375ed057a923, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -2327,6 +2331,10 @@ PrefabInstance:
     - target: {fileID: 7524713722911354194, guid: 5d865f291842fb9459c7375ed057a923, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7642016625941547527, guid: 5d865f291842fb9459c7375ed057a923, type: 3}
+      propertyPath: slowFastThreshold
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7674809348405126941, guid: 5d865f291842fb9459c7375ed057a923, type: 3}
       propertyPath: m_Layer

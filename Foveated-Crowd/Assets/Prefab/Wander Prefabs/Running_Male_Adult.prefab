@@ -1521,14 +1521,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wanderRadius: 20
-  wanderTimerRange: {x: 5, y: 30}
+  wanderTimerRange: {x: 5, y: 10}
   minSpeed: 2
   maxSpeed: 10
   slowFastThreshold: 5
-  stopThreshold: 3
+  stopThreshold: 8
   limitToView: 0
   MinimumAnimationSpeed: 0.8
   MaximumAnimationSpeed: 1.2
+  AccelerationRate: 1
 --- !u!195 &7197606596219910493
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1543,7 +1544,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 300
-  m_StoppingDistance: 0
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1566,7 +1567,6 @@ MonoBehaviour:
   lowFpsFrames: 15
   frameVariation: 0.1
   sphere: {fileID: 4043146831079492586}
-  sphereMaterial: {fileID: 0}
 --- !u!65 &472624234486183066
 BoxCollider:
   m_ObjectHideFlags: 0
