@@ -1498,7 +1498,7 @@ PrefabInstance:
       objectReference: {fileID: 841642505}
     - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6628731622711799120, guid: bbe41a3a7f5c73e43b46a966ff97e2a5, type: 3}
       propertyPath: shouldStop
@@ -1575,7 +1575,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1343189442}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f8462a4f8f2ee64493c50f000c36e2e, type: 3}
   m_Name: 
@@ -2334,7 +2334,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7642016625941547527, guid: 5d865f291842fb9459c7375ed057a923, type: 3}
       propertyPath: slowFastThreshold
-      value: 2
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7642016625941547527, guid: 5d865f291842fb9459c7375ed057a923, type: 3}
+      propertyPath: wanderTimerRange.y
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7674809348405126941, guid: 5d865f291842fb9459c7375ed057a923, type: 3}
       propertyPath: m_Layer
