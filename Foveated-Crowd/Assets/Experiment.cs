@@ -48,6 +48,7 @@ public class Experiment : MonoBehaviour
     
     private float _screenWidth = Screen.width;
     private float _screenHeight = Screen.height;
+    private static readonly Color tRed = new Color(1f, 0.1f, 0.1f, 0.3f);
     
 #if UNITY_EDITOR
     string folder = Application.streamingAssetsPath;
@@ -347,10 +348,11 @@ public class Experiment : MonoBehaviour
 #endif
     }
     
+    //ChatGPT-made helper function
     public void CaptureScreenshot(string name)
     {
         // Step 1: Create a new RenderTexture
-        RenderTexture renderTexture = new RenderTexture(Screen.width, Screen.height, 24);
+        RenderTexture renderTexture = new RenderTexture(Screen.width, Screen.height, 32);
         
         // Step 2: Set the camera's target texture to the RenderTexture
         Camera.main.targetTexture = renderTexture;
@@ -361,9 +363,12 @@ public class Experiment : MonoBehaviour
         Camera.main.Render();
 
         // Step 4: Create a Texture2D to store the RenderTexture data
-        Texture2D screenshot = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+        Texture2D screenshot = new Texture2D(Screen.width, Screen.height, TextureFormat.RGBA32, false);
         screenshot.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
         screenshot.Apply();
+        
+        // Add Red Dot
+        AddRedDot(screenshot,_click[1],20,tRed);
 
         // Step 5: Save the screenshot to a PNG file
         byte[] bytes = screenshot.EncodeToPNG();
@@ -377,5 +382,39 @@ public class Experiment : MonoBehaviour
         Camera.main.targetTexture = null;
         RenderTexture.active = currentRT;
         Destroy(renderTexture);
+    }
+    
+    //ChatGPT-made helper function
+    void AddRedDot(Texture2D texture, Vector2 position, int radius, Color color)
+    {
+        // Convert normalized (0-1) coordinates to pixel coordinates
+        int centerX = (int)_click[1].x;
+        int centerY = (int)_click[1].y;
+
+        // Loop through pixels in the circle's area
+        for (int y = -radius; y <= radius; y++)
+        {
+            for (int x = -radius; x <= radius; x++)
+            {
+                // Check if the pixel is inside the circle (Pythagorean theorem)
+                if (x * x + y * y <= radius * radius)
+                {
+                    int px = centerX + x;
+                    int py = centerY + y;
+
+                    // Ensure the pixel is within bounds of the texture
+                    if (px >= 0 && px < texture.width && py >= 0 && py < texture.height)
+                    {
+                        // Get the current pixel color and blend it with the transparent red
+                        Color currentColor = texture.GetPixel(px, py);
+                        Color blendedColor = Color.Lerp(currentColor, color, color.a); // Blend based on alpha
+                        texture.SetPixel(px, py, blendedColor);
+                    }
+                }
+            }
+        }
+
+        // Apply the changes to the texture
+        texture.Apply();
     }
 }

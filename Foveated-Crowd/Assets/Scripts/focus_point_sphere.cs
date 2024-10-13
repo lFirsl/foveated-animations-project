@@ -54,6 +54,7 @@ public class FocusPointSphere : MonoBehaviour
     private static readonly Color tGrey = new Color(0.1f, 0.1f, 0.1f, 0.3f);
     private static readonly Color tGreen = new Color(0f, 1f, 0f, 0.3f);
     private static readonly Color tRed = new Color(1f, 0.1f, 0.1f, 0.3f);
+    private static readonly Color tBlue = new Color(0f, 0f, 1f, 0.3f);
     
     // Get screen dimensions
     private float _screenWidth = Screen.width;
@@ -220,15 +221,15 @@ public class FocusPointSphere : MonoBehaviour
         {
             if (agent.isAnimationEnabled() && !agent.lowFps)
             {
-                Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
+                Gizmos.color = tRed;
             }
             else if (agent.currentFPS == Stage1FoveationHz)
             {
-                Gizmos.color = new Color(0f, 1f, 0f, 0.3f);
+                Gizmos.color = tGreen;
             }
             else if (agent.currentFPS == Stage2FoveationHz)
             {
-                Gizmos.color = new Color(0f, 0f, 1f, 0.3f);
+                Gizmos.color = tBlue;
             }
             else continue;
             Gizmos.DrawSphere(agent.transform.position, 1);
