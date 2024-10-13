@@ -141,7 +141,7 @@ public class CivilianMove : MonoBehaviour
         }
         
         //IF limitToView is off - or the algorithm fails - use this instead.
-        randDirection = Random.insideUnitSphere * dist + origin;
+        randDirection = Random.insideUnitSphere * (dist + _agent.stoppingDistance) + origin;
 
         NavMesh.SamplePosition (randDirection, out navHit, dist, layermask);
 
