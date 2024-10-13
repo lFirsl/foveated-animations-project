@@ -10,6 +10,7 @@ using UnityEditor;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
+using UnityEngine.XR;
 
 public class Experiment : MonoBehaviour
 {
@@ -47,12 +48,19 @@ public class Experiment : MonoBehaviour
     
     private float _screenWidth = Screen.width;
     private float _screenHeight = Screen.height;
+    
+#if UNITY_EDITOR
+    string folder = Application.streamingAssetsPath;
+#else
+    string folder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
+#endif
 
     private bool onExampleVideo = false;
     // Start is called before the first frame update
     void Start()
     {
         vp = GetComponent<VideoPlayer>();
+        if(!Directory.Exists(folder)) Directory.CreateDirectory(folder);
         _detectedStages = new uint[numberOfScenes];
         _detectedTimes = new double[numberOfScenes * 2];
         _detectedNsd = new float[numberOfScenes * 2];
@@ -121,6 +129,7 @@ public class Experiment : MonoBehaviour
                 _detectedStage = timeToFoveationStage();
                 _detectedTimes[_currentScene * 2] = vp.time;
                 _detectedNsd[_currentScene * 2] = clicksNsd;
+                CaptureScreenshot((_currentScene * 2).ToString());
                 instructions.text = "Take a second to locate the focus point, then press SPACE.";
             
                 _currentTime = vp.time;
@@ -217,6 +226,7 @@ public class Experiment : MonoBehaviour
             _detectedStages[_currentScene] = timeToFoveationStage();
             _detectedTimes[_currentScene * 2 + 1] = vp.time;
             _detectedNsd[_currentScene * 2 + 1] = clicksNsd;
+            CaptureScreenshot((_currentScene * 2 + 1).ToString());
         }
         
         
@@ -290,13 +300,6 @@ public class Experiment : MonoBehaviour
     {
 
         // The target file path e.g.
-#if UNITY_EDITOR
-        var folder = Application.streamingAssetsPath;
-
-        if(!Directory.Exists(folder)) Directory.CreateDirectory(folder);
-#else
-        var folder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
-#endif
         var filePath = Path.Combine(folder, "foveationUserTest.csv");
         bool fileExists = File.Exists(filePath);
         var sb = new StringBuilder();
@@ -342,5 +345,37 @@ public class Experiment : MonoBehaviour
 #if UNITY_EDITOR
         AssetDatabase.Refresh();
 #endif
+    }
+    
+    public void CaptureScreenshot(string name)
+    {
+        // Step 1: Create a new RenderTexture
+        RenderTexture renderTexture = new RenderTexture(Screen.width, Screen.height, 24);
+        
+        // Step 2: Set the camera's target texture to the RenderTexture
+        Camera.main.targetTexture = renderTexture;
+
+        // Step 3: Render the camera's view to the RenderTexture
+        RenderTexture currentRT = RenderTexture.active;
+        RenderTexture.active = renderTexture;
+        Camera.main.Render();
+
+        // Step 4: Create a Texture2D to store the RenderTexture data
+        Texture2D screenshot = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+        screenshot.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+        screenshot.Apply();
+
+        // Step 5: Save the screenshot to a PNG file
+        byte[] bytes = screenshot.EncodeToPNG();
+        string filePath = Path.Combine(Application.streamingAssetsPath, name + ".png");
+        File.WriteAllBytes(filePath, bytes);
+
+        // Debug Log
+        Debug.Log("Screenshot saved to: " + filePath);
+
+        // Step 6: Cleanup
+        Camera.main.targetTexture = null;
+        RenderTexture.active = currentRT;
+        Destroy(renderTexture);
     }
 }
