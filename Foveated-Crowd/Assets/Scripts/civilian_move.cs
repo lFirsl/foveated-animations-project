@@ -51,6 +51,7 @@ public class CivilianMove : MonoBehaviour
         if (!_anim.GetBool(_runningID) && _agent.speed > 0.01f)
         {
             _anim.SetBool(_runningID, true);
+            _agent.avoidancePriority = 50;
             //_anim.SetBool(_fastID, false);
         }
         else if (_anim.GetBool(_runningID))
@@ -58,6 +59,7 @@ public class CivilianMove : MonoBehaviour
             if (_agent.speed < 0.01f)
             {
                 _anim.SetBool(_runningID, false);
+                _agent.avoidancePriority = 0;
                 //_anim.SetBool(_fastID, false);
             }
             //else if (!_anim.GetBool(_fastID) && _agent.speed > slowFastThreshold) _anim.SetBool(_fastID, true);
