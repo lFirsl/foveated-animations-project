@@ -18,6 +18,7 @@ public class CivilianMove : MonoBehaviour
     public float slowFastThreshold;
     public int stopThreshold;
     public bool limitToView = false;
+    [SerializeField] private bool protagonist = false;
     
     [SerializeField] private float MinimumAnimationSpeed = 0.8f;
     [SerializeField] private float MaximumAnimationSpeed = 1.2f;
@@ -42,6 +43,7 @@ public class CivilianMove : MonoBehaviour
         _fastID = Animator.StringToHash(FastString);
 
         _anim.speed = Random.Range(MinimumAnimationSpeed, MaximumAnimationSpeed);
+        if (protagonist) _agent.avoidancePriority = 1;
         
         StartCoroutine(WanderSystem());
     }
@@ -51,7 +53,7 @@ public class CivilianMove : MonoBehaviour
         if (!_anim.GetBool(_runningID) && _agent.speed > 0.01f)
         {
             _anim.SetBool(_runningID, true);
-            _agent.avoidancePriority = 50;
+            if(!protagonist) _agent.avoidancePriority = 50;
             //_anim.SetBool(_fastID, false);
         }
         else if (_anim.GetBool(_runningID))
@@ -59,7 +61,7 @@ public class CivilianMove : MonoBehaviour
             if (_agent.speed < 0.01f)
             {
                 _anim.SetBool(_runningID, false);
-                _agent.avoidancePriority = 0;
+                if(!protagonist) _agent.avoidancePriority = 0;
                 //_anim.SetBool(_fastID, false);
             }
             //else if (!_anim.GetBool(_fastID) && _agent.speed > slowFastThreshold) _anim.SetBool(_fastID, true);

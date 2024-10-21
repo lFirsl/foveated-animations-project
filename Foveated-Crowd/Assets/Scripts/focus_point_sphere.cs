@@ -158,12 +158,10 @@ public class FocusPointSphere : MonoBehaviour
             if (!displayFoveationLevels && agent.isSphereActive()) agent.sphereSetActive(false);
             else if (displayFoveationLevels && !agent.isSphereActive()) agent.sphereSetActive(true);
 
-            //Restart animations - then determine the update frequency rate.
-            agent.RestartAnimation(animationsResetTime);
-
             //No point calculating anything if it's in the foreground. Make the check.
             if (distance < foveaArea)
             {
+                agent.RestartAnimation(animationsResetTime);
                 agent.SetForegroundFPS(animationsResetTime);
                 if (displayFoveationLevels) agent.setSphereColour(tGreen);
                 return;
@@ -171,7 +169,7 @@ public class FocusPointSphere : MonoBehaviour
 
             //Calculation for Dynamic HZ
             uint dynamicHz =
-                (uint)Mathf.Ceil(
+                (uint)Mathf.FloorToInt(
                     cappedHz 
                     / 
                     Mathf.Max(
@@ -183,7 +181,14 @@ public class FocusPointSphere : MonoBehaviour
                         - foveaArea * 10
                     );
 
-            //Debug.Log(dynamicHz);
+            //If the dynamic frequency is under 3 FPS, there is no point keeping animations up anymore.
+            if (dynamicHz < 3)
+            {
+                if (displayFoveationLevels && agent.isSphereActive()) agent.sphereSetActive(false);
+                return;
+            }
+            //Restart animations - then set update frequency to the dynamicHZ.
+            agent.RestartAnimation(animationsResetTime);
             agent.SetFixedFPS(dynamicHz, animationsResetTime);
             // Map value from 0 to 120 to a color range (red to blue)
             if (displayFoveationLevels) agent.setSphereColour(Color.Lerp(tGrey, tRed, (dynamicHz / (float)cappedHz)));

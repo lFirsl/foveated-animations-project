@@ -344,6 +344,7 @@ MonoBehaviour:
   restartButton: {fileID: 719736105}
   numberOfScenes: 10
   stageTime: 10
+  sceneTime: 100
   foveationExampleVideo: {fileID: 32900000, guid: 8d365637e0717ea47a54db299609fb23, type: 3}
   branch1Videos:
   - {fileID: 32900000, guid: d22386a002aec9c48ab15b235b2392a6, type: 3}
@@ -761,7 +762,7 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
-  m_TargetEye: 3
+  m_TargetEye: 0
   m_HDR: 1
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
