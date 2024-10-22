@@ -260,7 +260,7 @@ public class Experiment : MonoBehaviour
         //load next scene
     }
 
-    private uint timeToFoveationStage(double time = 0)
+    public uint timeToFoveationStage(double time = 0)
     {
         if(time == 0) return System.Convert.ToUInt32(Math.Floor(vp.time / stageTime));
         else return System.Convert.ToUInt32(Math.Floor(time / stageTime));
@@ -347,6 +347,11 @@ public class Experiment : MonoBehaviour
         AssetDatabase.Refresh();
 #endif
     }
+
+    public bool isVideoPlaying()
+    {
+        return vp.isPlaying;
+    }
     
     //ChatGPT-made helper function
     public void CaptureScreenshot(string name)
@@ -417,4 +422,5 @@ public class Experiment : MonoBehaviour
         // Apply the changes to the texture
         texture.Apply();
     }
+    
 }
