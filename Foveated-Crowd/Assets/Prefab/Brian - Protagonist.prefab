@@ -215,7 +215,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2068961276889177910}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 1
@@ -247,6 +247,7 @@ MonoBehaviour:
   slowFastThreshold: 3
   stopThreshold: 2
   limitToView: 1
+  protagonist: 0
   MinimumAnimationSpeed: 0.9
   MaximumAnimationSpeed: 1.1
   AccelerationRate: 0.5
