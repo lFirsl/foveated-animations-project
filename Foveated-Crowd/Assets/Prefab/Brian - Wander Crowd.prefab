@@ -216,7 +216,7 @@ MonoBehaviour:
   wanderTimerRange: {x: 2, y: 7}
   minSpeed: 2
   maxSpeed: 10
-  slowFastThreshold: 3
+  slowFastThreshold: 7
   stopThreshold: 5
   limitToView: 0
   protagonist: 0
