@@ -222,7 +222,7 @@ MonoBehaviour:
   protagonist: 0
   MinimumAnimationSpeed: 0.8
   MaximumAnimationSpeed: 1.2
-  AccelerationRate: 0.5
+  AccelerationRate: 2
 --- !u!114 &5817925490515739224
 MonoBehaviour:
   m_ObjectHideFlags: 0

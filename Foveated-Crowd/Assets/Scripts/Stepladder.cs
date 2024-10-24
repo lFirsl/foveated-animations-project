@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 public class Stepladder : MonoBehaviour
 {
     [SerializeField] private float factorTestThreshold = 1f;
-    [SerializeField] private float tempFactor = 0.1f;
+    [SerializeField] private float tempFactor = 0.5f;
     [SerializeField] private float constatFoveaArea = 0.1f;
     // Start is called before the first frame update
     
@@ -18,7 +18,7 @@ public class Stepladder : MonoBehaviour
         focus.foveaArea = 2f;
         focus.foveationFactor = tempFactor;
         
-        yield return new WaitForSeconds(19);
+        yield return new WaitForSeconds(9);
         focus.foveaArea = constatFoveaArea;
         focus.foveationFactor = tempFactor;
         while(focus.foveationFactor < factorTestThreshold)
@@ -28,7 +28,7 @@ public class Stepladder : MonoBehaviour
             //if(focus.stopThreshold < factorTestThreshold) yield return new WaitForSeconds(10);
             yield return new WaitForSeconds(10);
 
-            focus.foveationFactor += 0.1f;
+            focus.foveationFactor += 0.25f;
         }
         yield break;
     }
