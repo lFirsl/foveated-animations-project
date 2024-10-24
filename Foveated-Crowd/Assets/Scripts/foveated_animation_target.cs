@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Playables;
+using UnityEngine.Profiling;
 using Random = UnityEngine.Random;
 
 public class FoveatedAnimationTarget : MonoBehaviour
@@ -70,11 +71,11 @@ public class FoveatedAnimationTarget : MonoBehaviour
                 yield return new WaitForSeconds(_waitTime + Random.Range(-frameVariation,frameVariation));
                 continue;
             }
-
+            Profiler.BeginSample("AFC Low FPS Animation");
             if (lowFps) _anim.playableGraph.Evaluate(Time.time - lastTime);
             lastTime = Time.time;
+            Profiler.EndSample();
             yield return new WaitForSeconds(_waitTime + Random.Range(-frameVariation,frameVariation));
-            //while(!lowFps) yield return new WaitForSeconds(_waitTime + Random.Range(-frameVariation,frameVariation));
             yield return new WaitForFixedUpdate();
         }
     }
@@ -84,6 +85,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
         //If lowFPS is true, then this was already applied. Don't do it again to avoid overhead. Just update the timer.
         if(timer != 0) TimedStop(timer);
         if (!lowFps) return;
+        Profiler.BeginSample("AFC SetForegroundFPS");
         
         lowFps = false;
         _anim.playableGraph.Stop();
@@ -91,6 +93,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
         _anim.playableGraph.Play();
 
         //_agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
+        Profiler.EndSample();
     }
 
     public void SetFixedFPS(uint fps = 0,float timer = 0)
@@ -99,14 +102,16 @@ public class FoveatedAnimationTarget : MonoBehaviour
         //If we're attempting to update the agent to the same framerate, we'd be doing needless work.
         //Instead, just update the timer and move on.
         if (timeToStop != 0 && timeToStop < Time.time && fps == currentFPS) return;
+        Profiler.BeginSample("AFC SetFixedFPS");
         currentFPS = fps;
-        float fpsToUse = fps + Random.Range(-frameVariation, frameVariation); // Add some randomization to avoid popping.
+        float fpsToUse = fps; //+ Random.Range(-frameVariation, frameVariation); // Add some randomization to avoid popping.
 
         if (fps == 0) _waitTime = 1f / lowFpsFrames;
         else _waitTime = 1f / fpsToUse;
         
         lowFps = true;
         _anim.playableGraph.SetTimeUpdateMode(DirectorUpdateMode.Manual);
+        Profiler.EndSample();
     }
 
     public void StopAnimation()
@@ -118,12 +123,14 @@ public class FoveatedAnimationTarget : MonoBehaviour
 
     public void RestartAnimation(float timer = 0)
     {
+        Profiler.BeginSample("AFC RestartAnimation");
         if(timer > 0) TimedStop(timer);
         if (!_anim.enabled)
         {
             _anim.enabled = true;
             //_agent.obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;  
         }
+        Profiler.EndSample();
     }
 
     //Used when the animation is set for an automatic stop.

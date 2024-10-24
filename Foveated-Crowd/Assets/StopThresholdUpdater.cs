@@ -37,9 +37,8 @@ public class StopThresholdUpdater : MonoBehaviour
         {
             leftRightEye = "Left Eye";
         }
-        sign.text = "Fov1 =  " + Math.Round(focusPoint.foveationThreshold, 3) +
-                    "; Fov2 = " + Math.Round(focusPoint.foveationThreshold2, 3) +
-                    "; Stop = " + Math.Round(focusPoint.stopThreshold, 3) +
+        sign.text = "Fov Factor = " + Math.Round(focusPoint.foveationFactor, 3) +
+                    "; Fovea Area ≈  " + Math.Round(focusPoint.foveaArea, 3) +
                     "; FPS ≈  " + (int)(1f / Time.deltaTime) +
                     "; Using " + leftRightEye;
     }

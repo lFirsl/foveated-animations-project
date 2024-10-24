@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.Serialization;
 using ViveSR.anipal.Eye;
 
@@ -29,17 +31,19 @@ public class FocusPointSphere : MonoBehaviour
     public uint MinimumStopHz = 5;
     
     [Header("Foveation Thresholds in Normalized Screen Distance")]
-    public float foveationThreshold = 0.2f;
-    public float foveationThreshold2 = 0.3f;
     public float stopThreshold = 0.4f;
+    public float foveationFactor = 5f;
+    public float foveaArea = 0.5f;
     [SerializeField] private LayerMask layermask;
     
     [Header("Animation Variables")]
     [SerializeField] private float animationsResetTime = 0.5f;
+    [SerializeField] private uint cappedHz = 120;
     
     [Header("Debugging")] 
     [SerializeField] private bool debuggingMessages = false;
     [SerializeField] private bool displayFoveationLevels = false;
+    [SerializeField] private bool displayHz = false;
     [SerializeField] private GameObject sphere;
     [SerializeField] private Material sphereMaterial;
     
@@ -47,6 +51,10 @@ public class FocusPointSphere : MonoBehaviour
     //private
     private FoveatedAnimationTarget[] _agentsFov;
     private Collider[] agents = new Collider[800];
+    private static readonly Color tGrey = new Color(0.1f, 0.1f, 0.1f, 0.3f);
+    private static readonly Color tGreen = new Color(0f, 1f, 0f, 0.3f);
+    private static readonly Color tRed = new Color(1f, 0.1f, 0.1f, 0.3f);
+    private static readonly Color tBlue = new Color(0f, 0f, 1f, 0.3f);
     
     // Get screen dimensions
     private float _screenWidth = Screen.width;
@@ -68,6 +76,7 @@ public class FocusPointSphere : MonoBehaviour
         if (debuggingMessages) Debug.Log("Started");
 
         _agentsFov = FindObjectsOfType<FoveatedAnimationTarget>();
+        if (debuggingMessages) Debug.Log("Got " + _agentsFov.Length + " Foveated Animation Targets");
 
         _eyes = FindObjectsOfType<MonoBehaviour>(true).OfType<IReadEye>().FirstOrDefault();
 
@@ -77,15 +86,15 @@ public class FocusPointSphere : MonoBehaviour
     private void Update()
     {
         //Buttons for changing foveation levels
-        if (Input.GetKeyUp(KeyCode.Q)) foveationThreshold = System.Math.Max(foveationThreshold - foveationStep,0);
-        else if (Input.GetKeyUp(KeyCode.W)) foveationThreshold = System.Math.Min(foveationThreshold + foveationStep, 1f);
-        else if (Input.GetKeyUp(KeyCode.A)) foveationThreshold2 = System.Math.Max(foveationThreshold2 - foveationStep,0);
-        else if (Input.GetKeyUp(KeyCode.S)) foveationThreshold2 = System.Math.Min(foveationThreshold2 + foveationStep, 1f);
-        else if (Input.GetKeyUp(KeyCode.Z)) stopThreshold = System.Math.Max(stopThreshold - foveationStep,0);
+        if (Input.GetKeyUp(KeyCode.Z)) stopThreshold = System.Math.Max(stopThreshold - foveationStep,0);
         else if (Input.GetKeyUp(KeyCode.X)) stopThreshold = System.Math.Min(stopThreshold + foveationStep, 1f);
         else if (Input.GetKeyUp(KeyCode.D))
         {
             displayFoveationLevels = !displayFoveationLevels;
+        }
+        else if (Input.GetKeyUp(KeyCode.F))
+        {
+            displayHz = !displayHz;
         }
         else if (Input.GetKeyUp(KeyCode.E))
         {
@@ -125,41 +134,74 @@ public class FocusPointSphere : MonoBehaviour
         else centrePoint = _mainCamera.WorldToScreenPoint(targetPosition);
         _centreNSD = new Vector2(centrePoint.x / _screenWidth, centrePoint.y / _screenHeight);
         
+        Profiler.BeginSample("AFC All Agents Foveation Calculation");
         foreach(FoveatedAnimationTarget agent in _agentsFov)
         {
             DetermineAnimation(agent);
         }
+        Profiler.EndSample();
     }
 
     private void DetermineAnimation(FoveatedAnimationTarget agent)
     {
+        Profiler.BeginSample("AFC Individual Agent Foveation Level Calculation");
         float distance = ScreenDistanceToCentre(agent.transform.position);
-        
-        //Outside our stop threshold. Skip other checks
-        if (distance > stopThreshold)
+        try
         {
-            if(displayFoveationLevels && agent.isSphereActive()) agent.sphereSetActive(false);
+            //Outside our stop threshold. Skip other checks
+            if (distance > stopThreshold)
+            {
+                if (displayFoveationLevels && agent.isSphereActive()) agent.sphereSetActive(false);
+                return;
+            }
+
+            if (!displayFoveationLevels && agent.isSphereActive()) agent.sphereSetActive(false);
+            else if (displayFoveationLevels && !agent.isSphereActive()) agent.sphereSetActive(true);
+
+            //No point calculating anything if it's in the foreground. Make the check.
+            if (distance < foveaArea)
+            {
+                agent.RestartAnimation(animationsResetTime);
+                agent.SetForegroundFPS(animationsResetTime);
+                if (displayFoveationLevels) agent.setSphereColour(tGreen);
+                return;
+            }
+
+            //Calculation for Dynamic HZ
+            uint dynamicHz =
+                (uint)Mathf.FloorToInt(
+                    cappedHz 
+                    / 
+                    Mathf.Max(
+                        1, 
+                        foveationFactor * 
+                        (
+                            (distance * 10) * (distance * 10)
+                        )
+                        - foveaArea * 10
+                    )
+                );
+
+            //If the dynamic frequency is under 5 FPS, there is no point keeping animations up anymore.
+            if (dynamicHz < 5)
+            {
+                if (displayFoveationLevels && agent.isSphereActive()) agent.sphereSetActive(false);
+                return;
+            }
+            //Restart animations - then set update frequency to the dynamicHZ.
+            agent.RestartAnimation(animationsResetTime);
+            agent.SetFixedFPS(dynamicHz, animationsResetTime);
+            // Map value from 0 to 120 to a color range (red to blue)
+            if (displayFoveationLevels) agent.setSphereColour(Color.Lerp(tGrey, tRed, (dynamicHz / (float)cappedHz)));
+            if (displayHz)
+            {
+                //TODO: Add floating text
+            }
             return;
         }
-        if(!displayFoveationLevels && agent.isSphereActive()) agent.sphereSetActive(false); 
-        else if(displayFoveationLevels && !agent.isSphereActive()) agent.sphereSetActive(true);
-        
-        //Restart animations - then determine the update frequency rate.
-        agent.RestartAnimation(animationsResetTime);
-        if (distance > foveationThreshold2)
+        finally
         {
-            agent.SetFixedFPS(Stage2FoveationHz, animationsResetTime);
-            if(displayFoveationLevels) agent.setSphereColour(new Color(0f, 0f, 1f, 0.3f));
-        }
-        else if (distance > foveationThreshold)
-        {
-            agent.SetFixedFPS(Stage1FoveationHz,animationsResetTime);
-            if(displayFoveationLevels) agent.setSphereColour(new Color(0f, 1f, 0f, 0.3f));
-        }
-        else
-        {
-            agent.SetForegroundFPS(animationsResetTime);
-            if(displayFoveationLevels) agent.setSphereColour(new Color(1f, 0f, 0f, 0.3f));
+            Profiler.EndSample();
         }
     }
 
@@ -185,15 +227,15 @@ public class FocusPointSphere : MonoBehaviour
         {
             if (agent.isAnimationEnabled() && !agent.lowFps)
             {
-                Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
+                Gizmos.color = tRed;
             }
             else if (agent.currentFPS == Stage1FoveationHz)
             {
-                Gizmos.color = new Color(0f, 1f, 0f, 0.3f);
+                Gizmos.color = tGreen;
             }
             else if (agent.currentFPS == Stage2FoveationHz)
             {
-                Gizmos.color = new Color(0f, 0f, 1f, 0.3f);
+                Gizmos.color = tBlue;
             }
             else continue;
             Gizmos.DrawSphere(agent.transform.position, 1);

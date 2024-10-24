@@ -18,13 +18,18 @@ public class CivilianMove : MonoBehaviour
     public float slowFastThreshold;
     public int stopThreshold;
     public bool limitToView = false;
+    [SerializeField] private bool protagonist = false;
     
     [SerializeField] private float MinimumAnimationSpeed = 0.8f;
     [SerializeField] private float MaximumAnimationSpeed = 1.2f;
     
+    [SerializeField] private float AccelerationRate = 0.5f;
+    private float currentMaxSpeed;
+    
     //Animator variables
     private int _runningID;
     private int _fastID;
+    private bool decelerateRunning = false;
     private const string RunningString = "Running";
     private const string FastString = "Fast";
     void Start()
@@ -38,13 +43,32 @@ public class CivilianMove : MonoBehaviour
         _fastID = Animator.StringToHash(FastString);
 
         _anim.speed = Random.Range(MinimumAnimationSpeed, MaximumAnimationSpeed);
+        if (protagonist) _agent.avoidancePriority = 1;
         
         StartCoroutine(WanderSystem());
     }
 
     private void Update()
     {
-        CheckStop();
+        if (!_anim.GetBool(_runningID) && _agent.speed > 0.01f)
+        {
+            _anim.SetBool(_runningID, true);
+            if(!protagonist) _agent.avoidancePriority = 50;
+            //_anim.SetBool(_fastID, false);
+        }
+        else if (_anim.GetBool(_runningID))
+        {
+            if (_agent.speed < 0.01f)
+            {
+                _anim.SetBool(_runningID, false);
+                if(!protagonist) _agent.avoidancePriority = 0;
+                //_anim.SetBool(_fastID, false);
+            }
+            //else if (!_anim.GetBool(_fastID) && _agent.speed > slowFastThreshold) _anim.SetBool(_fastID, true);
+            //else if (_anim.GetBool(_fastID)) _anim.SetBool(_fastID, false);
+        }
+        
+        if(_agent.remainingDistance < stopThreshold) StartCoroutine(Decelerate());
     }
     
     private IEnumerator WanderSystem()
@@ -52,7 +76,8 @@ public class CivilianMove : MonoBehaviour
         while (this.isActiveAndEnabled)
         {
             _agent.SetDestination(RandomNavSphere(transform.position, wanderRadius, -1));
-            _agent.speed = Random.Range(minSpeed, maxSpeed);
+            currentMaxSpeed = Random.Range(minSpeed, maxSpeed);
+            _anim.SetBool(_fastID, !(currentMaxSpeed < slowFastThreshold));
 
             float wanderTimer = Random.Range(wanderTimerRange.x, wanderTimerRange.y);
             
@@ -62,20 +87,32 @@ public class CivilianMove : MonoBehaviour
             yield return new WaitForSeconds(wanderTimer);
         }
     }
+    
 
     private void StartRunningAnimation()
     {
-        _anim.SetBool(_fastID, _agent.speed >= slowFastThreshold);
-        _anim.SetBool(_runningID,true);
+        _agent.nextPosition = transform.position;
+        _anim.SetBool(_fastID, currentMaxSpeed >= slowFastThreshold);
+        //_anim.SetBool(_runningID,true);
+        _agent.speed = currentMaxSpeed;
+        //StartCoroutine(Accelerate());
+    }
+
+    private IEnumerator Accelerate()
+    {
+        //TODO
+        yield break;
     }
     
-    
-    private void CheckStop()
+    private IEnumerator Decelerate()
     {
-        if (!_agent.pathPending && _agent.remainingDistance < stopThreshold)
+        decelerateRunning = true;
+        while (_agent.speed > 0.01f)
         {
-            _anim.SetBool(_runningID,false);
+            _agent.speed = Mathf.Min(0f, _agent.speed - Time.deltaTime * AccelerationRate);
+            yield return null;
         }
+        decelerateRunning = false;
     }
 
     
@@ -108,7 +145,7 @@ public class CivilianMove : MonoBehaviour
         }
         
         //IF limitToView is off - or the algorithm fails - use this instead.
-        randDirection = Random.insideUnitSphere * dist + origin;
+        randDirection = Random.insideUnitSphere * (dist + _agent.stoppingDistance) + origin;
 
         NavMesh.SamplePosition (randDirection, out navHit, dist, layermask);
 
