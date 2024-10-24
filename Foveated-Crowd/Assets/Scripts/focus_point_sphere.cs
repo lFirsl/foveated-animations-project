@@ -176,13 +176,14 @@ public class FocusPointSphere : MonoBehaviour
                         1, 
                         foveationFactor * 
                         (
-                            (distance * 10) * (distance * 10))
+                            (distance * 10) * (distance * 10)
                         )
                         - foveaArea * 10
-                    );
+                    )
+                );
 
-            //If the dynamic frequency is under 3 FPS, there is no point keeping animations up anymore.
-            if (dynamicHz < 3)
+            //If the dynamic frequency is under 5 FPS, there is no point keeping animations up anymore.
+            if (dynamicHz < 5)
             {
                 if (displayFoveationLevels && agent.isSphereActive()) agent.sphereSetActive(false);
                 return;
