@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 public class Stepladder : MonoBehaviour
 {
     [SerializeField] private float factorTestThreshold = 10f;
-    [SerializeField] private float tempFactor = 0.5f;
+    [SerializeField] private float tempFactor = 0.1f;
     [SerializeField] private float constatFoveaArea = 0.1f;
     [SerializeField] private float factorIncrementStep = 0.25f;
     // Start is called before the first frame update
