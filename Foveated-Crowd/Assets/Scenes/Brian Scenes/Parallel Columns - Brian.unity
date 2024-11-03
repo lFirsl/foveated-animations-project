@@ -170,7 +170,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4344603561751386410, guid: 4a536567c7721654491573c8efbfc3d2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.411562
+      value: 13.55
       objectReference: {fileID: 0}
     - target: {fileID: 4344603561751386410, guid: 4a536567c7721654491573c8efbfc3d2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -178,7 +178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4344603561751386410, guid: 4a536567c7721654491573c8efbfc3d2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -136.28587
+      value: -137.59
       objectReference: {fileID: 0}
     - target: {fileID: 4344603561751386410, guid: 4a536567c7721654491573c8efbfc3d2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2964,11 +2964,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aef45246e9a7b1e4d8c2dc637af94568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  factorIncrementStep: 0.2
+  noFoveationTime: 20
   factorTestThreshold: 10
   tempFactor: 0.1
   constatFoveaArea: 0.05
-  factorIncrementStep: 0.2
-  noFoveationTime: 20
+  fullStopStepladder: 1
+  fullStopIncrement: 0.05
+  fullStopStartThreshold: 0.3
+  fullStopEndThreshold: 0.05
 --- !u!4 &673914414
 Transform:
   m_ObjectHideFlags: 0
