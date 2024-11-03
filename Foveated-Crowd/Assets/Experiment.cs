@@ -18,8 +18,20 @@ public class Experiment : MonoBehaviour
     public TMP_Text instructions;
     [SerializeField] public UnityEngine.UI.Button restartButton;
     public ushort numberOfScenes = 10;
-    [FormerlySerializedAs("sceneTime")] public double stageTime = 10;
-    public double sceneTime = 100;
+    public double stageTime = 10;
+    [FormerlySerializedAs("sceneTime")] public double sceneTimeDynamic = 120;
+    public double sceneTimeFullStop = 70;
+
+    [Header("Foveation Level Variables - Full Stop")]
+    public float FullStopFoveationStart = 0.3f;
+    public float FullStopFoveationStep = 0.05f;
+    
+    [Header("Foveation Level Variables - Dynamic")]
+    public float DynamicFoveationFoveaArea = 0.05f;
+    public float DynamicFoveationFactorStart = 0.1f;
+    public float DynamicFoveationFactorStep = 0.2f;
+    
+    [Header("Video Variables")]
     public VideoClip foveationExampleVideo;
     public VideoClip[] branch1Videos;
     public VideoClip[] branch2Videos;
@@ -41,8 +53,9 @@ public class Experiment : MonoBehaviour
     private double[] _detectedTimes;
     private float[] _detectedNsd;
 
-    private int _stage = 0;
+    private int _clickEventStage = 0;
     private bool _finished = false;
+    private bool _fullStop = true;
     private Vector2[] _click = {new Vector2(0, 0),new Vector2(0,0)};
     private float clicksNsd = 0;
     
@@ -80,8 +93,7 @@ public class Experiment : MonoBehaviour
     void Update()
     {
         if (_finished) return;
-
-        if (_stage == 3)
+        if (_clickEventStage == 3)
         {
             _screenWidth = Screen.width;
             _screenHeight = Screen.height;
@@ -89,35 +101,56 @@ public class Experiment : MonoBehaviour
             Vector2 normalizedPos2 = new Vector2(_click[1].x / _screenWidth, _click[1].y / _screenHeight);
 
             clicksNsd = Vector2.Distance(normalizedPos1, normalizedPos2);
+            if (
+                (!_fullStop & clicksNsd < DynamicFoveationFoveaArea)
+                ||
+                (_fullStop & clicksNsd < (FullStopFoveationStart - FullStopFoveationStep * timeToFoveationStage()))
+            )
+            {
+                // Clicked on an area with NO foveation. Ignore last click.
+                Debug.Log("Clicked in control area!" + clicksNsd + " < " + (FullStopFoveationStart - FullStopFoveationStep) +". Ignoring.");
+                clicksNsd = 0;
+                _detectedOnce = false;
+            }
             Debug.Log("Calculated nsd is " + clicksNsd);
         }
 
-        if (_stage is 1 or 2)
+        if (_clickEventStage is 1 or 2)
         {
             if (Input.GetMouseButtonUp(0))
             {
-                Debug.Log("Going once, stage " + _stage);
-                _click[_stage-1] = Input.mousePosition;
-                if (_stage == 1)
+                Debug.Log("Going once, stage " + _clickEventStage);
+                _click[_clickEventStage-1] = Input.mousePosition;
+                if (_clickEventStage == 1)
                 {
                     instructions.text = "Please click in the area where you think you saw foveation.";
                 }
-                _stage++;
+                _clickEventStage++;
             }
         }
         else if (!onExampleVideo)
         {
-            if ((Input.GetKeyUp(KeyCode.Space) && vp.isPlaying) || _stage == 3)
+            if ((Input.GetKeyUp(KeyCode.Space) && vp.isPlaying) || _clickEventStage == 3)
             {
-                if (_stage == 0)
+                if (vp.time < 10)
+                {
+                    Debug.Log("Pressed during Control Stage. Restart!");
+                    instructions.text = "THERE WAS NO FOVEATION IN EFFECT.\n Ignoring that event. Please try again. \n\n Take a second to locate the focus point, then press SPACE.";
+                    _currentTime = vp.time; 
+                    _currentBranch = (_currentBranch + 1) % 3;
+                    _detectedOnce = false;
+                    StartCoroutine(prepareVideo());
+                    return;
+                }
+                if (_clickEventStage == 0)
                 {
                     vp.Pause();
-                    _stage++;
+                    _clickEventStage++;
                     instructions.text = "Please click on the red agent.";
                     instructions.enabled = true;
                     return;
                 }
-                if (_stage == 3) _stage = 0;
+                if (_clickEventStage == 3) _clickEventStage = 0;
                 
                 if(_detectedOnce && _detectedStage == timeToFoveationStage())
                 {
@@ -131,8 +164,17 @@ public class Experiment : MonoBehaviour
                 _detectedTimes[_currentScene * 2] = vp.time;
                 _detectedNsd[_currentScene * 2] = clicksNsd;
                 CaptureScreenshot((_currentScene * 2).ToString());
-                instructions.text = "Take a second to locate the focus point, then press SPACE.";
-            
+                if (clicksNsd == 0)
+                {
+                    _detectedOnce = false;
+                    instructions.text = "THERE WAS NO FOVEATION IN EFFECT THERE.\n Ignoring that click. \n\n Take a second to locate the focus point, then press SPACE.";
+                }
+
+                else
+                {
+                    instructions.text = "Take a second to locate the focus point, then press SPACE.";
+                }
+                
                 _currentTime = vp.time;
                 _currentBranch = (_currentBranch + 1) % 3;
                 StartCoroutine(prepareVideo());
@@ -216,11 +258,13 @@ public class Experiment : MonoBehaviour
             return;
         }
 
-        if (vp.time > (sceneTime - 1))
+        if ((!_fullStop && vp.time > (sceneTimeDynamic - 1)) || (_fullStop && vp.time > (sceneTimeFullStop - 1)))
         {
-            _detectedStages[_currentScene] = System.Convert.ToUInt32(sceneTime/stageTime) + 1;
-            _detectedTimes[_currentScene * 2] = sceneTime;
-            _detectedTimes[_currentScene * 2 + 1] = sceneTime;
+            Debug.Log("Going through logic for videos that ended by themselves.");
+            double timeToUse = _fullStop ? sceneTimeFullStop : sceneTimeDynamic;
+            _detectedStages[_currentScene] = timeToFoveationStage() + 1;
+            _detectedTimes[_currentScene * 2] = timeToUse;
+            _detectedTimes[_currentScene * 2 + 1] = timeToUse;
         }
         else
         {
@@ -231,11 +275,24 @@ public class Experiment : MonoBehaviour
         }
         
         
-        Debug.Log("Finished Scene " + _currentScene + " at _stage " + _detectedStages[_currentScene] + ". Moving to next scene.");
-        instructions.text = "NEXT SCENE. \n\n Take a second to find the focus point, then press SPACE.";
         _currentScene++;
         _detectedOnce = false;
         clicksNsd = 0;
+        
+        Debug.Log("Finished Scene " + _currentScene + " at _stage " + _detectedStages[_currentScene] + ". Moving to next scene.");
+        if (_fullStop && _currentScene >= 5)
+        {
+            Debug.Log("Changing foveation with new message? At scene " + _currentScene);
+            _fullStop = false;
+            instructions.text = "NEXT SCENE. \n\n You'll be repeating the same scenes, but with a different foveation system. \n\n Take a second to find the focus point, then press SPACE.";
+        }
+        else
+        {
+            Debug.Log("Moving on. At scene " + _currentScene);
+            instructions.text = "NEXT SCENE. \n\n Take a second to find the focus point, then press SPACE.";
+        }
+
+        
         if (_currentScene == branches[_currentBranch].Length)
         {
             FinishExperiment();
@@ -312,6 +369,7 @@ public class Experiment : MonoBehaviour
             {
                 if (x != 1) sb.Append(",");
                 sb.Append("Scene ").Append(x).Append(" _stage,");
+                sb.Append("Scene ").Append(x).Append(" type,");
                 sb.Append("Scene ").Append(x).Append(" time 1,");
                 sb.Append("Scene ").Append(x).Append(" time 2,");
                 sb.Append("Scene ").Append(x).Append("nsd 1,");
@@ -325,6 +383,18 @@ public class Experiment : MonoBehaviour
         for (uint x = 0; x < numberOfScenes; x++)
         {
             if (x != 0) sb.Append(",");
+            if (x < 5)
+            {
+                // This is a Full Stop Stage
+                sb.Append((FullStopFoveationStart - FullStopFoveationStep * _detectedStages[x])+",");
+                sb.Append("Full Stop,");
+            }
+            else
+            {
+                // This is a Dynamic Foveation Stage
+                sb.Append((DynamicFoveationFactorStart + DynamicFoveationFactorStep * _detectedStages[x])+",");
+                sb.Append("Dynamic,");
+            }
             sb.Append(_detectedStages[x]+",");
             sb.Append(_detectedTimes[x*2]+",");
             sb.Append(_detectedTimes[x*2+1]+",");
