@@ -1251,11 +1251,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aef45246e9a7b1e4d8c2dc637af94568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  factorTestThreshold: 10
-  tempFactor: 0.1
-  constatFoveaArea: 0.1
   factorIncrementStep: 0.2
   noFoveationTime: 20
+  factorTestThreshold: 10
+  tempFactor: 0.1
+  constatFoveaArea: 0.05
+  fullStopStepladder: 1
+  fullStopIncrement: 0.05
+  fullStopStartThreshold: 0.3
+  fullStopEndThreshold: 0.05
 --- !u!4 &254924638
 Transform:
   m_ObjectHideFlags: 0

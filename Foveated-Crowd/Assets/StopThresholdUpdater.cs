@@ -37,9 +37,20 @@ public class StopThresholdUpdater : MonoBehaviour
         {
             leftRightEye = "Left Eye";
         }
-        sign.text = "Fov Factor = " + Math.Round(focusPoint.foveationFactor, 3) +
-                    "; Fovea Area ≈  " + Math.Round(focusPoint.foveaArea, 3) +
-                    "; FPS ≈  " + (int)(1f / Time.deltaTime) +
-                    "; Using " + leftRightEye;
+
+        if (focusPoint.useVR)
+        {
+            sign.text = "Fov Factor = " + Math.Round(focusPoint.foveationFactor, 3) +
+                        "; Fovea Area ≈  " + Math.Round(focusPoint.foveaArea, 3) +
+                        "; FPS ≈  " + (int)(1f / Time.deltaTime) +
+                        "; Using " + leftRightEye;
+        }
+        else
+        {
+            sign.text = "Fov Factor = " + Math.Round(focusPoint.foveationFactor, 3) +
+                        "; Fovea Area ≈  " + Math.Round(focusPoint.foveaArea, 3) +
+                        "; FPS ≈  " + (int) (1f / Time.deltaTime);
+        }
+        
     }
 }
