@@ -19,6 +19,7 @@ public class Experiment : MonoBehaviour
     [SerializeField] public UnityEngine.UI.Button restartButton;
     public ushort numberOfScenes = 10;
     public double stageTime = 10;
+    public float errorMargin = 0.002f;
     [FormerlySerializedAs("sceneTime")] public double sceneTimeDynamic = 120;
     public double sceneTimeFullStop = 70;
 
@@ -102,9 +103,9 @@ public class Experiment : MonoBehaviour
 
             clicksNsd = Vector2.Distance(normalizedPos1, normalizedPos2);
             if (
-                (!_fullStop & clicksNsd < DynamicFoveationFoveaArea)
+                (!_fullStop & clicksNsd < (DynamicFoveationFoveaArea + errorMargin))
                 ||
-                (_fullStop & clicksNsd < (FullStopFoveationStart - FullStopFoveationStep * timeToFoveationStage()))
+                (_fullStop & clicksNsd < (FullStopFoveationStart + errorMargin - FullStopFoveationStep * timeToFoveationStage()))
             )
             {
                 // Clicked on an area with NO foveation. Ignore last click.
@@ -385,7 +386,7 @@ public class Experiment : MonoBehaviour
             if (x < 5)
             {
                 // This is a Full Stop Stage
-                sb.Append((FullStopFoveationStart - FullStopFoveationStep * _detectedStages[x])+",");
+                sb.Append(Math.Max(0,FullStopFoveationStart+FullStopFoveationStep - FullStopFoveationStep * _detectedStages[x])+",");
                 sb.Append("Full Stop,");
             }
             else
@@ -394,7 +395,6 @@ public class Experiment : MonoBehaviour
                 sb.Append((DynamicFoveationFactorStart + DynamicFoveationFactorStep * _detectedStages[x])+",");
                 sb.Append("Dynamic,");
             }
-            sb.Append(_detectedStages[x]+",");
             sb.Append(_detectedTimes[x*2]+",");
             sb.Append(_detectedTimes[x*2+1]+",");
             sb.Append(_detectedNsd[x*2]+",");
@@ -442,6 +442,7 @@ public class Experiment : MonoBehaviour
         screenshot.Apply();
         
         // Add Red Dot
+        AddRedDot(screenshot,_click[0],20,tRed);
         AddRedDot(screenshot,_click[1],20,tRed);
 
         // Step 5: Save the screenshot to a PNG file
