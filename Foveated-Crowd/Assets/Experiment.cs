@@ -14,6 +14,7 @@ using UnityEngine.XR;
 
 public class Experiment : MonoBehaviour
 {
+    [Header("General Settings")]
     VideoPlayer vp;
     public TMP_Text instructions;
     [SerializeField] public UnityEngine.UI.Button restartButton;
@@ -22,7 +23,14 @@ public class Experiment : MonoBehaviour
     public float errorMargin = 0.002f;
     [FormerlySerializedAs("sceneTime")] public double sceneTimeDynamic = 120;
     public double sceneTimeFullStop = 70;
+    
+    [Header("Tutorial Settings")]
+    public bool tutorial = true;
 
+    public VideoClip[] tutorialClips;
+    public String[] tutorialClipInstructions;
+    private uint tutorialStage = 0;
+    
     [Header("Foveation Level Variables - Full Stop")]
     public float FullStopFoveationStart = 0.3f;
     public float FullStopFoveationStep = 0.05f;
@@ -85,8 +93,9 @@ public class Experiment : MonoBehaviour
         branches[1] = branch2Videos;
         branches[2] = branch3Videos;
         vp.Pause();
-        StartCoroutine(prepareVideo(true));
+        if (tutorial) instructions.text = tutorialClipInstructions[tutorialStage];
         
+        StartCoroutine(prepareVideo(true));
         restartButton.gameObject.SetActive(false);
     }
 
@@ -94,6 +103,26 @@ public class Experiment : MonoBehaviour
     void Update()
     {
         if (_finished) return;
+        if (tutorial && tutorialStage < tutorialClips.Length)
+        {
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                Debug.Log("Going to next step of tutorial: step "+tutorialStage);
+                tutorialStage++;
+                if (tutorialStage >= tutorialClips.Length)
+                {
+                    tutorial = false;
+                    instructions.text = 
+                        "Welcome to the Foveated Animation User Test." +
+                        "\n\nYou will be going through 10 scenes. You'll know when you move to the next scene." +
+                        "\n\nPress SPACE to signal you've seen foveation happening. When you do, the video will change then pause to give you a second to locate the focus point. At this point, press SPACE again to re-start the video." +
+                        "\n\nYou may start. Take a second to locate the focus point, then press SPACE.";
+                }
+                else instructions.text = tutorialClipInstructions[tutorialStage];
+                StartCoroutine(prepareVideo());
+            }
+            return;
+        }
         if (_clickEventStage == 3)
         {
             _screenWidth = Screen.width;
@@ -213,8 +242,9 @@ public class Experiment : MonoBehaviour
 
     private IEnumerator prepareVideo(bool startAt0 = false, bool playExample = false)
     {
-        if (!playExample) vp.clip = branches[_currentBranch][_currentScene];
-        else vp.clip = foveationExampleVideo;
+        if (tutorial) vp.clip = tutorialClips[tutorialStage];
+        else if (playExample) vp.clip = foveationExampleVideo;
+        else vp.clip = branches[_currentBranch][_currentScene];
 
         vp.Prepare();
         while (!vp.isPrepared)
@@ -222,7 +252,7 @@ public class Experiment : MonoBehaviour
             yield return null;
         }
 
-        if (!startAt0 && !playExample)
+        if (!startAt0 && !playExample && !tutorial)
         {
             int integerDiv = System.Convert.ToInt32(Math.Floor((_currentTime - stageTime) / stageTime));
             Debug.Log("Integer Div is " + integerDiv + " with currentTime - stageTime = " + (_currentTime - stageTime));
@@ -237,17 +267,22 @@ public class Experiment : MonoBehaviour
             vp.frame = 0;
         }
         vp.Play();
-        if (!playExample)
+        if (playExample)
+        {
+            vp.isLooping = true;
+            instructions.enabled = false;
+        }
+        else if (tutorial)
+        {
+            vp.isLooping = true;
+            instructions.enabled = true;
+        }
+        else
         {
             vp.isLooping = false;
             yield return new WaitForSeconds(0.2f);
             instructions.enabled = true;
             vp.Pause();
-        }
-        else
-        {
-            vp.isLooping = true;
-            instructions.enabled = false;
         }
     }
 
@@ -463,8 +498,8 @@ public class Experiment : MonoBehaviour
     void AddRedDot(Texture2D texture, Vector2 position, int radius, Color color)
     {
         // Convert normalized (0-1) coordinates to pixel coordinates
-        int centerX = (int)_click[1].x;
-        int centerY = (int)_click[1].y;
+        int centerX = (int)position.x;
+        int centerY = (int)position.y;
 
         // Loop through pixels in the circle's area
         for (int y = -radius; y <= radius; y++)
