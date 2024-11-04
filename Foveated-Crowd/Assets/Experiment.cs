@@ -261,8 +261,8 @@ public class Experiment : MonoBehaviour
         if ((!_fullStop && vp.time > (sceneTimeDynamic - 1)) || (_fullStop && vp.time > (sceneTimeFullStop - 1)))
         {
             Debug.Log("Going through logic for videos that ended by themselves.");
-            double timeToUse = _fullStop ? sceneTimeFullStop : sceneTimeDynamic;
-            _detectedStages[_currentScene] = timeToFoveationStage() + 1;
+            double timeToUse = (_fullStop ? sceneTimeFullStop : sceneTimeDynamic);
+            _detectedStages[_currentScene] = timeToFoveationStage(timeToUse-1) + 1;
             _detectedTimes[_currentScene * 2] = timeToUse;
             _detectedTimes[_currentScene * 2 + 1] = timeToUse;
         }
@@ -274,12 +274,11 @@ public class Experiment : MonoBehaviour
             CaptureScreenshot((_currentScene * 2 + 1).ToString());
         }
         
-        
+        Debug.Log("Finished Scene " + _currentScene + " at _stage " + _detectedStages[_currentScene] + ". Moving to next scene.");
+
         _currentScene++;
         _detectedOnce = false;
         clicksNsd = 0;
-        
-        Debug.Log("Finished Scene " + _currentScene + " at _stage " + _detectedStages[_currentScene] + ". Moving to next scene.");
         if (_fullStop && _currentScene >= 5)
         {
             Debug.Log("Changing foveation with new message? At scene " + _currentScene);
