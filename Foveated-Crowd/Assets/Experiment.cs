@@ -139,7 +139,7 @@ public class Experiment : MonoBehaviour
             {
                 // Clicked on an area with NO foveation. Ignore last click.
                 Debug.Log("Clicked in control area!" + clicksNsd + " < " + (FullStopFoveationStart - FullStopFoveationStep) +". Ignoring.");
-                clicksNsd = 0;
+                clicksNsd = -1;
                 _detectedOnce = false;
             }
             Debug.Log("Calculated nsd is " + clicksNsd);
@@ -162,7 +162,7 @@ public class Experiment : MonoBehaviour
         {
             if ((Input.GetKeyUp(KeyCode.Space) && vp.isPlaying) || _clickEventStage == 3)
             {
-                if (vp.time < 10)
+                if (vp.time < 0.1)
                 {
                     Debug.Log("Pressed during Control Stage. Restart!");
                     instructions.text = "THERE WAS NO FOVEATION IN EFFECT.\n Ignoring that event. Please try again. \n\n Take a second to locate the focus point, then press SPACE.";
@@ -182,7 +182,7 @@ public class Experiment : MonoBehaviour
                 }
                 if (_clickEventStage == 3) _clickEventStage = 0;
                 
-                if(_detectedOnce && _detectedStage == timeToFoveationStage())
+                if(_detectedOnce && _detectedStage == timeToFoveationStage() && clicksNsd != -1)
                 {
                     vp.Pause();
                     EndReached(vp);
@@ -193,8 +193,7 @@ public class Experiment : MonoBehaviour
                 _detectedStage = timeToFoveationStage();
                 _detectedTimes[_currentScene * 2] = vp.time;
                 _detectedNsd[_currentScene * 2] = clicksNsd;
-                CaptureScreenshot((_currentScene * 2).ToString());
-                if (clicksNsd == 0)
+                if (clicksNsd == -1)
                 {
                     _detectedOnce = false;
                     instructions.text = "THERE WAS NO FOVEATION IN EFFECT THERE.\n Ignoring that click. \n\n Take a second to locate the focus point, then press SPACE.";
@@ -202,6 +201,7 @@ public class Experiment : MonoBehaviour
 
                 else
                 {
+                    CaptureScreenshot((_currentScene * 2).ToString());
                     instructions.text = "Take a second to locate the focus point, then press SPACE.";
                 }
                 
@@ -288,6 +288,7 @@ public class Experiment : MonoBehaviour
 
     void EndReached(UnityEngine.Video.VideoPlayer vp)
     {
+        if (tutorial) return;
         if (onExampleVideo)
         {
             StartCoroutine(prepareVideo(true, true));
@@ -393,7 +394,7 @@ public class Experiment : MonoBehaviour
     {
 
         // The target file path e.g.
-        var filePath = Path.Combine(folder, "foveationUserTest.csv");
+        var filePath = Path.Combine(folder, "AAA foveationUserTest.csv");
         bool fileExists = File.Exists(filePath);
         var sb = new StringBuilder();
 
@@ -482,7 +483,8 @@ public class Experiment : MonoBehaviour
 
         // Step 5: Save the screenshot to a PNG file
         byte[] bytes = screenshot.EncodeToPNG();
-        string filePath = Path.Combine(Application.streamingAssetsPath, name + ".png");
+        string filePath = Path.Combine(folder, Path.Combine("Screenshots\\",name + "_"+ DateTime.Now.ToString("yy-MM-dd-hh-mm") + "_" + clicksNsd + ".png"));
+        Directory.CreateDirectory(Path.Combine(folder,"Screenshots\\"));
         File.WriteAllBytes(filePath, bytes);
 
         // Debug Log

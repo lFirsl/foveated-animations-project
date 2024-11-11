@@ -353,17 +353,17 @@ MonoBehaviour:
   - {fileID: 32900000, guid: 83c598d8be734c2428d47e9c2054658e, type: 3}
   - {fileID: 32900000, guid: e3c91e7701ce9514a9139caf1fdf8ec6, type: 3}
   tutorialClipInstructions:
-  - WELCOME TO THE TUTORIAL. This is how foveation looks. Notice the difference between
-    the different animations from left (fully animated) to right (more and more choppy/foveated).
+  - WELCOME TO THE TUTORIAL. This is how foveation looks. Notice the difference between    
+    the different animations from left (fully animated) to right (more and more choppy/foveated).    
     Press SPACE to continue.
-  - This is one example scene you'll be seeing, with no foveation applied. Under
-    normal circumstances, this is how everything should look to you. Have a look
+  - This is one example scene you'll be seeing, with no foveation applied. Under    
+    normal circumstances, this is how everything should look to you. Have a look    
     around, then press SPACE to continue.
-  - This is the same example scene, with foveation applied. Observe how animations
-    become more choppy or outright stopped as you look away from the RED agent. This
-    is what you're looking in the upcoming scenes - choppy or stopped animations.
-    In the test scenes, whenever you notice the choppy/stopped animations while looking
-    at JUST the red agent, you should press SPACE to signal that you've seen it.
+  - This is the same example scene, with foveation applied. Observe how animations    
+    become more choppy or outright stopped as you look away from the RED agent. This    
+    is what you're looking in the upcoming scenes - choppy or stopped animations.    
+    In the test scenes, whenever you notice the choppy/stopped animations while looking    
+    at JUST the red agent, you should press SPACE to signal that you've seen it.    
     When ready, press SPACE to continue to the test.
   FullStopFoveationStart: 0.3
   FullStopFoveationStep: 0.05
