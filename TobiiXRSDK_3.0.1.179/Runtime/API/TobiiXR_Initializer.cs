@@ -20,4 +20,10 @@ public class TobiiXR_Initializer : MonoBehaviour
     {
         TobiiXR.Start(Settings);
     }
+    
+    
+    private void OnDestroy()
+    {
+        TobiiXR.Stop();
+    }
 }
