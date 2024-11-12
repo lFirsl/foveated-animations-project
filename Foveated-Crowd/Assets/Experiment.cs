@@ -162,7 +162,7 @@ public class Experiment : MonoBehaviour
         {
             if ((Input.GetKeyUp(KeyCode.Space) && vp.isPlaying) || _clickEventStage == 3)
             {
-                if (vp.time < 0.1)
+                if (vp.time < stageTime)
                 {
                     Debug.Log("Pressed during Control Stage. Restart!");
                     instructions.text = "THERE WAS NO FOVEATION IN EFFECT.\n Ignoring that event. Please try again. \n\n Take a second to locate the focus point, then press SPACE.";
