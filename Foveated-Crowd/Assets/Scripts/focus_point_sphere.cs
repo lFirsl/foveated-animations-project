@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Profiling;
 using UnityEngine.Serialization;
+using UnityEngine.XR;
 using ViveSR.anipal.Eye;
 
 
@@ -67,6 +68,7 @@ public class FocusPointSphere : MonoBehaviour
     
     //etc
     private readonly float foveationStep = 0.025f;
+    private readonly float foveationFactorStep = 0.2f;
     private bool useRightEye = false;
     
     void Start()
@@ -88,6 +90,12 @@ public class FocusPointSphere : MonoBehaviour
         //Buttons for changing foveation levels
         if (Input.GetKeyUp(KeyCode.Z)) stopThreshold = System.Math.Max(stopThreshold - foveationStep,0);
         else if (Input.GetKeyUp(KeyCode.X)) stopThreshold = System.Math.Min(stopThreshold + foveationStep, 1f);
+        else if (Input.GetKeyUp(KeyCode.Q)) foveationFactor = System.Math.Max(foveationFactor - foveationFactorStep, 0f);
+        else if (Input.GetKeyUp(KeyCode.W)) foveationFactor = System.Math.Min(foveationFactor + foveationFactorStep, 3f);
+        else if (Input.GetKeyUp(KeyCode.A)) foveaArea = System.Math.Max(foveaArea - foveationStep, 0f);
+        else if (Input.GetKeyUp(KeyCode.S)) foveaArea = System.Math.Min(foveaArea + foveationStep, 1f);
+
+        
         else if (Input.GetKeyUp(KeyCode.D))
         {
             displayFoveationLevels = !displayFoveationLevels;
@@ -129,6 +137,7 @@ public class FocusPointSphere : MonoBehaviour
         //Setup
         _screenHeight = Screen.height;
         _screenWidth = Screen.width;
+        
         Vector3 centrePoint;
         if (useMouseFocus) centrePoint = Input.mousePosition;
         else centrePoint = _mainCamera.WorldToScreenPoint(targetPosition);
