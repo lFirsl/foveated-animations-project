@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -374,7 +374,7 @@ MonoBehaviour:
   branch1Videos:
   - {fileID: 32900000, guid: 84421018fa35d6b4eb0f11930e5ebea7, type: 3}
   - {fileID: 32900000, guid: 2275482a1b5a8554ab2a0cf47cc6604e, type: 3}
-  - {fileID: 32900000, guid: 2f42e6421457e4a4ea86ad7e047616b0, type: 3}
+  - {fileID: 32900000, guid: f73142cd6426cb245b0fb684671d02da, type: 3}
   - {fileID: 32900000, guid: 991b9e6574c07b842b54206bce7d03bf, type: 3}
   - {fileID: 32900000, guid: ff38af24d5fc9ab4ab74c7d995c9cd70, type: 3}
   - {fileID: 32900000, guid: a65a74f7663ef5b4a9def19aad8bbe6f, type: 3}
@@ -385,7 +385,7 @@ MonoBehaviour:
   branch2Videos:
   - {fileID: 32900000, guid: e7ca87170b0ab6f4cb145b8815e94b12, type: 3}
   - {fileID: 32900000, guid: 31f3d1516fcd96a45ae3b4c5cef89e31, type: 3}
-  - {fileID: 32900000, guid: f6a452421e30dc1439bb1d62b21617dd, type: 3}
+  - {fileID: 32900000, guid: 89325be64d471574b879a9056ea59240, type: 3}
   - {fileID: 32900000, guid: a40ee6df027c6c64cb975a085ab51695, type: 3}
   - {fileID: 32900000, guid: ec0d7459ac8ddfd4a953b9520544f0af, type: 3}
   - {fileID: 32900000, guid: 0e8daf528e33b4f4492fe0d1446afcfc, type: 3}
@@ -396,7 +396,7 @@ MonoBehaviour:
   branch3Videos:
   - {fileID: 32900000, guid: 0691e7f6bd8cb3f4aa260d029f01e6ee, type: 3}
   - {fileID: 32900000, guid: 4ddfb038bad8c4946ad2ca1e2bfb077e, type: 3}
-  - {fileID: 32900000, guid: 936f1a6815dd888429b040f45e545f63, type: 3}
+  - {fileID: 32900000, guid: 3fd36be317419e646b1039c66b5926e6, type: 3}
   - {fileID: 32900000, guid: 3d6af0ce05446a24f9cabcfa3e407a79, type: 3}
   - {fileID: 32900000, guid: b52f218be7c186943a0bc89b05142baa, type: 3}
   - {fileID: 32900000, guid: ce66a136c6f81b14087fc31d5a74d518, type: 3}
