@@ -23,7 +23,7 @@ public class Experiment : MonoBehaviour
     public float errorMargin = 0.002f;
     [FormerlySerializedAs("sceneTime")] public double sceneTimeDynamic = 120;
     public double sceneTimeFullStop = 70;
-    private int participantNr = 0;
+    public int participantNr = 0;
     
     [Header("Tutorial Settings")]
     public bool tutorial = true;
@@ -106,8 +106,8 @@ public class Experiment : MonoBehaviour
     {
         if (tutorial)
         {
-            if (Input.GetKeyUp(KeyCode.Q)) participantNr = System.Math.Min(participantNr - 1,0);
-            else if (Input.GetKeyUp(KeyCode.W)) participantNr = System.Math.Max(participantNr + 1,100);
+            if (Input.GetKeyUp(KeyCode.Q)) participantNr = System.Math.Max(participantNr - 1,0);
+            else if (Input.GetKeyUp(KeyCode.W)) participantNr = System.Math.Min(participantNr + 1,100);
         }
         
         
@@ -177,7 +177,7 @@ public class Experiment : MonoBehaviour
         {
             if ((Input.GetKeyUp(KeyCode.Space) && vp.isPlaying) || _clickEventStage == 3)
             {
-                if (vp.time < stageTime)
+                if (vp.time < 0.01f)
                 {
                     Debug.Log("Pressed during Control Stage. Restart!");
                     instructions.text = "THERE WAS NO FOVEATION IN EFFECT.\n Ignoring that event. Please try again. \n\n Take a second to locate the focus point, then press SPACE.";
