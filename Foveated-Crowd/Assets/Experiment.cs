@@ -23,6 +23,7 @@ public class Experiment : MonoBehaviour
     public float errorMargin = 0.002f;
     [FormerlySerializedAs("sceneTime")] public double sceneTimeDynamic = 120;
     public double sceneTimeFullStop = 70;
+    private int participantNr = 0;
     
     [Header("Tutorial Settings")]
     public bool tutorial = true;
@@ -56,6 +57,7 @@ public class Experiment : MonoBehaviour
     private double _currentTime = 0;
     
     //Detection variables
+    private bool inverse_order = false;
     private bool _detectedOnce = false;
     private uint _detectedStage = 0;
     private uint[] _detectedStages;
@@ -102,6 +104,13 @@ public class Experiment : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (tutorial)
+        {
+            if (Input.GetKeyUp(KeyCode.Q)) participantNr = System.Math.Min(participantNr - 1,0);
+            else if (Input.GetKeyUp(KeyCode.W)) participantNr = System.Math.Max(participantNr + 1,100);
+        }
+        
+        
         if (_finished) return;
         if (tutorial && tutorialStage < tutorialClips.Length)
         {
@@ -112,6 +121,12 @@ public class Experiment : MonoBehaviour
                 if (tutorialStage >= tutorialClips.Length)
                 {
                     tutorial = false;
+                    if (participantNr % 2 == 1)
+                    {
+                        inverse_order = true;
+                        _fullStop = false;
+                        _currentScene = 5;
+                    }
                     instructions.text = 
                         "Welcome to the Foveated Animation User Test." +
                         "\n\nYou will be going through 10 scenes. You'll know when you move to the next scene." +
@@ -314,12 +329,21 @@ public class Experiment : MonoBehaviour
         Debug.Log("Finished Scene " + _currentScene + " at _stage " + _detectedStages[_currentScene] + ". Moving to next scene.");
 
         _currentScene++;
+        if (inverse_order && _currentScene >= branches[_currentBranch].Length )
+        {
+            _currentScene = 0;
+        }
         _detectedOnce = false;
         clicksNsd = 0;
-        if (_fullStop && _currentScene >= 5)
+        if (_fullStop && _currentScene >= 5 && !inverse_order )
         {
             Debug.Log("Changing foveation with new message? At scene " + _currentScene);
             _fullStop = false;
+            instructions.text = "NEXT SCENE. \n\n You'll be repeating the same scenes, but with a different foveation system. \n\n Take a second to find the focus point, then press SPACE.";
+        }
+        else if (!_fullStop && inverse_order && _currentScene < 5)
+        {
+            _fullStop = true;
             instructions.text = "NEXT SCENE. \n\n You'll be repeating the same scenes, but with a different foveation system. \n\n Take a second to find the focus point, then press SPACE.";
         }
         else
@@ -329,7 +353,11 @@ public class Experiment : MonoBehaviour
         }
 
         
-        if (_currentScene == branches[_currentBranch].Length)
+        if (!inverse_order && _currentScene >= branches[_currentBranch].Length)
+        {
+            FinishExperiment();
+        }
+        else if (inverse_order && _currentScene == 5)
         {
             FinishExperiment();
         }
