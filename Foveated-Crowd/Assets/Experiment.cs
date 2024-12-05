@@ -177,7 +177,7 @@ public class Experiment : MonoBehaviour
         {
             if ((Input.GetKeyUp(KeyCode.Space) && vp.isPlaying) || _clickEventStage == 3)
             {
-                if (vp.time < 0.01f)
+                if (vp.time < stageTime)
                 {
                     Debug.Log("Pressed during Control Stage. Restart!");
                     instructions.text = "THERE WAS NO FOVEATION IN EFFECT.\n Ignoring that event. Please try again. \n\n Take a second to locate the focus point, then press SPACE.";
@@ -429,6 +429,7 @@ public class Experiment : MonoBehaviour
         // If file doesn't exist, create it and add headers.
         if (!fileExists)
         {
+            sb.Append("Participant Number,");
             for (uint x = 1; x <= numberOfScenes; x++)
             {
                 if (x != 1) sb.Append(",");
@@ -436,13 +437,14 @@ public class Experiment : MonoBehaviour
                 sb.Append("Scene ").Append(x).Append(" type,");
                 sb.Append("Scene ").Append(x).Append(" time 1,");
                 sb.Append("Scene ").Append(x).Append(" time 2,");
-                sb.Append("Scene ").Append(x).Append("nsd 1,");
-                sb.Append("Scene ").Append(x).Append("nsd 2");
+                sb.Append("Scene ").Append(x).Append(" nsd 1,");
+                sb.Append("Scene ").Append(x).Append(" nsd 2");
             }
 
             sb.Append("\n");
         }
-
+        // Add the participant number
+        sb.Append(participantNr + ",");
         // Add this test's _stage values
         for (uint x = 0; x < numberOfScenes; x++)
         {
