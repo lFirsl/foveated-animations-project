@@ -354,17 +354,17 @@ MonoBehaviour:
   - {fileID: 32900000, guid: 283a0b56e20d25e4198ef9028f506403, type: 3}
   - {fileID: 32900000, guid: a56f2ea91c28c284a98689071e3f52dd, type: 3}
   tutorialClipInstructions:
-  - WELCOME TO THE TUTORIAL. This is how foveation looks. Notice the difference between    
-    the different animations from left (fully animated) to right (more and more choppy/foveated).    
+  - WELCOME TO THE TUTORIAL. This is how foveation looks. Notice the difference between
+    the different animations from left (fully animated) to right (more and more choppy/foveated). 
     Press SPACE to continue.
-  - This is one example scene you'll be seeing, with no foveation applied. Under    
-    normal circumstances, this is how everything should look to you. Have a look    
-    around, then press SPACE to continue.
-  - This is the same example scene, with foveation applied. Observe how animations    
-    become more choppy or outright stopped as you look away from the RED agent. This    
-    is what you're looking in the upcoming scenes - choppy or stopped animations.    
-    In the test scenes, whenever you notice the choppy/stopped animations while looking    
-    at JUST the red agent, you should press SPACE to signal that you've seen it.    
+  - This is one example scene you'll be seeing, with no foveation applied. Under
+    normal circumstances, this is how everything should look to you. Have a look
+    around, then press SPACE to continue when you're ready.
+  - This is the same example scene, with foveation applied. Observe how animations
+    become more choppy or outright stopped as you look away from the RED agent. This
+    is what you're looking in the upcoming scenes - choppy or stopped animations. 
+    In the test scenes, whenever you notice the choppy/stopped animations while looking
+    at JUST the red agent, you should press SPACE to signal that you've seen it. 
     When ready, press SPACE to continue to the test.
   FullStopFoveationStart: 0.3
   FullStopFoveationStep: 0.05
