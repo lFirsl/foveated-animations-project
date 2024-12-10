@@ -41,14 +41,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
         focus = FindObjectOfType<FocusPointSphere>();
         if (focus != null && focus.enabled)
         {
-            if (focus.useHaltStop)
-            {
-                SetFixedFPS(focus.MinimumStopHz,2 + Random.Range(-frameVariation,frameVariation)); //Get everyone to move a bit into a position, then freeze them
-            }
-            else
-            {
-                SetFixedFPS(focus.MinimumStopHz);
-            }
+            SetFixedFPS(5,5f); //Get everyone to move a bit into a position, then freeze them
         }
         else this.enabled = false;
     }
@@ -71,10 +64,10 @@ public class FoveatedAnimationTarget : MonoBehaviour
                 yield return new WaitForSeconds(_waitTime + Random.Range(-frameVariation,frameVariation));
                 continue;
             }
-            Profiler.BeginSample("AFC Low FPS Animation");
+            //Profiler.BeginSample("AFC Low FPS Animation");
             if (lowFps) _anim.playableGraph.Evaluate(Time.time - lastTime);
             lastTime = Time.time;
-            Profiler.EndSample();
+            //Profiler.EndSample();
             yield return new WaitForSeconds(_waitTime + Random.Range(-frameVariation,frameVariation));
             yield return new WaitForFixedUpdate();
         }
