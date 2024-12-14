@@ -58,9 +58,10 @@ public class FocusPointSphere : MonoBehaviour
     private static readonly Color tBlue = new Color(0f, 0f, 1f, 0.3f);
     
     // Get screen dimensions
-    private float _screenWidth = Screen.width;
     private float _screenHeight = Screen.height;
     private Vector2 _centreNSD = new Vector2();
+    private Vector3 _centrePoint;
+    private int _pixelThreshold = 0;
     
     //Objects
     private Transform _pos;
@@ -136,12 +137,10 @@ public class FocusPointSphere : MonoBehaviour
         
         //Setup
         _screenHeight = Screen.height;
-        _screenWidth = Screen.width;
-        
-        Vector3 centrePoint;
-        if (useMouseFocus) centrePoint = Input.mousePosition;
-        else centrePoint = _mainCamera.WorldToScreenPoint(targetPosition);
-        _centreNSD = new Vector2(centrePoint.x / _screenWidth, centrePoint.y / _screenHeight);
+   
+        if (useMouseFocus) _centrePoint = Input.mousePosition;
+        else _centrePoint = _mainCamera.WorldToScreenPoint(targetPosition);
+        _centreNSD = new Vector2(_centrePoint.x / _screenHeight, _centrePoint.y / _screenHeight);
         
         Profiler.BeginSample("AFC All Agents Foveation Calculation");
         foreach(FoveatedAnimationTarget agent in _agentsFov)
@@ -218,7 +217,7 @@ public class FocusPointSphere : MonoBehaviour
     {
         Vector3 agentScreenPos = _mainCamera.WorldToScreenPoint(agent);
         
-        Vector2 normalizedPos1 = new Vector2(agentScreenPos.x / _screenWidth, agentScreenPos.y / _screenHeight);
+        Vector2 normalizedPos1 = new Vector2(agentScreenPos.x / _screenHeight, agentScreenPos.y / _screenHeight);
         
         return Vector2.Distance(normalizedPos1, _centreNSD);
     }
