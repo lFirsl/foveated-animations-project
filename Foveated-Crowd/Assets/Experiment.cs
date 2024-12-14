@@ -67,7 +67,6 @@ public class Experiment : MonoBehaviour
     private Vector2[] _click = {new Vector2(0, 0),new Vector2(0,0)};
     private float clicksNsd = 0;
     
-    private float _screenWidth = Screen.width;
     private float _screenHeight = Screen.height;
     private static readonly Color tRed = new Color(1f, 0.1f, 0.1f, 0.3f);
     
@@ -137,10 +136,9 @@ public class Experiment : MonoBehaviour
         }
         if (_clickEventStage == 3)
         {
-            _screenWidth = Screen.width;
             _screenHeight = Screen.height;
-            Vector2 normalizedPos1 = new Vector2(_click[0].x / _screenWidth, _click[0].y / _screenHeight);
-            Vector2 normalizedPos2 = new Vector2(_click[1].x / _screenWidth, _click[1].y / _screenHeight);
+            Vector2 normalizedPos1 = new Vector2(_click[0].x / _screenHeight, _click[0].y / _screenHeight);
+            Vector2 normalizedPos2 = new Vector2(_click[1].x / _screenHeight, _click[1].y / _screenHeight);
 
             clicksNsd = Vector2.Distance(normalizedPos1, normalizedPos2);
             if (
