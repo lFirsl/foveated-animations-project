@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -362,7 +362,7 @@ MonoBehaviour:
     around, then press SPACE to continue when you're ready.
   - This is the same example scene, with foveation applied. Observe how animations
     become more choppy or outright stopped as you look away from the RED agent. This
-    is what you're looking in the upcoming scenes - choppy or stopped animations. 
+    is what you're looking for in the upcoming scenes - choppy or stopped animations. 
     In the test scenes, whenever you notice the choppy/stopped animations while looking
     at JUST the red agent, you should press SPACE to signal that you've seen it. 
     When ready, press SPACE to continue to the test.
@@ -378,33 +378,33 @@ MonoBehaviour:
   - {fileID: 32900000, guid: 328dcd1b8be7d8047abec4a06fe9e447, type: 3}
   - {fileID: 32900000, guid: 3050a5fa0f691024d85f5487884df89a, type: 3}
   - {fileID: 32900000, guid: 8d93a9ebbc24ec349a1d8c22a44e71dc, type: 3}
-  - {fileID: 32900000, guid: 707387cf78d603d46b4b2bf17626a981, type: 3}
-  - {fileID: 32900000, guid: 3967fa4a059accd459f28d8ab3b21010, type: 3}
-  - {fileID: 32900000, guid: acaa085e51e3d7043949ee9588454a3c, type: 3}
-  - {fileID: 32900000, guid: 2c8a3459f617e634c8ddab8003c46f2f, type: 3}
-  - {fileID: 32900000, guid: e3bc63883bd66924f8c8c22081b5aa09, type: 3}
+  - {fileID: 32900000, guid: f6dbdbd3e0912bb46956937a4dbdac12, type: 3}
+  - {fileID: 32900000, guid: 46d38a55042c1fb4c96bcd1dd67d3997, type: 3}
+  - {fileID: 32900000, guid: 41ac22e4134516b47b0698d585845da1, type: 3}
+  - {fileID: 32900000, guid: 6d27fad1487fc124fa903c24a7902d1c, type: 3}
+  - {fileID: 32900000, guid: 6ab633f56681b9d4ab0fdcd7aadd37ce, type: 3}
   branch2Videos:
   - {fileID: 32900000, guid: 322cd1d9084eb3c43bc630fb04c98fba, type: 3}
   - {fileID: 32900000, guid: d103cb376a608cd4e9884adb5a15da13, type: 3}
   - {fileID: 32900000, guid: 17f61902b991d7a4d9d559c9d6cbd277, type: 3}
   - {fileID: 32900000, guid: b9ed477d94642144abaa11f09917c683, type: 3}
   - {fileID: 32900000, guid: 2aba60b393254b04a89539f4ffd97f39, type: 3}
-  - {fileID: 32900000, guid: c28c84592cbdccc4688ef9e5c5187170, type: 3}
-  - {fileID: 32900000, guid: 98bea44192c60d942b50f27d544b4bfc, type: 3}
-  - {fileID: 32900000, guid: eb93df83011c01f49a2512d77e1a25be, type: 3}
-  - {fileID: 32900000, guid: 913d395915bd9ad4fa0b99d423ce0325, type: 3}
-  - {fileID: 32900000, guid: f5176f73329902b4787a349ac3454710, type: 3}
+  - {fileID: 32900000, guid: e5132321b404d3f4e8e11c86dfa6ed97, type: 3}
+  - {fileID: 32900000, guid: ce6afb39fe8e97c4c933fabb4e841a68, type: 3}
+  - {fileID: 32900000, guid: 931f05eb031e43145a8e7b82ee5b172a, type: 3}
+  - {fileID: 32900000, guid: 7dbb953f1e896204f8fb05103f824b36, type: 3}
+  - {fileID: 32900000, guid: 27a9e279918039e40878c25dd1547f78, type: 3}
   branch3Videos:
   - {fileID: 32900000, guid: 62cf3be4319f21a4580c3a70c267a75e, type: 3}
   - {fileID: 32900000, guid: e1b9ec84d7fbbe24ba5656f887674010, type: 3}
   - {fileID: 32900000, guid: 0c48d00423a78bc4887fea594cb8bf83, type: 3}
   - {fileID: 32900000, guid: 61f486ce1cd1575458fd8ffc7570f09f, type: 3}
   - {fileID: 32900000, guid: 334379a8c9eb92a4f82deb7b07aa8a7a, type: 3}
-  - {fileID: 32900000, guid: 7c4b2495b8f6f084d850fbb1074e13e4, type: 3}
-  - {fileID: 32900000, guid: a59bc62c42508054488162d4fcc4cd19, type: 3}
-  - {fileID: 32900000, guid: b2496b3e2e972704da9d2b9dbf8125cf, type: 3}
-  - {fileID: 32900000, guid: d7cd4e5afc4f5084c853ccf6ac66a6ec, type: 3}
-  - {fileID: 32900000, guid: 3024fe650cc6298498bd5076e160450a, type: 3}
+  - {fileID: 32900000, guid: 42c4d96577c498f429a41de7cde0006a, type: 3}
+  - {fileID: 32900000, guid: ef7dc6b18eee8c34ea4d389c8729c2d4, type: 3}
+  - {fileID: 32900000, guid: a4e71d7ef520d834ab4e7b7666875e3a, type: 3}
+  - {fileID: 32900000, guid: 011ef9c97ea680846a10607d93efa1aa, type: 3}
+  - {fileID: 32900000, guid: d06e516123fbd8a42914b92e3dbd7da9, type: 3}
 --- !u!64 &388779644
 MeshCollider:
   m_ObjectHideFlags: 0
