@@ -20,19 +20,7 @@ public class FocusPointSphere : MonoBehaviour
     public bool useVR = false;
     private IReadEye _eyes;
     
-    [FormerlySerializedAs("shouldStop")]
-    [Header("Foveated Animation Update Frequencies")]
-    [Tooltip("Determines whether foveated agents stop when outside of the Stop Threshold, or animate at the Minimum Stop Hz frequency.")]
-    public bool useHaltStop = true;
-    [FormerlySerializedAs("Stage1FoveationFPS")] [Tooltip("Animation frame rate for targets to use when outside of focus point's area. 0 makes targets use their own framerate instead.")]
-    public uint Stage1FoveationHz = 30; //If set to 0, it let's the target determine it's own FPS.
-    [FormerlySerializedAs("Stage2FoveationFPS")] 
-    public uint Stage2FoveationHz = 15;
-    [FormerlySerializedAs("outOfFocusFPS")]
-    public uint MinimumStopHz = 5;
-    
     [Header("Foveation Thresholds in Normalized Screen Distance")]
-    public float stopThreshold = 0.4f;
     public float foveationFactor = 5f;
     public float foveaArea = 0.5f;
     [SerializeField] private LayerMask layermask;
@@ -89,9 +77,7 @@ public class FocusPointSphere : MonoBehaviour
     private void Update()
     {
         //Buttons for changing foveation levels
-        if (Input.GetKeyUp(KeyCode.Z)) stopThreshold = System.Math.Max(stopThreshold - foveationStep,0);
-        else if (Input.GetKeyUp(KeyCode.X)) stopThreshold = System.Math.Min(stopThreshold + foveationStep, 1f);
-        else if (Input.GetKeyUp(KeyCode.Q)) foveationFactor = System.Math.Max(foveationFactor - foveationFactorStep, 0f);
+        if (Input.GetKeyUp(KeyCode.Q)) foveationFactor = System.Math.Max(foveationFactor - foveationFactorStep, 0f);
         else if (Input.GetKeyUp(KeyCode.W)) foveationFactor = System.Math.Min(foveationFactor + foveationFactorStep, 3f);
         else if (Input.GetKeyUp(KeyCode.A)) foveaArea = System.Math.Max(foveaArea - foveationStep, 0f);
         else if (Input.GetKeyUp(KeyCode.S)) foveaArea = System.Math.Min(foveaArea + foveationStep, 1f);
@@ -156,13 +142,6 @@ public class FocusPointSphere : MonoBehaviour
         float distance = ScreenDistanceToCentre(agent.transform.position);
         try
         {
-            //Outside our stop threshold. Skip other checks
-            if (distance > stopThreshold)
-            {
-                if (displayFoveationLevels && agent.isSphereActive()) agent.sphereSetActive(false);
-                return;
-            }
-
             if (!displayFoveationLevels && agent.isSphereActive()) agent.sphereSetActive(false);
             else if (displayFoveationLevels && !agent.isSphereActive()) agent.sphereSetActive(true);
 
@@ -226,28 +205,4 @@ public class FocusPointSphere : MonoBehaviour
     {
         return useRightEye;
     }
-    
-#if UNITY_EDITOR
-    private void OnDrawGizmosSelected()
-    {
-        if (!EditorApplication.isPlaying) return;
-        foreach(FoveatedAnimationTarget agent in _agentsFov)
-        {
-            if (agent.isAnimationEnabled() && !agent.lowFps)
-            {
-                Gizmos.color = tRed;
-            }
-            else if (agent.currentFPS == Stage1FoveationHz)
-            {
-                Gizmos.color = tGreen;
-            }
-            else if (agent.currentFPS == Stage2FoveationHz)
-            {
-                Gizmos.color = tBlue;
-            }
-            else continue;
-            Gizmos.DrawSphere(agent.transform.position, 1);
-        }
-    }
-#endif
 }

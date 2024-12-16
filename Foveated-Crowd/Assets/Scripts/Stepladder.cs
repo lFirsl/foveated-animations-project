@@ -28,7 +28,6 @@ public class Stepladder : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         FocusPointSphere focus = FindObjectOfType<FocusPointSphere>();
-        focus.stopThreshold = 3f;
         focus.foveaArea = 3f;
         focus.foveationFactor = 0.0001f;
 
