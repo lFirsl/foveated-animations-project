@@ -447,7 +447,7 @@ public class Experiment : MonoBehaviour
             if (x < 5)
             {
                 // This is a Full Stop Stage
-                sb.Append(Math.Max(0,FullStopFoveationStart+FullStopFoveationStep - FullStopFoveationStep * _detectedStages[x])+",");
+                sb.Append(Math.Max(0,Math.Round(FullStopFoveationStart+FullStopFoveationStep - FullStopFoveationStep * _detectedStages[x],1))+",");
                 sb.Append("Full Stop,");
             }
             else
