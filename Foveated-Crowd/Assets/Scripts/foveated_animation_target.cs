@@ -19,7 +19,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
     
     //Private variables
     private float _waitTime;
-    [NonSerialized] public uint currentFPS;
+    public uint currentFPS;
     
     //Animator specific variables
     [NonSerialized] public bool lowFps = false;
@@ -68,7 +68,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
             if (lowFps) _anim.playableGraph.Evaluate(Time.time - lastTime);
             lastTime = Time.time;
             //Profiler.EndSample();
-            yield return new WaitForSeconds(_waitTime + Random.Range(-frameVariation,frameVariation));
+            yield return new WaitForSeconds(_waitTime);
             yield return new WaitForFixedUpdate();
         }
     }
