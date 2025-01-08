@@ -35,7 +35,7 @@ public class FoveatedAnimationTarget : MonoBehaviour
         _waitTime = 1f / lowFpsFrames;
         sphereMaterial = sphere.GetComponent<MeshRenderer>().material;
         StartCoroutine(LowFramerate());
-
+ 
         focus = FindObjectOfType<FocusPointSphere>();
         if (focus != null && focus.enabled)
         {
@@ -141,5 +141,24 @@ public class FoveatedAnimationTarget : MonoBehaviour
     public void setSphereColour(Color colour)
     {
         sphereMaterial.SetColor("_Color", colour);
+    }
+
+    public int operationsPerSecond()
+    {
+        if (_anim.enabled == false)
+        {
+            return 0;
+        }
+        
+        int approximateFrameRate = focus.fpsEstimate();
+        
+        if (lowFps)
+        {
+            return (int) Mathf.Round(Mathf.Min(currentFPS, approximateFrameRate));
+        }
+        else
+        {
+            return (int) Mathf.Round(approximateFrameRate);
+        }
     }
 }

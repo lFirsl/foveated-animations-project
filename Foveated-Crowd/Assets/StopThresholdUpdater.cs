@@ -19,6 +19,7 @@ public class StopThresholdUpdater : MonoBehaviour
 
     private IEnumerator updateTextCoroutine()
     {
+        yield return new WaitForSeconds(1);
         while (true)
         {
             updateText();
@@ -49,7 +50,8 @@ public class StopThresholdUpdater : MonoBehaviour
         {
             sign.text = "Fov Factor = " + Math.Round(focusPoint.foveationFactor, 3) +
                         "; Fovea Area ≈  " + Math.Round(focusPoint.foveaArea, 3) +
-                        "; FPS ≈  " + (int) (1f / Time.deltaTime);
+                        "; FPS ≈  " + (int) (1f / Time.deltaTime) +
+                        "; Operations ≈ " + focusPoint.operationsPerSecond();
         }
         
     }

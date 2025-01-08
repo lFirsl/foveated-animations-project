@@ -55,6 +55,11 @@ public class FocusPointSphere : MonoBehaviour
     private Transform _pos;
     private Camera _mainCamera;
     
+    //FrameCounter
+    private int frameCount = 0; // Number of frames in the current second
+    private float elapsedTime = 0f; // Time elapsed since the last FPS calculation
+    private float currentFPS = 30f; // Current calculated FPS
+    
     //etc
     private readonly float foveationStep = 0.025f;
     private readonly float foveationFactorStep = 0.2f;
@@ -201,8 +206,37 @@ public class FocusPointSphere : MonoBehaviour
         return Vector2.Distance(normalizedPos1, _centreNSD);
     }
 
+    public int operationsPerSecond()
+    {
+        int operationsPerSecond = 0;
+        foreach(FoveatedAnimationTarget agent in _agentsFov)
+        {
+            operationsPerSecond += agent.operationsPerSecond();
+        }
+        return operationsPerSecond;
+    }
+
     public bool UsingRighteye()
     {
         return useRightEye;
+    }
+
+    private void updateFpsEstimate()
+    {
+        frameCount++;
+        elapsedTime += Time.deltaTime;
+
+        // If one second has passed, calculate FPS
+        if (elapsedTime >= 1f)
+        {
+            currentFPS = frameCount / elapsedTime; // Frames divided by elapsed time
+            frameCount = 0; // Reset frame count
+            elapsedTime = 0f; // Reset elapsed time
+        }
+    }
+
+    public int fpsEstimate()
+    {
+        return (int)currentFPS;
     }
 }
