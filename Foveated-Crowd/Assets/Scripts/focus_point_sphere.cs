@@ -39,7 +39,6 @@ public class FocusPointSphere : MonoBehaviour
     
     //private
     private FoveatedAnimationTarget[] _agentsFov;
-    private Collider[] agents = new Collider[800];
     private static readonly Color tGrey = new Color(0.1f, 0.1f, 0.1f, 0.3f);
     private static readonly Color tGreen = new Color(0f, 1f, 0f, 0.3f);
     private static readonly Color tRed = new Color(1f, 0.1f, 0.1f, 0.3f);
