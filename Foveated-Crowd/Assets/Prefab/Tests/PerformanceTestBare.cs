@@ -11,9 +11,9 @@ public class PerformanceTestBare : MonoBehaviour
     
     static string[] scenes = new string[]
     {
-        "Wander Crowd",
-        "Wander Crowd - Minimum Stop",
-        "Wander Crowd - Base"
+        "Performance Wander - Base",
+        "Performance Wander - Dynamic",
+        "Performance Wander - Full Stop"
     };
     
     //Warmup and measure parameters
