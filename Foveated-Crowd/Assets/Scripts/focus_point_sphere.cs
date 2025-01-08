@@ -81,6 +81,7 @@ public class FocusPointSphere : MonoBehaviour
 
     private void Update()
     {
+        updateFpsEstimate();
         //Buttons for changing foveation levels
         if (Input.GetKeyUp(KeyCode.Q)) foveationFactor = System.Math.Max(foveationFactor - foveationFactorStep, 0f);
         else if (Input.GetKeyUp(KeyCode.W)) foveationFactor = System.Math.Min(foveationFactor + foveationFactorStep, 3f);

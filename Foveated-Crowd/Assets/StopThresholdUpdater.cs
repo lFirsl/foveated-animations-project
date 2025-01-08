@@ -43,14 +43,14 @@ public class StopThresholdUpdater : MonoBehaviour
         {
             sign.text = "Fov Factor = " + Math.Round(focusPoint.foveationFactor, 3) +
                         "; Fovea Area ≈  " + Math.Round(focusPoint.foveaArea, 3) +
-                        "; FPS ≈  " + (int)(1f / Time.deltaTime) +
+                        "; FPS ≈  " + focusPoint.fpsEstimate() +
                         "; Using " + leftRightEye;
         }
         else
         {
             sign.text = "Fov Factor = " + Math.Round(focusPoint.foveationFactor, 3) +
                         "; Fovea Area ≈  " + Math.Round(focusPoint.foveaArea, 3) +
-                        "; FPS ≈  " + (int) (1f / Time.deltaTime) +
+                        "; FPS ≈  " + focusPoint.fpsEstimate() +
                         "; Operations ≈ " + focusPoint.operationsPerSecond();
         }
         
