@@ -39391,7 +39391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dynamicFoveation: 0
   initialValue: 0.3
-  factorStep: 0.5
+  factorStep: 0.05
   numberOfSteps: 6
   noFoveationTime: 10
   stageTime: 10

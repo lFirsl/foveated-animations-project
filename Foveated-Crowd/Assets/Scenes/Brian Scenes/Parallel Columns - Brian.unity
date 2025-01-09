@@ -2855,7 +2855,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &634956875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3015,8 +3015,8 @@ MonoBehaviour:
   noFoveationTime: 20
   factorTestThreshold: 10
   tempFactor: 0.1
-  constatFoveaArea: 0.05
-  fullStopStepladder: 1
+  constatFoveaArea: 0.08
+  fullStopStepladder: 0
   fullStopIncrement: 0.05
   fullStopStartThreshold: 0.3
   fullStopEndThreshold: 0.05

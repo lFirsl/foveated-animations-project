@@ -78,7 +78,6 @@ public class StepladderPerformance : MonoBehaviour
             else focus.foveaArea -= factorStep;
         }
         resultsToCSV(Frames, Operations);
-        EditorApplication.ExitPlaymode();
         yield break; 
         
     }

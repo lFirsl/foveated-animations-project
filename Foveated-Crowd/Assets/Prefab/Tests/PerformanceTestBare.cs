@@ -25,6 +25,7 @@ public class PerformanceTestBare : MonoBehaviour
     public IEnumerator PerformanceTest([ValueSource("scenes")] string scene)
     {
         SceneManager.LoadScene(scene, LoadSceneMode.Single);
+        yield return new WaitForSeconds(80);
         yield return Measure.Frames()
             .WarmupCount(warmupFrames)
             .MeasurementCount(measureFrames)
