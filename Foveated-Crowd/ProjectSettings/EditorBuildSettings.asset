@@ -6,35 +6,44 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/Wander Crowd.unity
+    path: Assets/Scenes/ZZZZ - Old Scenes/Wander Crowd.unity
     guid: b8b27cb2b3ce3104b899dc463684ddd3
   - enabled: 0
-    path: Assets/Scenes/Wander Crowd - Base.unity
+    path: Assets/Scenes/ZZZZ - Old Scenes/Wander Crowd - Base.unity
     guid: 7fdc22cdba2e1c542bfdd276269b638e
   - enabled: 0
-    path: Assets/Scenes/Square Marathon.unity
+    path: Assets/Scenes/ZZZZ - Old Scenes/Square Marathon.unity
     guid: 6ad4c0e29c51ce24ab09e52d61633b80
   - enabled: 0
-    path: Assets/Scenes/Parallel Columns.unity
+    path: Assets/Scenes/ZZZZ - Old Scenes/Parallel Columns.unity
     guid: 9379b82f3dda87f46b277cc912f37c2d
   - enabled: 0
-    path: Assets/Scenes/Intercepting Crowds.unity
+    path: Assets/Scenes/ZZZZ - Old Scenes/Intercepting Crowds.unity
     guid: b22f4203998715d4f850068a56b7d149
   - enabled: 0
-    path: Assets/Scenes/Wander Crowd - Minimum Stop.unity
+    path: Assets/Scenes/ZZZZ - Old Scenes/Wander Crowd - Minimum Stop.unity
     guid: 34bd70faffd45174c82570dd807cd3ef
   - enabled: 0
     path: Assets/Scenes/Video Scenes/Video Scene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 0
-    path: Assets/Scenes/Wander Crowd - VR.unity
+    path: Assets/Scenes/ZZZZ - Old Scenes/Wander Crowd - VR.unity
     guid: 242f64efc77019c4cb12659e96e1c840
   - enabled: 0
-    path: Assets/Scenes/Wander Crowd - VR 2.unity
+    path: Assets/Scenes/ZZZZ - Old Scenes/Wander Crowd - VR 2.unity
     guid: 2a0afab46869a2e4fb5bbea396adabef
   - enabled: 1
     path: Assets/Scenes/Video Scenes/Video Scene Dynamic.unity
     guid: 30f0704cd8a131843a13a3dd9f7d17c1
+  - enabled: 1
+    path: Assets/Scenes/Brian Scenes/Performance Test/Performance Wander - Base.unity
+    guid: 02a5de1dec247054ab9375c6c69ac3b8
+  - enabled: 1
+    path: Assets/Scenes/Performance Test/Performance Wander - Dynamic.unity
+    guid: eee1ed3f971e44244abe0f761e38720f
+  - enabled: 1
+    path: Assets/Scenes/Brian Scenes/Performance Test/Performance Wander - Full Stop.unity
+    guid: ed412e9ded6132d479399f9bc725c7d4
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 9fd7d14a420608c41955d24fc80d12eb, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: e708652626edff04893cb8b433995533, type: 2}
