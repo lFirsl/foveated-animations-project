@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!29 &1
 OcclusionCullingSettings:
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -344,7 +344,18 @@ MonoBehaviour:
   restartButton: {fileID: 719736105}
   numberOfScenes: 10
   stageTime: 10
-  sceneTime: 100
+  errorMargin: 0.002
+  sceneTimeDynamic: 100
+  sceneTimeFullStop: 70
+  participantNr: 0
+  tutorial: 1
+  tutorialClips: []
+  tutorialClipInstructions: []
+  FullStopFoveationStart: 0.3
+  FullStopFoveationStep: 0.05
+  DynamicFoveationFoveaArea: 0.05
+  DynamicFoveationFactorStart: 0.1
+  DynamicFoveationFactorStep: 0.2
   foveationExampleVideo: {fileID: 32900000, guid: 8d365637e0717ea47a54db299609fb23, type: 3}
   branch1Videos:
   - {fileID: 32900000, guid: d22386a002aec9c48ab15b235b2392a6, type: 3}
