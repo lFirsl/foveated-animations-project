@@ -7,6 +7,27 @@ title: Home
 <script id="MathJax-script" async
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const videos = document.querySelectorAll('video[data-autoplay]');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const video = entry.target;
+      if (entry.isIntersecting) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    });
+  }, {
+    threshold: 0.3
+  });
+
+  videos.forEach(video => observer.observe(video));
+});
+</script>
+
 <ul>
   <li><a href="#">Florin-Vladimir Stancu</a>, University of Leeds, United Kingdom</li>
   <li><a href="#">Tomer Weiss</a>, New Jersey Institute of Technology, United States of America</li>
@@ -71,7 +92,7 @@ In other words, all animations on screen are updated every frame.
 Our approach to foveating these animations then is to directly control the AUF of agents on screen depending on their
 distance from the user's focus point.
 
-<video autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="{{ site.baseurl }}/assets/videos/Foveation Example.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -82,31 +103,31 @@ To explore this approach we implemented a Unity3D prototype of a crowd simulatio
 typical scenarios.
 
 ### Wander Crowd
-<video autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="{{ site.baseurl }}/assets/videos/WanderCrowd_NoFovea_Compressed.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
 ### Square Marathon
-<video autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="{{ site.baseurl }}/assets/videos/SquareMarathon_NoFovea.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
 ### Parallel Columns
-<video autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="{{ site.baseurl }}/assets/videos/ParallelColumns_NoFovea.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
 ### Intercepting Crowds
-<video autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="{{ site.baseurl }}/assets/videos/InterceptingCrowds_NoFovea.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
 ### T-Intercept
-<video autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="{{ site.baseurl }}/assets/videos/TIntercept_NoFovea.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -135,7 +156,7 @@ Example video can be seen below. Mind that:
 - Agents highlighted green are those within the assigned foveal area, and are fully animated.
 - Agents without any highlight have their animations fully halted.
 
-<video autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="{{ site.baseurl }}/assets/videos/Foveated Animations - Full Stop Mean Values Presentation.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -166,7 +187,7 @@ Example video can be seen below. Mind that:
 - Agents highlighted red-to-grey have their AUF calculated using the formula above
 - Agents without any highlight have their animations fully halted.
 
-<video autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="{{ site.baseurl }}/assets/videos/Foveated Animations - Dynamic Foveation Mean Values Presentation.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
