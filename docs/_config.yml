@@ -3,6 +3,10 @@ description: Foveating agent animations in a scene to reduce computation power o
 theme: minima
 
 
+domain: "lfirsl.github.io"
+url: "https://lfirsl.github.io"
+baseurl: "/foveated-animations-project/"
+
 show_downloads: false
 github:
   is_project_page: false
