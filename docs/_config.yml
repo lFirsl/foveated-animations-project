@@ -1,0 +1,8 @@
+title: Foveated Animations for Efficient Crowd Simulation
+description: Foveating agent animations in a scene to reduce computation power of crowds without impacting user experience.
+theme: minima
+
+
+show_downloads: false
+github:
+  is_project_page: false
