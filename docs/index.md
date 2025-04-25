@@ -29,9 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 <ul>
-  <li><a href="#">Florin-Vladimir Stancu</a>, University of Leeds, United Kingdom</li>
+  <li><a href="https://github.com/lFirsl">Florin-Vladimir Stancu</a>, University of Leeds, United Kingdom</li>
   <li><a href="#">Tomer Weiss</a>, New Jersey Institute of Technology, United States of America</li>
-  <li><a href="#">Rafael Kuffner Dos Anjos</a>, University of Leeds, United Kingdom</li>
+  <li><a href="https://github.com/rafaelkuffner">Rafael Kuffner Dos Anjos</a>, University of Leeds, United Kingdom</li>
 </ul>
 
 <video autoplay muted loop playsinline style="max-width: 100%; height: auto;">
@@ -192,8 +192,22 @@ Example video can be seen below. Mind that:
   Your browser does not support the video tag.
 </video>
 
-# Original User Test Video
+# Applications
+## VR Scenarios
+Recent consumer-level Head Mounted Displays (HMDs) introduce eye-tracking capabilities. One example of such an HMD is the
+[VIVE Pro Eye](https://www.vive.com/sea/product/vive-pro-eye/overview/), which we have used during our user testing.
 
-<iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/0TlGL1wiBAY?si=Bn0RymPKVei7tO0_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+We believe foveated animations can be used in this scenario to achieve higher performance rendering within the video games and entertainment industries.
 
+As part of our evaluation, we have performed VR tests on our participants and have found little to no detriment to their
+experience navigating through a modified wander crowd scene with foveated animations enabled.
+
+
+Below you can see a video of foveated animations in action in a VR scene. The thresholds have been made higher than necessary
+to allow for observation of the foveation and eye-tracking taking place, but in practice these thresholds can be made much lower.
+
+<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+  <source src="{{ site.baseurl }}/assets/videos/VR_Video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
