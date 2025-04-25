@@ -172,7 +172,7 @@ Example video can be seen below. Mind that:
 ## Dynamic Foveation Method
 The Dynamic Foveation Method works as follows:
 1. Everything within the foveal area is animated as normal.
-2. Everything outside the foveal area has its AUF changes based on this formula:
+2. Everything outside the foveal area has its AUF changed based on this formula:
 
 $$
 R_i = \frac{R_t}{\max(1, \alpha \cdot \|p - p_0\|^2 - a_f)}
