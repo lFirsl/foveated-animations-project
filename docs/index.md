@@ -98,31 +98,31 @@ To explore this approach we implemented a Unity3D prototype of a crowd simulatio
 typical scenarios.
 
 ### Wander Crowd
-<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+<video preload="metadata" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="{{ site.baseurl }}/assets/videos/WanderCrowd_NoFovea_Compressed.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
 ### Square Marathon
-<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+<video preload="metadata" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="{{ site.baseurl }}/assets/videos/SquareMarathon_NoFovea.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
 ### Parallel Columns
-<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+<video preload="metadata" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="{{ site.baseurl }}/assets/videos/ParallelColumns_NoFovea.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
 ### Intercepting Crowds
-<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+<video preload="metadata" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="{{ site.baseurl }}/assets/videos/InterceptingCrowds_NoFovea.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
 ### T-Intercept
-<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+<video preload="metadata" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="{{ site.baseurl }}/assets/videos/TIntercept_NoFovea.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -137,7 +137,7 @@ In other words, all animations on screen are updated every frame.
 Our approach to foveating these animations then is to directly control the AUF of agents on screen depending on their
 distance from the user's focus point.
 
-<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+<video preload="metadata" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="{{ site.baseurl }}/assets/videos/Foveation Example.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -164,7 +164,7 @@ Example video can be seen below. Mind that:
 - Agents highlighted green are those within the assigned foveal area, and are fully animated.
 - Agents without any highlight have their animations fully halted.
 
-<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+<video preload="metadata" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="{{ site.baseurl }}/assets/videos/Foveated Animations - Full Stop Mean Values Presentation.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -195,7 +195,7 @@ Example video can be seen below. Mind that:
 - Agents highlighted red-to-grey have their AUF calculated using the formula above
 - Agents without any highlight have their animations fully halted.
 
-<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+<video preload="metadata" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="{{ site.baseurl }}/assets/videos/Foveated Animations - Dynamic Foveation Mean Values Presentation.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -214,7 +214,7 @@ experience navigating through a modified wander crowd scene with foveated animat
 Below you can see a video of foveated animations in action in a VR scene. The thresholds have been made higher than necessary
 to allow for observation of the foveation and eye-tracking taking place, but in practice these thresholds can be made much lower.
 
-<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+<video preload="metadata" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="{{ site.baseurl }}/assets/videos/VR_Video.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
