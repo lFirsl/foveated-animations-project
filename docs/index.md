@@ -91,17 +91,6 @@ While work has been done to optimize animation
 costs, there is yet to be any research on utilizing gaze information to optimize this process
 without perceived loss of quality.
 
-Under normal circumstances, the **Animation Update Frequency** (AUF) of an agent - that is, the amount of times per second an
-agent on screen has its animations updated, measured in hertz - is equal to the frames-per-second (FPS) that the scene operates at. 
-In other words, all animations on screen are updated every frame.
-
-Our approach to foveating these animations then is to directly control the AUF of agents on screen depending on their
-distance from the user's focus point.
-
-<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
-  <source src="{{ site.baseurl }}/assets/videos/Foveation Example.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
 
 # Unity Prototype
 
@@ -139,6 +128,19 @@ typical scenarios.
 </video>
 
 # Approach
+
+
+Under normal circumstances, the **Animation Update Frequency** (AUF) of an agent - that is, the amount of times per second an
+agent on screen has its animations updated, measured in hertz - is equal to the frames-per-second (FPS) that the scene operates at.
+In other words, all animations on screen are updated every frame.
+
+Our approach to foveating these animations then is to directly control the AUF of agents on screen depending on their
+distance from the user's focus point.
+
+<video preload="none" data-autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+  <source src="{{ site.baseurl }}/assets/videos/Foveation Example.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 We've experimented with two approaches using our unity prototype. For both, everything within a threshold 
 around the focus point, dubbed the "foveal area", is animated as normal. The difference between them lies 
