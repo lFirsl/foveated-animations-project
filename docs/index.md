@@ -33,11 +33,17 @@ document.addEventListener("DOMContentLoaded", function () {
   <li><a href="#">Tomer Weiss</a>, New Jersey Institute of Technology, United States of America</li>
   <li><a href="https://github.com/rafaelkuffner">Rafael Kuffner Dos Anjos</a>, University of Leeds, United Kingdom</li>
 </ul>
+<p style="text-align: center;">
+  <a href="">Preprint</a> |
+  <a href="#">BibTeX</a> |
+  <a href="https://github.com/lFirsl/foveated-animations-project">Unity Prototype</a>
+</p>
 
 <video autoplay muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="{{ site.baseurl }}/assets/videos/Foveated Animations - Dynamic - No UI.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
+
 
 # Presentation Video
 <div style="text-align: center;">
