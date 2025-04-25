@@ -1,0 +1,168 @@
+have_func: checking for rb_enc_interned_str() in ruby.h... -------------------- yes
+
+PATH=".;C:/tools/ruby33/lib;C:\tools\ruby33\bin;C:\tools\ruby33\msys64\ucrt64\bin;C:\tools\ruby33\msys64\usr\bin;C:\ProgramData\anaconda3;C:\ProgramData\anaconda3\Library\mingw-w64\bin;C:\ProgramData\anaconda3\Library\usr\bin;C:\ProgramData\anaconda3\Library\bin;C:\ProgramData\anaconda3\Scripts;C:\ProgramData\anaconda3\bin;C:\tools\ruby33\bin;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python312\Scripts;C:\Python312;C:\Python38\Scripts;C:\Python38;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\Pandoc;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\AppData\Local\GitHubDesktop\bin;M:\Apps\Anaconda\Library\bin;M:\Apps\Anaconda\Scripts;M:\Apps\Anaconda\condabin;M:\Apps\Anaconda;C:\Users\flori\AppData\Local\Programs\Hyper\resources\bin;C:\JetBrains IDEs\CLion 2021.2.2\bin;C:\Users\flori\AppData\Local\Programs\MiKTeX\miktex\bin\x64;C:\Program Files\dotnet;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X64;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X86;C:\Program Files\Crucial\Crucial Storage Executive;C:\Program Files\Microsoft SQL Server\150\Tools\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn;C:\Program Files\Vagrant\bin;C:\Program Files\nodejs;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit;C:\ProgramData\anaconda3;C:\ProgramData\anaconda3\Scripts;C:\ProgramData\anaconda3\Library\mingww64\bin;C:\ProgramData\anaconda3\Library\usr\bin;C:\ProgramData\anaconda3\Library\bin;C:\ProgramData\anaconda3\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Mullvad VPN\resources;C:\Users\flori\AppData\Local\Programs\Python\Python311\Scripts;C:\Users\flori\AppData\Local\Programs\Python\Python311;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\AppData\Local\GitHubDesktop\bin;C:\Users\flori\AppData\Local\Programs\Hyper\resources\bin;C:\JetBrains IDEs\CLion 2021.2.2\bin;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Program Files\Pandoc;C:\Users\flori\AppData\Local\JetBrains\Toolbox\scripts;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Users\flori\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\flori\AppData\Roaming\npm;C:\Users\flori\AppData\Local\Programs\MiKTeX\miktex\bin\x64;C:\Users\flori\kubectl;C:\Users\flori\faas;C:\Program Files\apache-jmeter-5.6.3\bin;C:\Users\flori\.dotnet\tools;." "gcc -o conftest.exe -IC:/tools/ruby33/include/ruby-3.3.0/x64-mingw-ucrt -IC:/tools/ruby33/include/ruby-3.3.0/ruby/backward -IC:/tools/ruby33/include/ruby-3.3.0 -I.  -DFD_SETSIZE=2048 -D_WIN32_WINNT=0x0600 -D__MINGW_USE_VC2005_COMPAT -D_FILE_OFFSET_BITS=64  -O3 -fno-fast-math -fstack-protector-strong conftest.c  -L. -LC:/tools/ruby33/lib -L. -pipe -s -fstack-protector-strong -Wl,--no-as-needed     -lx64-ucrt-ruby330  -lshell32 -lws2_32 -liphlpapi -limagehlp -lshlwapi -lbcrypt  "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <winsock2.h>
+4: #include <windows.h>
+5: int main(int argc, char **argv)
+6: {
+7:   return !!argv[argc];
+8: }
+/* end */
+
+PATH=".;C:/tools/ruby33/lib;C:\tools\ruby33\bin;C:\tools\ruby33\msys64\ucrt64\bin;C:\tools\ruby33\msys64\usr\bin;C:\ProgramData\anaconda3;C:\ProgramData\anaconda3\Library\mingw-w64\bin;C:\ProgramData\anaconda3\Library\usr\bin;C:\ProgramData\anaconda3\Library\bin;C:\ProgramData\anaconda3\Scripts;C:\ProgramData\anaconda3\bin;C:\tools\ruby33\bin;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python312\Scripts;C:\Python312;C:\Python38\Scripts;C:\Python38;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\Pandoc;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\AppData\Local\GitHubDesktop\bin;M:\Apps\Anaconda\Library\bin;M:\Apps\Anaconda\Scripts;M:\Apps\Anaconda\condabin;M:\Apps\Anaconda;C:\Users\flori\AppData\Local\Programs\Hyper\resources\bin;C:\JetBrains IDEs\CLion 2021.2.2\bin;C:\Users\flori\AppData\Local\Programs\MiKTeX\miktex\bin\x64;C:\Program Files\dotnet;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X64;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X86;C:\Program Files\Crucial\Crucial Storage Executive;C:\Program Files\Microsoft SQL Server\150\Tools\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn;C:\Program Files\Vagrant\bin;C:\Program Files\nodejs;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit;C:\ProgramData\anaconda3;C:\ProgramData\anaconda3\Scripts;C:\ProgramData\anaconda3\Library\mingww64\bin;C:\ProgramData\anaconda3\Library\usr\bin;C:\ProgramData\anaconda3\Library\bin;C:\ProgramData\anaconda3\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Mullvad VPN\resources;C:\Users\flori\AppData\Local\Programs\Python\Python311\Scripts;C:\Users\flori\AppData\Local\Programs\Python\Python311;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\AppData\Local\GitHubDesktop\bin;C:\Users\flori\AppData\Local\Programs\Hyper\resources\bin;C:\JetBrains IDEs\CLion 2021.2.2\bin;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Program Files\Pandoc;C:\Users\flori\AppData\Local\JetBrains\Toolbox\scripts;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Users\flori\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\flori\AppData\Roaming\npm;C:\Users\flori\AppData\Local\Programs\MiKTeX\miktex\bin\x64;C:\Users\flori\kubectl;C:\Users\flori\faas;C:\Program Files\apache-jmeter-5.6.3\bin;C:\Users\flori\.dotnet\tools;." "gcc -o conftest.exe -IC:/tools/ruby33/include/ruby-3.3.0/x64-mingw-ucrt -IC:/tools/ruby33/include/ruby-3.3.0/ruby/backward -IC:/tools/ruby33/include/ruby-3.3.0 -I.  -DFD_SETSIZE=2048 -D_WIN32_WINNT=0x0600 -D__MINGW_USE_VC2005_COMPAT -D_FILE_OFFSET_BITS=64  -O3 -fno-fast-math -fstack-protector-strong conftest.c  -L. -LC:/tools/ruby33/lib -L. -pipe -s -fstack-protector-strong -Wl,--no-as-needed     -lx64-ucrt-ruby330  -lshell32 -lws2_32 -liphlpapi -limagehlp -lshlwapi -lbcrypt  "
+conftest.c: In function 't':
+conftest.c:18:57: error: 'rb_enc_interned_str' undeclared (first use in this function); did you mean 'rb_interned_str'?
+   18 | int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_enc_interned_str; return !p; }
+      |                                                         ^~~~~~~~~~~~~~~~~~~
+      |                                                         rb_interned_str
+conftest.c:18:57: note: each undeclared identifier is reported only once for each function it appears in
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <winsock2.h>
+ 4: #include <windows.h>
+ 5: #include <ruby.h>
+ 6: 
+ 7: /*top*/
+ 8: extern int t(void);
+ 9: int main(int argc, char **argv)
+10: {
+11:   if (argc > 1000000) {
+12:     int (* volatile tp)(void)=(int (*)(void))&t;
+13:     printf("%d", (*tp)());
+14:   }
+15: 
+16:   return !!argv[argc];
+17: }
+18: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_enc_interned_str; return !p; }
+/* end */
+
+PATH=".;C:/tools/ruby33/lib;C:\tools\ruby33\bin;C:\tools\ruby33\msys64\ucrt64\bin;C:\tools\ruby33\msys64\usr\bin;C:\ProgramData\anaconda3;C:\ProgramData\anaconda3\Library\mingw-w64\bin;C:\ProgramData\anaconda3\Library\usr\bin;C:\ProgramData\anaconda3\Library\bin;C:\ProgramData\anaconda3\Scripts;C:\ProgramData\anaconda3\bin;C:\tools\ruby33\bin;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python312\Scripts;C:\Python312;C:\Python38\Scripts;C:\Python38;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\Pandoc;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\AppData\Local\GitHubDesktop\bin;M:\Apps\Anaconda\Library\bin;M:\Apps\Anaconda\Scripts;M:\Apps\Anaconda\condabin;M:\Apps\Anaconda;C:\Users\flori\AppData\Local\Programs\Hyper\resources\bin;C:\JetBrains IDEs\CLion 2021.2.2\bin;C:\Users\flori\AppData\Local\Programs\MiKTeX\miktex\bin\x64;C:\Program Files\dotnet;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X64;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X86;C:\Program Files\Crucial\Crucial Storage Executive;C:\Program Files\Microsoft SQL Server\150\Tools\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn;C:\Program Files\Vagrant\bin;C:\Program Files\nodejs;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit;C:\ProgramData\anaconda3;C:\ProgramData\anaconda3\Scripts;C:\ProgramData\anaconda3\Library\mingww64\bin;C:\ProgramData\anaconda3\Library\usr\bin;C:\ProgramData\anaconda3\Library\bin;C:\ProgramData\anaconda3\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Mullvad VPN\resources;C:\Users\flori\AppData\Local\Programs\Python\Python311\Scripts;C:\Users\flori\AppData\Local\Programs\Python\Python311;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\AppData\Local\GitHubDesktop\bin;C:\Users\flori\AppData\Local\Programs\Hyper\resources\bin;C:\JetBrains IDEs\CLion 2021.2.2\bin;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Program Files\Pandoc;C:\Users\flori\AppData\Local\JetBrains\Toolbox\scripts;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Users\flori\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\flori\AppData\Roaming\npm;C:\Users\flori\AppData\Local\Programs\MiKTeX\miktex\bin\x64;C:\Users\flori\kubectl;C:\Users\flori\faas;C:\Program Files\apache-jmeter-5.6.3\bin;C:\Users\flori\.dotnet\tools;." "gcc -o conftest.exe -IC:/tools/ruby33/include/ruby-3.3.0/x64-mingw-ucrt -IC:/tools/ruby33/include/ruby-3.3.0/ruby/backward -IC:/tools/ruby33/include/ruby-3.3.0 -I.  -DFD_SETSIZE=2048 -D_WIN32_WINNT=0x0600 -D__MINGW_USE_VC2005_COMPAT -D_FILE_OFFSET_BITS=64  -O3 -fno-fast-math -fstack-protector-strong conftest.c  -L. -LC:/tools/ruby33/lib -L. -pipe -s -fstack-protector-strong -Wl,--no-as-needed     -lx64-ucrt-ruby330  -lshell32 -lws2_32 -liphlpapi -limagehlp -lshlwapi -lbcrypt  "
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <winsock2.h>
+ 4: #include <windows.h>
+ 5: #include <ruby.h>
+ 6: 
+ 7: /*top*/
+ 8: extern int t(void);
+ 9: int main(int argc, char **argv)
+10: {
+11:   if (argc > 1000000) {
+12:     int (* volatile tp)(void)=(int (*)(void))&t;
+13:     printf("%d", (*tp)());
+14:   }
+15: 
+16:   return !!argv[argc];
+17: }
+18: extern void rb_enc_interned_str();
+19: int t(void) { rb_enc_interned_str(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_hash_new_capa() in ruby.h... -------------------- yes
+
+PATH=".;C:/tools/ruby33/lib;C:\tools\ruby33\bin;C:\tools\ruby33\msys64\ucrt64\bin;C:\tools\ruby33\msys64\usr\bin;C:\ProgramData\anaconda3;C:\ProgramData\anaconda3\Library\mingw-w64\bin;C:\ProgramData\anaconda3\Library\usr\bin;C:\ProgramData\anaconda3\Library\bin;C:\ProgramData\anaconda3\Scripts;C:\ProgramData\anaconda3\bin;C:\tools\ruby33\bin;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python312\Scripts;C:\Python312;C:\Python38\Scripts;C:\Python38;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\Pandoc;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\AppData\Local\GitHubDesktop\bin;M:\Apps\Anaconda\Library\bin;M:\Apps\Anaconda\Scripts;M:\Apps\Anaconda\condabin;M:\Apps\Anaconda;C:\Users\flori\AppData\Local\Programs\Hyper\resources\bin;C:\JetBrains IDEs\CLion 2021.2.2\bin;C:\Users\flori\AppData\Local\Programs\MiKTeX\miktex\bin\x64;C:\Program Files\dotnet;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X64;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X86;C:\Program Files\Crucial\Crucial Storage Executive;C:\Program Files\Microsoft SQL Server\150\Tools\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn;C:\Program Files\Vagrant\bin;C:\Program Files\nodejs;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit;C:\ProgramData\anaconda3;C:\ProgramData\anaconda3\Scripts;C:\ProgramData\anaconda3\Library\mingww64\bin;C:\ProgramData\anaconda3\Library\usr\bin;C:\ProgramData\anaconda3\Library\bin;C:\ProgramData\anaconda3\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Mullvad VPN\resources;C:\Users\flori\AppData\Local\Programs\Python\Python311\Scripts;C:\Users\flori\AppData\Local\Programs\Python\Python311;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\AppData\Local\GitHubDesktop\bin;C:\Users\flori\AppData\Local\Programs\Hyper\resources\bin;C:\JetBrains IDEs\CLion 2021.2.2\bin;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Program Files\Pandoc;C:\Users\flori\AppData\Local\JetBrains\Toolbox\scripts;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Users\flori\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\flori\AppData\Roaming\npm;C:\Users\flori\AppData\Local\Programs\MiKTeX\miktex\bin\x64;C:\Users\flori\kubectl;C:\Users\flori\faas;C:\Program Files\apache-jmeter-5.6.3\bin;C:\Users\flori\.dotnet\tools;." "gcc -o conftest.exe -IC:/tools/ruby33/include/ruby-3.3.0/x64-mingw-ucrt -IC:/tools/ruby33/include/ruby-3.3.0/ruby/backward -IC:/tools/ruby33/include/ruby-3.3.0 -I.  -DFD_SETSIZE=2048 -D_WIN32_WINNT=0x0600 -D__MINGW_USE_VC2005_COMPAT -D_FILE_OFFSET_BITS=64  -O3 -fno-fast-math -fstack-protector-strong conftest.c  -L. -LC:/tools/ruby33/lib -L. -pipe -s -fstack-protector-strong -Wl,--no-as-needed     -lx64-ucrt-ruby330  -lshell32 -lws2_32 -liphlpapi -limagehlp -lshlwapi -lbcrypt  "
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <winsock2.h>
+ 4: #include <windows.h>
+ 5: #include <ruby.h>
+ 6: 
+ 7: /*top*/
+ 8: extern int t(void);
+ 9: int main(int argc, char **argv)
+10: {
+11:   if (argc > 1000000) {
+12:     int (* volatile tp)(void)=(int (*)(void))&t;
+13:     printf("%d", (*tp)());
+14:   }
+15: 
+16:   return !!argv[argc];
+17: }
+18: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_hash_new_capa; return !p; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_hash_bulk_insert() in ruby.h... -------------------- yes
+
+PATH=".;C:/tools/ruby33/lib;C:\tools\ruby33\bin;C:\tools\ruby33\msys64\ucrt64\bin;C:\tools\ruby33\msys64\usr\bin;C:\ProgramData\anaconda3;C:\ProgramData\anaconda3\Library\mingw-w64\bin;C:\ProgramData\anaconda3\Library\usr\bin;C:\ProgramData\anaconda3\Library\bin;C:\ProgramData\anaconda3\Scripts;C:\ProgramData\anaconda3\bin;C:\tools\ruby33\bin;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python312\Scripts;C:\Python312;C:\Python38\Scripts;C:\Python38;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\Pandoc;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\AppData\Local\GitHubDesktop\bin;M:\Apps\Anaconda\Library\bin;M:\Apps\Anaconda\Scripts;M:\Apps\Anaconda\condabin;M:\Apps\Anaconda;C:\Users\flori\AppData\Local\Programs\Hyper\resources\bin;C:\JetBrains IDEs\CLion 2021.2.2\bin;C:\Users\flori\AppData\Local\Programs\MiKTeX\miktex\bin\x64;C:\Program Files\dotnet;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X64;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X86;C:\Program Files\Crucial\Crucial Storage Executive;C:\Program Files\Microsoft SQL Server\150\Tools\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn;C:\Program Files\Vagrant\bin;C:\Program Files\nodejs;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit;C:\ProgramData\anaconda3;C:\ProgramData\anaconda3\Scripts;C:\ProgramData\anaconda3\Library\mingww64\bin;C:\ProgramData\anaconda3\Library\usr\bin;C:\ProgramData\anaconda3\Library\bin;C:\ProgramData\anaconda3\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Mullvad VPN\resources;C:\Users\flori\AppData\Local\Programs\Python\Python311\Scripts;C:\Users\flori\AppData\Local\Programs\Python\Python311;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\AppData\Local\GitHubDesktop\bin;C:\Users\flori\AppData\Local\Programs\Hyper\resources\bin;C:\JetBrains IDEs\CLion 2021.2.2\bin;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Program Files\Pandoc;C:\Users\flori\AppData\Local\JetBrains\Toolbox\scripts;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Users\flori\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\flori\AppData\Roaming\npm;C:\Users\flori\AppData\Local\Programs\MiKTeX\miktex\bin\x64;C:\Users\flori\kubectl;C:\Users\flori\faas;C:\Program Files\apache-jmeter-5.6.3\bin;C:\Users\flori\.dotnet\tools;." "gcc -o conftest.exe -IC:/tools/ruby33/include/ruby-3.3.0/x64-mingw-ucrt -IC:/tools/ruby33/include/ruby-3.3.0/ruby/backward -IC:/tools/ruby33/include/ruby-3.3.0 -I.  -DFD_SETSIZE=2048 -D_WIN32_WINNT=0x0600 -D__MINGW_USE_VC2005_COMPAT -D_FILE_OFFSET_BITS=64  -O3 -fno-fast-math -fstack-protector-strong conftest.c  -L. -LC:/tools/ruby33/lib -L. -pipe -s -fstack-protector-strong -Wl,--no-as-needed     -lx64-ucrt-ruby330  -lshell32 -lws2_32 -liphlpapi -limagehlp -lshlwapi -lbcrypt  "
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <winsock2.h>
+ 4: #include <windows.h>
+ 5: #include <ruby.h>
+ 6: 
+ 7: /*top*/
+ 8: extern int t(void);
+ 9: int main(int argc, char **argv)
+10: {
+11:   if (argc > 1000000) {
+12:     int (* volatile tp)(void)=(int (*)(void))&t;
+13:     printf("%d", (*tp)());
+14:   }
+15: 
+16:   return !!argv[argc];
+17: }
+18: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_hash_bulk_insert; return !p; }
+/* end */
+
+--------------------
+
+have_func: checking for strnlen() in string.h... -------------------- yes
+
+PATH=".;C:/tools/ruby33/lib;C:\tools\ruby33\bin;C:\tools\ruby33\msys64\ucrt64\bin;C:\tools\ruby33\msys64\usr\bin;C:\ProgramData\anaconda3;C:\ProgramData\anaconda3\Library\mingw-w64\bin;C:\ProgramData\anaconda3\Library\usr\bin;C:\ProgramData\anaconda3\Library\bin;C:\ProgramData\anaconda3\Scripts;C:\ProgramData\anaconda3\bin;C:\tools\ruby33\bin;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python312\Scripts;C:\Python312;C:\Python38\Scripts;C:\Python38;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\Pandoc;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\AppData\Local\GitHubDesktop\bin;M:\Apps\Anaconda\Library\bin;M:\Apps\Anaconda\Scripts;M:\Apps\Anaconda\condabin;M:\Apps\Anaconda;C:\Users\flori\AppData\Local\Programs\Hyper\resources\bin;C:\JetBrains IDEs\CLion 2021.2.2\bin;C:\Users\flori\AppData\Local\Programs\MiKTeX\miktex\bin\x64;C:\Program Files\dotnet;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X64;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X86;C:\Program Files\Crucial\Crucial Storage Executive;C:\Program Files\Microsoft SQL Server\150\Tools\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn;C:\Program Files\Vagrant\bin;C:\Program Files\nodejs;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit;C:\ProgramData\anaconda3;C:\ProgramData\anaconda3\Scripts;C:\ProgramData\anaconda3\Library\mingww64\bin;C:\ProgramData\anaconda3\Library\usr\bin;C:\ProgramData\anaconda3\Library\bin;C:\ProgramData\anaconda3\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Mullvad VPN\resources;C:\Users\flori\AppData\Local\Programs\Python\Python311\Scripts;C:\Users\flori\AppData\Local\Programs\Python\Python311;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\AppData\Local\GitHubDesktop\bin;C:\Users\flori\AppData\Local\Programs\Hyper\resources\bin;C:\JetBrains IDEs\CLion 2021.2.2\bin;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Program Files\Pandoc;C:\Users\flori\AppData\Local\JetBrains\Toolbox\scripts;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Users\flori\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\flori\AppData\Roaming\npm;C:\Users\flori\AppData\Local\Programs\MiKTeX\miktex\bin\x64;C:\Users\flori\kubectl;C:\Users\flori\faas;C:\Program Files\apache-jmeter-5.6.3\bin;C:\Users\flori\.dotnet\tools;." "gcc -o conftest.exe -IC:/tools/ruby33/include/ruby-3.3.0/x64-mingw-ucrt -IC:/tools/ruby33/include/ruby-3.3.0/ruby/backward -IC:/tools/ruby33/include/ruby-3.3.0 -I.  -DFD_SETSIZE=2048 -D_WIN32_WINNT=0x0600 -D__MINGW_USE_VC2005_COMPAT -D_FILE_OFFSET_BITS=64  -O3 -fno-fast-math -fstack-protector-strong conftest.c  -L. -LC:/tools/ruby33/lib -L. -pipe -s -fstack-protector-strong -Wl,--no-as-needed     -lx64-ucrt-ruby330  -lshell32 -lws2_32 -liphlpapi -limagehlp -lshlwapi -lbcrypt  "
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <winsock2.h>
+ 4: #include <windows.h>
+ 5: #include <string.h>
+ 6: 
+ 7: /*top*/
+ 8: extern int t(void);
+ 9: int main(int argc, char **argv)
+10: {
+11:   if (argc > 1000000) {
+12:     int (* volatile tp)(void)=(int (*)(void))&t;
+13:     printf("%d", (*tp)());
+14:   }
+15: 
+16:   return !!argv[argc];
+17: }
+18: int t(void) { void ((*volatile p)()); p = (void ((*)()))strnlen; return !p; }
+/* end */
+
+--------------------
+
+append_cflags: checking for whether -std=c99 is accepted as CFLAGS... -------------------- yes
+
+PATH=".;C:/tools/ruby33/lib;C:\tools\ruby33\bin;C:\tools\ruby33\msys64\ucrt64\bin;C:\tools\ruby33\msys64\usr\bin;C:\ProgramData\anaconda3;C:\ProgramData\anaconda3\Library\mingw-w64\bin;C:\ProgramData\anaconda3\Library\usr\bin;C:\ProgramData\anaconda3\Library\bin;C:\ProgramData\anaconda3\Scripts;C:\ProgramData\anaconda3\bin;C:\tools\ruby33\bin;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python312\Scripts;C:\Python312;C:\Python38\Scripts;C:\Python38;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\Pandoc;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\AppData\Local\GitHubDesktop\bin;M:\Apps\Anaconda\Library\bin;M:\Apps\Anaconda\Scripts;M:\Apps\Anaconda\condabin;M:\Apps\Anaconda;C:\Users\flori\AppData\Local\Programs\Hyper\resources\bin;C:\JetBrains IDEs\CLion 2021.2.2\bin;C:\Users\flori\AppData\Local\Programs\MiKTeX\miktex\bin\x64;C:\Program Files\dotnet;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X64;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X86;C:\Program Files\Crucial\Crucial Storage Executive;C:\Program Files\Microsoft SQL Server\150\Tools\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn;C:\Program Files\Vagrant\bin;C:\Program Files\nodejs;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit;C:\ProgramData\anaconda3;C:\ProgramData\anaconda3\Scripts;C:\ProgramData\anaconda3\Library\mingww64\bin;C:\ProgramData\anaconda3\Library\usr\bin;C:\ProgramData\anaconda3\Library\bin;C:\ProgramData\anaconda3\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Mullvad VPN\resources;C:\Users\flori\AppData\Local\Programs\Python\Python311\Scripts;C:\Users\flori\AppData\Local\Programs\Python\Python311;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\AppData\Local\GitHubDesktop\bin;C:\Users\flori\AppData\Local\Programs\Hyper\resources\bin;C:\JetBrains IDEs\CLion 2021.2.2\bin;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Program Files\Pandoc;C:\Users\flori\AppData\Local\JetBrains\Toolbox\scripts;C:\Users\flori\AppData\Local\Microsoft\WindowsApps;C:\Users\flori\.jdks\openjdk-17.0.2\bin;C:\Users\flori\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\flori\AppData\Roaming\npm;C:\Users\flori\AppData\Local\Programs\MiKTeX\miktex\bin\x64;C:\Users\flori\kubectl;C:\Users\flori\faas;C:\Program Files\apache-jmeter-5.6.3\bin;C:\Users\flori\.dotnet\tools;." "gcc -IC:/tools/ruby33/include/ruby-3.3.0/x64-mingw-ucrt -IC:/tools/ruby33/include/ruby-3.3.0/ruby/backward -IC:/tools/ruby33/include/ruby-3.3.0 -I.  -DFD_SETSIZE=2048 -D_WIN32_WINNT=0x0600 -D__MINGW_USE_VC2005_COMPAT -D_FILE_OFFSET_BITS=64  -O3 -fno-fast-math -fstack-protector-strong  -std=c99 -Werror -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <winsock2.h>
+4: #include <windows.h>
+5: int main(int argc, char **argv)
+6: {
+7:   return !!argv[argc];
+8: }
+/* end */
+
+--------------------
+
