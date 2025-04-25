@@ -10,7 +10,7 @@ title: Home
 
 
 <video autoplay muted loop playsinline style="max-width: 100%; height: auto;">
-  <source src="/assets/videos/Foveated Animations - Dynamic Foveation Mean Values Presentation.mp4" type="video/mp4">
+  <source src="{{ site.baseurl }}/assets/videos/Foveated Animations - Dynamic Foveation Mean Values Presentation.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
@@ -68,7 +68,7 @@ Our approach to foveating these animations then is to directly control the AUF o
 distance from the user's focus point.
 
 <video autoplay muted loop playsinline style="max-width: 100%; height: auto;">
-  <source src="/assets/videos/Foveation Example.mp4" type="video/mp4">
+  <source src="{{ site.baseurl }}/assets/videos/Foveation Example.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
