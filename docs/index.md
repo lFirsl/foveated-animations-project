@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Home
+title: Foveated Animations
 ---
 
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -43,6 +43,9 @@ document.addEventListener("DOMContentLoaded", function () {
   <source src="{{ site.baseurl }}/assets/videos/Foveated Animations - Dynamic - No UI.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
+
+# Note - WIP
+This website is still a **_Work In Progress_**. A finalized version is expected to be done by the **6th of May, 2025.**
 
 
 # Presentation Video
