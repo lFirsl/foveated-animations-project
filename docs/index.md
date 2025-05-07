@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
   <li><a href="https://github.com/rafaelkuffner" target="_blank" rel="noopener">Rafael Kuffner Dos Anjos</a>, University of Leeds, United Kingdom</li>
 </ul>
 <p style="text-align: center;">
-  <a href="{{ site.baseurl }}/assets/pdf/Foveated Animations for Efficient Crowd Simulation.pdf" target="_blank" rel="noopener">
+  <a href="{{ site.baseurl }}/assets/pdf/Foveated_Animations_for_Efficient_Crowd_Simulation.pdf" target="_blank" rel="noopener">
   Preprint
   </a> |
   <a href="https://github.com/lFirsl/foveated-animations-project" target="_blank" rel="noopener">Unity Prototype</a>
