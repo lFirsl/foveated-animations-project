@@ -48,7 +48,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 # Presentation Video
 <div style="text-align: center;">
-    <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/Z1_eHE3xyP0?si=lKhk9SZQvVcnwJlU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
+    <iframe 
+      src="https://www.youtube-nocookie.com/embed/Z1_eHE3xyP0?si=lKhk9SZQvVcnwJlU" 
+      title="YouTube video player"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+      referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
+  </div>
 </div>
 # Abstract
 
