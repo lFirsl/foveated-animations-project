@@ -230,3 +230,25 @@ to allow for observation of the foveation and eye-tracking taking place, but in 
   Your browser does not support the video tag.
 </video>
 
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll("h1, h2, h3, h4").forEach(function (heading) {
+    if (heading.id) {
+      const anchor = document.createElement("a");
+      anchor.href = "#" + heading.id;
+      anchor.innerHTML = '<span style="font-size: 0.75em; opacity: 0; margin-left: 0.3em; transition: opacity 0.2s ease;">🔗</span>';
+      heading.appendChild(anchor);
+
+      heading.addEventListener("mouseenter", () => {
+        anchor.firstChild.style.opacity = "1";
+      });
+
+      heading.addEventListener("mouseleave", () => {
+        anchor.firstChild.style.opacity = "0";
+      });
+    }
+  });
+});
+</script>
