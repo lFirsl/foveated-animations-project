@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
   <a href="https://github.com/lFirsl/foveated-animations-project" target="_blank" rel="noopener">Unity Prototype</a>
 </p>
 
-<video autoplay muted loop playsinline style="max-width: 100%; height: auto;">
+<video autoplay preload="auto" muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="{{ site.baseurl }}/assets/videos/Foveated Animations - Dynamic - No UI.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
